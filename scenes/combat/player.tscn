@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqplayer000001"]
+
+[ext_resource type="Script" path="res://scripts/combat/player.gd" id="1_player"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/melee_weapon.tscn" id="3_melee"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/ranged_weapon.tscn" id="4_ranged"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(28, 28)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_player")
+move_speed = 220.0
+arena_half_size = Vector2(480, 270)
+max_hp = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="MeleeWeapon" parent="." instance=ExtResource("3_melee")]
+
+[node name="RangedWeapon" parent="." instance=ExtResource("4_ranged")]

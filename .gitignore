@@ -1,0 +1,9 @@
+# Godot 4+ editor/cache
+.godot/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*~

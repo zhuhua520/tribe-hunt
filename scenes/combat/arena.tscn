@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://bqarena0000001"]
+
+[ext_resource type="Script" path="res://scripts/combat/arena.gd" id="1_arena"]
+[ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/systems/wave_manager.gd" id="3_wave"]
+[ext_resource type="PackedScene" path="res://scenes/combat/enemy.tscn" id="4_enemy"]
+[ext_resource type="Resource" path="res://data/waves/wave_1.tres" id="5_w1"]
+[ext_resource type="Resource" path="res://data/waves/wave_2.tres" id="6_w2"]
+[ext_resource type="Resource" path="res://data/waves/wave_3.tres" id="7_w3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="8_hud"]
+
+[node name="Arena" type="Node2D"]
+script = ExtResource("1_arena")
+half_size = Vector2(480, 270)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = true
+
+[node name="Background" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0.22, 0.28, 0.18, 1)
+polygon = PackedVector2Array(-480, -270, 480, -270, 480, 270, -480, 270)
+
+[node name="BoundsLine" type="Line2D" parent="."]
+z_index = -5
+width = 3.0
+default_color = Color(0.75, 0.62, 0.35, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+
+[node name="WaveManager" type="Node" parent="."]
+script = ExtResource("3_wave")
+enemy_scene = ExtResource("4_enemy")
+waves = Array[WaveConfig]([ExtResource("5_w1"), ExtResource("6_w2"), ExtResource("7_w3")])
+arena_half_size = Vector2(480, 270)
+delay_before_first_wave = 0.8
+delay_between_waves = 1.2
+
+[node name="CombatHUD" parent="." instance=ExtResource("8_hud")]
