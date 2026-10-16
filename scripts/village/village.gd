@@ -4,14 +4,25 @@ extends Node2D
 ## - 村内设置武器店（仅边框形状占位，不弹 UI）与合成店占位（仅形状占位，不弹 UI）
 ## - 玩家走上右侧出村道路时打开出征选择 UI（左侧分类占位、右侧具体目的地出征点）
 ## - 出征选择返回时回到村落；确认出征进入战斗场景 Arena
+## - 摄像机挂在玩家身上，画面只显示镜头范围内的村落；地图大于视口
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 
-const VILLAGE_HALF_SIZE := Vector2(460.0, 250.0)
+const VILLAGE_HALF_SIZE := Vector2(1600.0, 1000.0)
+const GROUND_MARGIN := Vector2(320.0, 240.0)
 const TREE_BLOCK_SIZE := 36.0
 const TREE_BLOCK_STEP := 42.0
 const ROAD_HALF_HEIGHT := 56.0
+const ROAD_INNER_INSET := 40.0
+const ROAD_OUTER_LENGTH := 180.0
 
+@onready var _camera: Camera2D = $VillagePlayer/Camera2D
+@onready var _ground: Polygon2D = $Ground
+@onready var _floor: Polygon2D = $VillageFloor
+@onready var _road_floor: Polygon2D = $ExitRoadFloor
+@onready var _road_border: Line2D = $ExitRoadBorder
+@onready var _road_label: Label = $ExitRoadLabel
+@onready var _tree_hint: Label = $TreeHintLabel
 @onready var _tree_ring: Node2D = $TreeBorderRing
 @onready var _player: CharacterBody2D = $VillagePlayer
 @onready var _road_area: Area2D = $ExitRoadArea
@@ -36,6 +47,8 @@ var _leaving: bool = false
 
 func _ready() -> void:
 	DisplayServer.window_set_title("TribeHunt - 部落村落")
+	_layout_map()
+	_configure_camera()
 	_spawn_tree_border_blocks()
 	_expedition_overlay.visible = false
 	_road_area.body_entered.connect(_on_exit_road_body_entered)
@@ -74,6 +87,53 @@ func _unhandled_input(event: InputEvent) -> void:
 		viewport.set_input_as_handled()
 	if _expedition_overlay.visible:
 		_on_close_expedition_overlay()
+
+
+func _layout_map() -> void:
+	var ground_half := VILLAGE_HALF_SIZE + GROUND_MARGIN
+	_ground.polygon = _centered_rect(ground_half)
+	_floor.polygon = _centered_rect(VILLAGE_HALF_SIZE)
+	var road_left := VILLAGE_HALF_SIZE.x - ROAD_INNER_INSET
+	var road_right := VILLAGE_HALF_SIZE.x + ROAD_OUTER_LENGTH
+	var road := PackedVector2Array([
+		Vector2(road_left, -ROAD_HALF_HEIGHT),
+		Vector2(road_right, -ROAD_HALF_HEIGHT),
+		Vector2(road_right, ROAD_HALF_HEIGHT),
+		Vector2(road_left, ROAD_HALF_HEIGHT),
+	])
+	_road_floor.polygon = road
+	_road_border.points = road
+	_place_label(_road_label, Rect2(road_left + 16.0, -18.0, road_right - road_left - 32.0, 36.0))
+	_place_label(_tree_hint, Rect2(-260.0, -VILLAGE_HALF_SIZE.y + 48.0, 520.0, 30.0))
+	_road_area.position = Vector2(VILLAGE_HALF_SIZE.x + 80.0, 0.0)
+
+
+func _configure_camera() -> void:
+	var ground_half := VILLAGE_HALF_SIZE + GROUND_MARGIN
+	_camera.position_smoothing_enabled = false
+	_camera.process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
+	_camera.limit_left = int(round(-ground_half.x))
+	_camera.limit_top = int(round(-ground_half.y))
+	_camera.limit_right = int(round(ground_half.x))
+	_camera.limit_bottom = int(round(ground_half.y))
+	_camera.enabled = true
+	_camera.make_current()
+
+
+func _centered_rect(half: Vector2) -> PackedVector2Array:
+	return PackedVector2Array([
+		Vector2(-half.x, -half.y),
+		Vector2(half.x, -half.y),
+		Vector2(half.x, half.y),
+		Vector2(-half.x, half.y),
+	])
+
+
+func _place_label(label: Label, rect: Rect2) -> void:
+	label.offset_left = rect.position.x
+	label.offset_top = rect.position.y
+	label.offset_right = rect.end.x
+	label.offset_bottom = rect.end.y
 
 
 func _spawn_tree_border_blocks() -> void:

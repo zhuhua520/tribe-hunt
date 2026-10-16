@@ -41,7 +41,7 @@
 | 界面 | 场景或脚本 | 现有结构 | 操作是否齐全 | 后续 |
 | --- | --- | --- | --- | --- |
 | 主菜单 | `scenes/menu/main_menu.tscn` | `Background`（`TextureRect`，引用 `assets/sprites/ui/main_menu_bg.png`，1280×720）+ 居中透明面板与纯文字无边框按钮（悬停/聚焦文字变亮）。按钮：开始远征（点击后动态加载资源进入部落村落）、在线合作、创意工坊、设置、退出 | 齐全 | 背景图与首页纯文字按钮风格已接入；按钮文字、节点路径和顺序保持不变 |
-| 部落村落 | `scenes/village/village.tscn`、`scripts/village/village.gd` | 全几何形状占位：四周方块围成村落边界（未来树木 UI 占位）、村内武器店仅边框占位（无 UI 弹窗）、合成店形状占位、右侧出村道路触发出征选择弹窗（左侧分类占位、右侧目的地出征点接入战斗场景 `Arena`，返回回到村落） | 齐全 | 当前全用几何形状占位，未绘制图片 |
+| 部落村落 | `scenes/village/village.tscn`、`scripts/village/village.gd` | 全几何形状占位，内部约 3200×2000。`VillagePlayer/Camera2D` 跟随玩家，画面为 1280×720 镜头内容。四周方块围成村落边界（未来树木 UI 占位）、村内武器店仅边框占位（无 UI 弹窗）、合成店形状占位、右侧出村道路触发出征选择弹窗（左侧分类占位、右侧目的地出征点接入战斗场景 `Arena`，返回回到村落） | 齐全 | 当前全用几何形状占位，未绘制图片。换皮时保持摄像机挂在玩家上 |
 | 模式选择 | `scenes/menu/mode_select.tscn` | 单人（进入部落村落）、本地合作、返回 | 齐全 | 同上 |
 | 出征准备/选择 | `scenes/menu/expedition_prep.tscn`，模块勾选由 `scripts/ui/expedition_prep.gd` 生成 | 左侧区域分类占位、右侧具体目的地（出征点）、模块列表、撤离节奏下拉、确认出征（进入 `Arena`）、返回村落 | 齐全 | 勾选框是运行时生成的，场景里没有逐条节点 |
 | 战斗 HUD | `scenes/ui/combat_hud.tscn`，层 10 | `StatusLabel`、`BuildStatusLabel`、`ResultPanel`（结果、统计、重新开始、返回主菜单）、`PauseHint` | 齐全 | 结果页要容纳 4 到 5 行统计。不要让角色画到按钮上 |
