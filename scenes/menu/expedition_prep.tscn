@@ -30,82 +30,135 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(680, 0)
+custom_minimum_size = Vector2(920, 560)
 layout_mode = 2
 
 [node name="Margin" type="MarginContainer" parent="Center/Panel"]
 layout_mode = 2
-theme_override_constants/margin_left = 28
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 28
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="Center/Panel/Margin"]
+[node name="MainVBox" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TitleLabel" type="Label" parent="Center/Panel/Margin/MainVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "出征选择"
+horizontal_alignment = 1
+
+[node name="Columns" type="HBoxContainer" parent="Center/Panel/Margin/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="LeftCategoryBox" type="VBoxContainer" parent="Center/Panel/Margin/MainVBox/Columns"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CategoryHeading" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "区域分类（占位）"
+
+[node name="CatForestButton" type="Button" parent="Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "【分类 1】近郊猎场"
+
+[node name="CatSwampButton" type="Button" parent="Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "【分类 2】荒野沼泽（占位）"
+
+[node name="CatRuinsButton" type="Button" parent="Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "【分类 3】远古遗迹（占位）"
+
+[node name="VSeparator" type="VSeparator" parent="Center/Panel/Margin/MainVBox/Columns"]
+layout_mode = 2
+
+[node name="RightDestBox" type="VBoxContainer" parent="Center/Panel/Margin/MainVBox/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="DestHeading" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "具体目的地（出征点）"
+
+[node name="DestList" type="HBoxContainer" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="TitleLabel" type="Label" parent="Center/Panel/Margin/VBox"]
+[node name="DestBoarWoodsButton" type="Button" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestList"]
+custom_minimum_size = Vector2(240, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "出征准备"
-horizontal_alignment = 1
+text = "野猪林外围（出征点）"
 
-[node name="BodyLabel" type="Label" parent="Center/Panel/Margin/VBox"]
-custom_minimum_size = Vector2(420, 0)
+[node name="DestPlaceholderButton" type="Button" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestList"]
+custom_minimum_size = Vector2(240, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "模式：单人
-队伍：1 名本地玩家
-选择少量构筑样例后出征；数值仅用于当前原型验证。
-波次清场后可暂停并调整样例模块。"
-horizontal_alignment = 1
+text = "迷雾林深处（占位）"
+
+[node name="DestDescLabel" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "当前目的地：【野猪林外围（出征点）】"
 autowrap_mode = 1
 
-[node name="BuildHeading" type="Label" parent="Center/Panel/Margin/VBox"]
+[node name="HSeparator" type="HSeparator" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "出征构筑（原型）"
-horizontal_alignment = 1
 
-[node name="BuildOptions" type="VBoxContainer" parent="Center/Panel/Margin/VBox"]
+[node name="PrepConfigBox" type="VBoxContainer" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="BuildHeading" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "出征构筑（原型）"
+
+[node name="BuildOptions" type="VBoxContainer" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="BuildSummaryLabel" type="Label" parent="Center/Panel/Margin/VBox"]
-custom_minimum_size = Vector2(0, 28)
+[node name="BuildSummaryLabel" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 15
 text = "本次携带：暂不携带模块"
-horizontal_alignment = 1
-autowrap_mode = 1
 
-[node name="RhythmHeading" type="Label" parent="Center/Panel/Margin/VBox"]
+[node name="RhythmHeading" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "撤离节奏（对照）"
-horizontal_alignment = 1
 
-[node name="RhythmOption" type="OptionButton" parent="Center/Panel/Margin/VBox"]
-custom_minimum_size = Vector2(0, 40)
+[node name="RhythmOption" type="OptionButton" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
+custom_minimum_size = Vector2(240, 36)
 layout_mode = 2
 
-[node name="RhythmHint" type="Label" parent="Center/Panel/Margin/VBox"]
+[node name="BottomBar" type="HBoxContainer" parent="Center/Panel/Margin/MainVBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "两种间隔都只用于对照，不是最终节奏。撤离不发放奖励，也不写入成长存档。"
-horizontal_alignment = 1
-autowrap_mode = 1
+theme_override_constants/separation = 20
 
-[node name="ConfirmButton" type="Button" parent="Center/Panel/Margin/VBox"]
-custom_minimum_size = Vector2(0, 44)
+[node name="BackButton" type="Button" parent="Center/Panel/Margin/MainVBox/BottomBar"]
+custom_minimum_size = Vector2(200, 44)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "确认出征"
+text = "返回村落"
 
-[node name="BackButton" type="Button" parent="Center/Panel/Margin/VBox"]
-custom_minimum_size = Vector2(0, 44)
+[node name="ConfirmButton" type="Button" parent="Center/Panel/Margin/MainVBox/BottomBar"]
+custom_minimum_size = Vector2(260, 44)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "返回模式选择"
+text = "确认出征（进入战斗）"

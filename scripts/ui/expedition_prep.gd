@@ -1,24 +1,37 @@
 extends Control
-## 单人出征准备。选择少量原型模块后进入三波战斗。
+## 出征选择页面：左侧为分类占位，右侧为具体目的地（含当前可出征战斗点與原型构筑/撤离配置），返回回到村落。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 
-@onready var _confirm_button: Button = $Center/Panel/Margin/VBox/ConfirmButton
-@onready var _back_button: Button = $Center/Panel/Margin/VBox/BackButton
-@onready var _build_options: VBoxContainer = $Center/Panel/Margin/VBox/BuildOptions
-@onready var _build_summary: Label = $Center/Panel/Margin/VBox/BuildSummaryLabel
-@onready var _rhythm_option: OptionButton = $Center/Panel/Margin/VBox/RhythmOption
+@onready var _confirm_button: Button = $Center/Panel/Margin/MainVBox/BottomBar/ConfirmButton
+@onready var _back_button: Button = $Center/Panel/Margin/MainVBox/BottomBar/BackButton
+@onready var _build_options: VBoxContainer = $Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox/BuildOptions
+@onready var _build_summary: Label = $Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox/BuildSummaryLabel
+@onready var _rhythm_option: OptionButton = $Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox/RhythmOption
+@onready var _category_forest_btn: Button = $Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox/CatForestButton
+@onready var _category_swamp_btn: Button = $Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox/CatSwampButton
+@onready var _category_ruins_btn: Button = $Center/Panel/Margin/MainVBox/Columns/LeftCategoryBox/CatRuinsButton
+@onready var _dest_boar_btn: Button = $Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestList/DestBoarWoodsButton
+@onready var _dest_placeholder_btn: Button = $Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestList/DestPlaceholderButton
+@onready var _dest_desc_label: Label = $Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestDescLabel
 
 var _leaving: bool = false
 var _module_checkboxes: Dictionary = {}
+var _selected_dest_valid: bool = true
 
 
 func _ready() -> void:
 	DisplayServer.window_set_title("TribeHunt")
 	_confirm_button.pressed.connect(_on_confirm_pressed)
 	_back_button.pressed.connect(_on_back_pressed)
+	_category_forest_btn.pressed.connect(_on_category_selected.bind("forest"))
+	_category_swamp_btn.pressed.connect(_on_category_selected.bind("swamp"))
+	_category_ruins_btn.pressed.connect(_on_category_selected.bind("ruins"))
+	_dest_boar_btn.pressed.connect(_on_dest_selected.bind(true))
+	_dest_placeholder_btn.pressed.connect(_on_dest_selected.bind(false))
 	_build_module_options()
 	_build_rhythm_options()
+	_on_category_selected("forest")
 	_confirm_button.grab_focus()
 
 
@@ -31,14 +44,40 @@ func _unhandled_input(event: InputEvent) -> void:
 	_on_back_pressed()
 
 
+func _on_category_selected(cat_id: String) -> void:
+	if cat_id == "forest":
+		_dest_boar_btn.visible = true
+		_dest_placeholder_btn.text = "迷雾林深处（占位，暂未开放）"
+		_on_dest_selected(true)
+	elif cat_id == "swamp":
+		_dest_boar_btn.visible = false
+		_dest_placeholder_btn.text = "腐泥沼泽出征点（分类占位）"
+		_on_dest_selected(false)
+	else:
+		_dest_boar_btn.visible = false
+		_dest_placeholder_btn.text = "远古石环出征点（分类占位）"
+		_on_dest_selected(false)
+
+
+func _on_dest_selected(is_boar_woods: bool) -> void:
+	_selected_dest_valid = is_boar_woods
+	_confirm_button.disabled = not is_boar_woods
+	if is_boar_woods:
+		_dest_desc_label.text = "当前目的地：【野猪林外围（出征点）】\n三波普通野兽与末段野猪王遭遇（已接入战斗场景）。"
+	else:
+		_dest_desc_label.text = "当前目的地：占位区域（尚未开放，请选择「近郊猎场」→「野猪林外围」出征）。"
+
+
 func _on_confirm_pressed() -> void:
+	if not _selected_dest_valid:
+		return
 	BuildRunService.set_prepared_module_ids(_selected_module_ids())
 	BuildRunService.set_extraction_wave_interval(_rhythm_option.get_selected_id())
 	_go(SceneFlow.ARENA)
 
 
 func _on_back_pressed() -> void:
-	_go(SceneFlow.MODE_SELECT)
+	_go(SceneFlow.VILLAGE)
 
 
 func _go(scene_path: String) -> void:
@@ -63,7 +102,7 @@ func _build_module_options() -> void:
 		var checkbox := CheckBox.new()
 		checkbox.text = "%s：%s（临时原型值）" % [module.display_name, module.prototype_effect_label()]
 		checkbox.button_pressed = BuildRunService.is_prepared(module.module_id)
-		checkbox.custom_minimum_size = Vector2(0.0, 40.0)
+		checkbox.custom_minimum_size = Vector2(0.0, 34.0)
 		checkbox.toggled.connect(_on_module_toggled.bind(module.module_id))
 		_module_checkboxes[module.module_id] = checkbox
 		_build_options.add_child(checkbox)

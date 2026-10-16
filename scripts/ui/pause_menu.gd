@@ -1,5 +1,5 @@
 extends CanvasLayer
-## 单人战斗暂停。可以继续、打开设置或返回主菜单。
+## 单人战斗暂停。可以继续、打开设置或结束冒险并返回部落村落。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 
@@ -86,7 +86,7 @@ func _on_menu_pressed() -> void:
 		return
 	_leaving = true
 	_resume()
-	SceneFlow.go_to(SceneFlow.MAIN_MENU)
+	SceneFlow.go_to(SceneFlow.VILLAGE)
 
 
 func _on_run_ended() -> void:

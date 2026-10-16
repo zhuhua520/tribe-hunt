@@ -3,6 +3,7 @@ extends RefCounted
 
 const MAIN_MENU := "res://scenes/menu/main_menu.tscn"
 const MODE_SELECT := "res://scenes/menu/mode_select.tscn"
+const VILLAGE := "res://scenes/village/village.tscn"
 const EXPEDITION_PREP := "res://scenes/menu/expedition_prep.tscn"
 const LOCAL_COOP_STATUS := "res://scenes/menu/local_coop_status.tscn"
 const ONLINE_LOBBY := "res://scenes/menu/online_lobby.tscn"
@@ -25,6 +26,15 @@ static func go_to(scene_path: String) -> void:
 	tree.paused = false
 	DisplayServer.window_set_title("TribeHunt")
 	tree.call_deferred("change_scene_to_file", scene_path)
+
+
+static func go_to_packed(packed_scene: PackedScene) -> void:
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree == null or packed_scene == null:
+		return
+	tree.paused = false
+	DisplayServer.window_set_title("TribeHunt")
+	tree.call_deferred("change_scene_to_packed", packed_scene)
 
 
 static func quit() -> void:

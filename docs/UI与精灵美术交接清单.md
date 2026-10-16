@@ -36,17 +36,18 @@
 
 ## 3. 界面
 
-全部使用 Godot 默认主题，没有主题资源、字体文件或界面贴图。背景是纯色 `ColorRect` 或面板，不是背景图。
+主菜单已接入饥荒风格手绘背景图 `assets/sprites/ui/main_menu_bg.png`（1280×720），菜单面板与按钮采用无边框、无背景色的纯文字样式（`StyleBoxEmpty`），悬停/聚焦时文字高亮变亮；其余页面仍使用 Godot 默认主题与纯色 `ColorRect` 背景。
 
 | 界面 | 场景或脚本 | 现有结构 | 操作是否齐全 | 后续 |
 | --- | --- | --- | --- | --- |
-| 主菜单 | `scenes/menu/main_menu.tscn` | `Background` + 居中面板。按钮：开始远征、在线合作、创意工坊、设置、退出 | 齐全 | 可换背景和面板皮肤。按钮文字和顺序先别改 |
-| 模式选择 | `scenes/menu/mode_select.tscn` | 单人、本地合作、返回 | 齐全 | 同上 |
-| 出征准备 | `scenes/menu/expedition_prep.tscn`，模块勾选由 `scripts/ui/expedition_prep.gd` 生成 | 标题、模块列表、撤离节奏下拉、确认出征、返回 | 齐全 | 勾选框是运行时生成的，场景里没有逐条节点 |
+| 主菜单 | `scenes/menu/main_menu.tscn` | `Background`（`TextureRect`，引用 `assets/sprites/ui/main_menu_bg.png`，1280×720）+ 居中透明面板与纯文字无边框按钮（悬停/聚焦文字变亮）。按钮：开始远征（点击后动态加载资源进入部落村落）、在线合作、创意工坊、设置、退出 | 齐全 | 背景图与首页纯文字按钮风格已接入；按钮文字、节点路径和顺序保持不变 |
+| 部落村落 | `scenes/village/village.tscn`、`scripts/village/village.gd` | 全几何形状占位：四周方块围成村落边界（未来树木 UI 占位）、村内武器店仅边框占位（无 UI 弹窗）、合成店形状占位、右侧出村道路触发出征选择弹窗（左侧分类占位、右侧目的地出征点接入战斗场景 `Arena`，返回回到村落） | 齐全 | 当前全用几何形状占位，未绘制图片 |
+| 模式选择 | `scenes/menu/mode_select.tscn` | 单人（进入部落村落）、本地合作、返回 | 齐全 | 同上 |
+| 出征准备/选择 | `scenes/menu/expedition_prep.tscn`，模块勾选由 `scripts/ui/expedition_prep.gd` 生成 | 左侧区域分类占位、右侧具体目的地（出征点）、模块列表、撤离节奏下拉、确认出征（进入 `Arena`）、返回村落 | 齐全 | 勾选框是运行时生成的，场景里没有逐条节点 |
 | 战斗 HUD | `scenes/ui/combat_hud.tscn`，层 10 | `StatusLabel`、`BuildStatusLabel`、`ResultPanel`（结果、统计、重新开始、返回主菜单）、`PauseHint` | 齐全 | 结果页要容纳 4 到 5 行统计。不要让角色画到按钮上 |
 | 波间构筑 | `scenes/build/build_adjustment_panel.tscn` 只有空的根节点；内容由 `scripts/build/build_adjustment_panel.gd` 在 `_ready` 生成 | 标题、说明、模块勾选、确认构筑并继续 | 齐全 | 以后要换皮时，优先加主题，或再把生成的控件挪进场景。本轮不拆脚本 |
 | 撤离选择 | `scenes/ui/extraction_choice_panel.tscn` 同样只有根节点；内容由 `scripts/ui/extraction_choice_panel.gd` 生成 | 继续、撤离 | 齐全 | 同上 |
-| 暂停与设置 | `scenes/ui/pause_menu.tscn`、`scenes/ui/settings_panel.tscn` | 继续、设置、返回主菜单；音量和窗口模式 | 齐全 | 设置仍写入 `user://settings.json`，换皮时不要改存档字段 |
+| 暂停与设置 | `scenes/ui/pause_menu.tscn`、`scenes/ui/settings_panel.tscn` | 继续、设置、结束冒险（回到部落村落）；音量和窗口模式 | 齐全 | 设置仍写入 `user://settings.json`，换皮时不要改存档字段 |
 | 结果页 | `CombatHUD/ResultPanel` | 结局标题、用时、击杀、受到伤害；遇到野猪王后多一行遭遇结果 | 齐全 | 面板大约 440×370。五行走得下，不要再缩 |
 
 战斗 HUD、构筑面板和撤离面板都是 `PROCESS_MODE_ALWAYS`。结果出现时会先隐藏后两个面板。换皮时保持这个顺序，避免再次挡住结果按钮。

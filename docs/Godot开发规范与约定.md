@@ -18,32 +18,32 @@
 
 现有项目的 scenes、scripts、data、assets、docs 目录可继续使用；随着系统增长，优先按功能归档资源和场景：
 
-    project.godot
-    scenes/
-      menu/
-      combat/
-      player/
-      enemies/
-      weapons/
-      ui/
-    scripts/
-      combat/
-      player/
-      weapons/
-      progression/
-      networking/
-      save/
-      ui/
-    data/
-      weapons/
-      modules/
-      constellations/
-      waves/
-    assets/
-      sprites/
-      audio/
-      fonts/
-    docs/
+	project.godot
+	scenes/
+	  menu/
+	  combat/
+	  player/
+	  enemies/
+	  weapons/
+	  ui/
+	scripts/
+	  combat/
+	  player/
+	  weapons/
+	  progression/
+	  networking/
+	  save/
+	  ui/
+	data/
+	  weapons/
+	  modules/
+	  constellations/
+	  waves/
+	assets/
+	  sprites/
+	  audio/
+	  fonts/
+	docs/
 
 Godot 官方建议使用 snake_case 作为目录和文件名，降低大小写敏感文件系统及导出后的路径问题。项目约定如下：
 

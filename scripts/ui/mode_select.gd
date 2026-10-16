@@ -28,7 +28,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_solo_pressed() -> void:
-	_go(SceneFlow.EXPEDITION_PREP)
+	_go(SceneFlow.VILLAGE)
 
 
 func _on_local_pressed() -> void:
