@@ -5,6 +5,7 @@ const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 const BUILD_ADJUSTMENT_PANEL := preload("res://scenes/build/build_adjustment_panel.tscn")
 const EXTRACTION_CHOICE_PANEL := preload("res://scenes/ui/extraction_choice_panel.tscn")
 
+@onready var wave_label: Label = $Root/WaveLabel
 @onready var status_label: Label = $Root/StatusLabel
 @onready var build_status_label: Label = $Root/BuildStatusLabel
 @onready var pause_hint: Label = $Root/PauseHint
@@ -35,8 +36,14 @@ func _ready() -> void:
 	_update_build_status()
 	var wave_manager := get_parent().get_node_or_null("WaveManager")
 	if wave_manager != null:
+		if wave_manager.has_signal("wave_changed"):
+			wave_manager.wave_changed.connect(_on_wave_changed)
 		if wave_manager.has_signal("status_changed"):
 			wave_manager.status_changed.connect(_on_status_changed)
+		var total_waves := 3
+		if "waves" in wave_manager:
+			total_waves = maxi(1, wave_manager.waves.size())
+		wave_label.text = "0/%d" % total_waves
 		if wave_manager.has_signal("run_won"):
 			wave_manager.run_won.connect(_on_run_won, CONNECT_DEFERRED)
 		if wave_manager.has_signal("run_lost"):
@@ -60,6 +67,12 @@ func _pause_hint_text() -> String:
 			if code != 0:
 				return "%s 暂停" % OS.get_keycode_string(code)
 	return "暂停"
+
+
+func _on_wave_changed(wave_index: int, total_waves: int) -> void:
+	wave_label.text = "%d/%d" % [wave_index, total_waves]
+	if status_label.text == "准备狩猎" or status_label.text.begins_with("狩猎即将开始"):
+		status_label.text = ""
 
 
 func _on_status_changed(text: String) -> void:

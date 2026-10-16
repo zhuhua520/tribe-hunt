@@ -14,8 +14,8 @@ func _ready() -> void:
 	visible = false
 
 
-func open_for_wave(wave_index: int, total_waves: int) -> void:
-	_title_label.text = "第 %d/%d 波结束：调整构筑" % [wave_index, total_waves]
+func open_for_wave(_wave_index: int, _total_waves: int) -> void:
+	_title_label.text = "调整构筑"
 	for module in BuildRunService.get_module_definitions():
 		var checkbox := _module_checkboxes[module.module_id] as CheckBox
 		checkbox.button_pressed = BuildRunService.is_equipped(module.module_id)

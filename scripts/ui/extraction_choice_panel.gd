@@ -1,10 +1,10 @@
 extends Control
-## 单人撤离节点。继续进入现有下一波流程，撤离只结束本次运行。
+## 波次结束时的左右卡片。点一张就确认：继续留在副本，或召唤回城传送门。
 
 signal continue_selected
 signal extract_selected
 
-var _title_label: Label
+var _continue_card: Button
 
 
 func _ready() -> void:
@@ -14,15 +14,16 @@ func _ready() -> void:
 	visible = false
 
 
-func open_for_wave(wave_index: int, total_waves: int) -> void:
-	_title_label.text = "第 %d/%d 波结束：撤离节点" % [wave_index, total_waves]
+func open_for_wave(_wave_index: int, _total_waves: int) -> void:
 	visible = true
+	if _continue_card != null:
+		_continue_card.grab_focus()
 
 
 func _build_view() -> void:
 	var dimmer := ColorRect.new()
 	dimmer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	dimmer.color = Color(0.02, 0.03, 0.02, 0.78)
+	dimmer.color = Color(0.02, 0.03, 0.02, 0.72)
 	dimmer.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(dimmer)
 
@@ -31,50 +32,26 @@ func _build_view() -> void:
 	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(center)
 
-	var panel := PanelContainer.new()
-	panel.custom_minimum_size = Vector2(620.0, 0.0)
-	center.add_child(panel)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 48)
+	center.add_child(row)
 
-	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 28)
-	margin.add_theme_constant_override("margin_top", 24)
-	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_bottom", 24)
-	panel.add_child(margin)
+	_continue_card = _make_card("继续", "留在副本\n下一波继续")
+	_continue_card.pressed.connect(_on_continue_pressed)
+	row.add_child(_continue_card)
 
-	var content := VBoxContainer.new()
-	content.add_theme_constant_override("separation", 12)
-	margin.add_child(content)
-
-	_title_label = _make_label("撤离节点", 26)
-	_title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	content.add_child(_title_label)
-
-	var instructions := _make_label(
-		"这是对照用的临时选择，不代表最终撤离节奏。继续会进入下一波，并可调整构筑。撤离只结束本次运行，不发放奖励，也不写入成长存档。",
-		16
-	)
-	instructions.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	content.add_child(instructions)
-
-	var continue_button := Button.new()
-	continue_button.text = "继续"
-	continue_button.custom_minimum_size = Vector2(0.0, 44.0)
-	continue_button.pressed.connect(_on_continue_pressed)
-	content.add_child(continue_button)
-
-	var extract_button := Button.new()
-	extract_button.text = "撤离"
-	extract_button.custom_minimum_size = Vector2(0.0, 44.0)
-	extract_button.pressed.connect(_on_extract_pressed)
-	content.add_child(extract_button)
+	var return_card := _make_card("回城", "出现传送门\n走进后返回村落")
+	return_card.pressed.connect(_on_extract_pressed)
+	row.add_child(return_card)
 
 
-func _make_label(text: String, font_size: int) -> Label:
-	var label := Label.new()
-	label.text = text
-	label.add_theme_font_size_override("font_size", font_size)
-	return label
+func _make_card(title: String, detail: String) -> Button:
+	var card := Button.new()
+	card.custom_minimum_size = Vector2(300.0, 220.0)
+	card.text = "%s\n\n%s" % [title, detail]
+	card.add_theme_font_size_override("font_size", 28)
+	card.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return card
 
 
 func _on_continue_pressed() -> void:

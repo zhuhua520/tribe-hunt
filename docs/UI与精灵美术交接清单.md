@@ -44,9 +44,9 @@
 | 部落村落 | `scenes/village/village.tscn`、`scripts/village/village.gd` | 全几何形状占位，内部约 3200×2000。`VillagePlayer/Camera2D` 跟随玩家，画面为 1280×720 镜头内容。四周方块围成村落边界（未来树木 UI 占位）、村内武器店仅边框占位（无 UI 弹窗）、合成店形状占位、右侧出村道路触发出征选择弹窗（左侧分类占位、右侧目的地出征点接入战斗场景 `Arena`，返回回到村落） | 齐全 | 当前全用几何形状占位，未绘制图片。换皮时保持摄像机挂在玩家上 |
 | 模式选择 | `scenes/menu/mode_select.tscn` | 单人（进入部落村落）、本地合作、返回 | 齐全 | 同上 |
 | 出征准备/选择 | `scenes/menu/expedition_prep.tscn`，模块勾选由 `scripts/ui/expedition_prep.gd` 生成 | 左侧区域分类占位、右侧具体目的地（出征点）、模块列表、撤离节奏下拉、确认出征（进入 `Arena`）、返回村落 | 齐全 | 勾选框是运行时生成的，场景里没有逐条节点 |
-| 战斗 HUD | `scenes/ui/combat_hud.tscn`，层 10 | `StatusLabel`、`BuildStatusLabel`、`ResultPanel`（结果、统计、重新开始、返回主菜单）、`PauseHint` | 齐全 | 结果页要容纳 4 到 5 行统计。不要让角色画到按钮上 |
-| 波间构筑 | `scenes/build/build_adjustment_panel.tscn` 只有空的根节点；内容由 `scripts/build/build_adjustment_panel.gd` 在 `_ready` 生成 | 标题、说明、模块勾选、确认构筑并继续 | 齐全 | 以后要换皮时，优先加主题，或再把生成的控件挪进场景。本轮不拆脚本 |
-| 撤离选择 | `scenes/ui/extraction_choice_panel.tscn` 同样只有根节点；内容由 `scripts/ui/extraction_choice_panel.gd` 生成 | 继续、撤离 | 齐全 | 同上 |
+| 战斗 HUD | `scenes/ui/combat_hud.tscn`，层 10 | 左上角 `WaveLabel`（`1/3`）、`StatusLabel`、`BuildStatusLabel`、`ResultPanel`（结果、统计、重新开始、返回主菜单）、`PauseHint` | 齐全 | 结果页要容纳 4 到 5 行统计。不要让角色画到按钮上。波次数字只放左上角 |
+| 波间构筑 | `scenes/build/build_adjustment_panel.tscn` 只有空的根节点；内容由 `scripts/build/build_adjustment_panel.gd` 在 `_ready` 生成 | 标题「调整构筑」、说明、模块勾选、确认构筑并继续 | 齐全 | 以后要换皮时，优先加主题，或再把生成的控件挪进场景。本轮不拆脚本 |
+| 波次结束选择 | `scenes/ui/extraction_choice_panel.tscn` 只有根节点；内容由 `scripts/ui/extraction_choice_panel.gd` 生成 | 左右两张卡片：继续、回城。点一张就确认 | 齐全 | 回城后场上出现传送门，走进返回村落 |
 | 暂停与设置 | `scenes/ui/pause_menu.tscn`、`scenes/ui/settings_panel.tscn` | 继续、设置、结束冒险（回到部落村落）；音量和窗口模式 | 齐全 | 设置仍写入 `user://settings.json`，换皮时不要改存档字段 |
 | 结果页 | `CombatHUD/ResultPanel` | 结局标题、用时、击杀、受到伤害；遇到野猪王后多一行遭遇结果 | 齐全 | 面板大约 440×370。五行走得下，不要再缩 |
 

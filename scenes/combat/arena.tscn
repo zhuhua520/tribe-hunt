@@ -14,15 +14,12 @@
 [node name="Arena" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_arena")
-half_size = Vector2(480, 270)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-enabled = true
+half_size = Vector2(1200, 800)
 
 [node name="Background" type="Polygon2D" parent="."]
 z_index = -10
 color = Color(0.22, 0.28, 0.18, 1)
-polygon = PackedVector2Array(-480, -270, 480, -270, 480, 270, -480, 270)
+polygon = PackedVector2Array(-1200, -800, 1200, -800, 1200, 800, -1200, 800)
 
 [node name="BoundsLine" type="Line2D" parent="."]
 z_index = -5
@@ -35,7 +32,7 @@ default_color = Color(0.75, 0.62, 0.35, 1)
 script = ExtResource("3_wave")
 enemy_scene = ExtResource("4_enemy")
 waves = Array[WaveConfig]([ExtResource("5_w1"), ExtResource("6_w2"), ExtResource("7_w3")])
-arena_half_size = Vector2(480, 270)
+arena_half_size = Vector2(1200, 800)
 delay_before_first_wave = 0.8
 delay_between_waves = 1.2
 

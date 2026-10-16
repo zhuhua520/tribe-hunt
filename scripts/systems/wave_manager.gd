@@ -10,10 +10,11 @@ signal run_lost
 signal run_extracted
 
 const BOAR_KING_SCENE := preload("res://scenes/combat/boar_king.tscn")
+const RETURN_PORTAL_SCRIPT := preload("res://scripts/combat/return_portal.gd")
 
 @export var enemy_scene: PackedScene
 @export var waves: Array[WaveConfig] = []
-@export var arena_half_size: Vector2 = Vector2(480, 270)
+@export var arena_half_size: Vector2 = Vector2(1200, 800)
 @export var delay_before_first_wave: float = 0.8
 @export var delay_between_waves: float = 1.2
 
@@ -21,9 +22,10 @@ var _wave_index: int = -1
 var _to_spawn: int = 0
 var _spawn_cooldown: float = 0.0
 var _spawn_interval: float = 0.5
-var _phase: String = "idle" # idle, spawning, clearing, extracting, adjusting, between, boss, ended
+var _phase: String = "idle" # idle, spawning, clearing, extracting, adjusting, between, boss, portal, ended
 var _player: Node
 var _extraction_interval: int = 1
+var _return_portal: Node2D
 
 
 func _ready() -> void:
@@ -71,7 +73,7 @@ func _physics_process(delta: float) -> void:
 				_spawn_cooldown = _spawn_interval
 				if _to_spawn <= 0:
 					_phase = "clearing"
-					status_changed.emit("第 %d/%d 波：消灭剩余野兽" % [_wave_index + 1, waves.size()])
+					status_changed.emit("消灭剩余野兽")
 		"clearing":
 			if _alive_enemy_count() == 0:
 				_on_wave_cleared()
@@ -88,7 +90,6 @@ func _start_next_wave() -> void:
 	_spawn_cooldown = 0.0
 	_phase = "spawning"
 	wave_changed.emit(_wave_index + 1, waves.size())
-	status_changed.emit("第 %d/%d 波" % [_wave_index + 1, waves.size()])
 	print("Wave start: ", _wave_index + 1)
 
 
@@ -129,7 +130,6 @@ func _request_extraction_choice() -> void:
 		return
 	_phase = "extracting"
 	get_tree().paused = true
-	status_changed.emit("第 %d 波结束：继续或撤离" % (_wave_index + 1))
 	print("Extraction choice wave=%d interval=%d" % [_wave_index + 1, _extraction_interval])
 	extraction_choice_requested.emit(_wave_index + 1, waves.size())
 
@@ -148,7 +148,33 @@ func complete_extraction_continue() -> void:
 func complete_extraction_leave() -> void:
 	if _phase != "extracting":
 		return
-	_finish_extract()
+	get_tree().paused = false
+	_phase = "portal"
+	_spawn_return_portal()
+	print("Return portal open")
+
+
+func _spawn_return_portal() -> void:
+	if _return_portal != null and is_instance_valid(_return_portal):
+		return
+	var portal := Area2D.new()
+	portal.set_script(RETURN_PORTAL_SCRIPT)
+	portal.z_index = 2
+	get_parent().add_child(portal)
+	portal.global_position = _portal_position()
+	_return_portal = portal
+
+
+func _portal_position() -> Vector2:
+	var origin := Vector2.ZERO
+	if _player != null and is_instance_valid(_player):
+		origin = _player.global_position
+	var offset := Vector2(220.0, 0.0)
+	var limit := arena_half_size - Vector2(90.0, 90.0)
+	var pos := (origin + offset).clamp(-limit, limit)
+	if pos.distance_to(origin) < 100.0:
+		pos = (origin - offset).clamp(-limit, limit)
+	return pos
 
 
 func is_extraction_choice_active() -> bool:
@@ -160,7 +186,6 @@ func _request_build_adjustment() -> void:
 		return
 	_phase = "adjusting"
 	get_tree().paused = true
-	status_changed.emit("第 %d 波结束：调整构筑" % (_wave_index + 1))
 	build_adjustment_requested.emit(_wave_index + 1, waves.size())
 
 

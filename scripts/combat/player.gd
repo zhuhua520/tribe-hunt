@@ -6,7 +6,7 @@ signal defeated
 signal damage_taken(amount: int)
 
 @export var move_speed: float = 220.0
-@export var arena_half_size: Vector2 = Vector2(480, 270)
+@export var arena_half_size: Vector2 = Vector2(1200, 800)
 @export var max_hp: int = 8
 @export var hurt_invuln_seconds: float = 0.6
 
