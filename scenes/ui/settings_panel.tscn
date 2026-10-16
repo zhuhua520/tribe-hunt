@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/settings_panel.gd" id="1_settings"]
+
+[node name="SettingsPanel" type="VBoxContainer"]
+custom_minimum_size = Vector2(420, 0)
+theme_override_constants/separation = 10
+script = ExtResource("1_settings")
+
+[node name="Heading" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "设置"
+horizontal_alignment = 1
+
+[node name="VolumeLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "主音量"
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(420, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="VolumeValue" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "当前 100%"
+horizontal_alignment = 1
+
+[node name="WindowLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "窗口模式"
+
+[node name="WindowOption" type="OptionButton" parent="."]
+custom_minimum_size = Vector2(420, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Hint" type="Label" parent="."]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "更改会立即生效，并保存在本机。"
+horizontal_alignment = 1
+autowrap_mode = 1
+
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "返回"

@@ -10,7 +10,7 @@ size = Vector2(28, 28)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 1
-collision_mask = 0
+collision_mask = 8
 script = ExtResource("1_player")
 move_speed = 220.0
 arena_half_size = Vector2(480, 270)

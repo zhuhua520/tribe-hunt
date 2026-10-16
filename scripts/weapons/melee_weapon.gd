@@ -1,6 +1,8 @@
 extends Node2D
 ## 木棍：自动攻击射程内最近的敌人。
 
+const WEAPON_CATEGORY := "melee"
+
 @export var damage: int = 1
 @export var attack_range: float = 72.0
 @export var cooldown: float = 0.45
@@ -42,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	if to_target.length() > attack_range:
 		return
 
-	_cooldown_left = cooldown
+	_cooldown_left = BuildRunService.get_effective_cooldown(cooldown, WEAPON_CATEGORY)
 	_swing_left = 0.12
 	if target.has_method("take_damage"):
 		target.take_damage(damage)

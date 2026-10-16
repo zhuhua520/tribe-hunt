@@ -1,6 +1,8 @@
 extends CharacterBody2D
 ## 野兽占位：追踪玩家，接触造成伤害；可被武器击杀。
 
+signal defeated
+
 @export var move_speed: float = 120.0
 @export var contact_damage: int = 1
 @export var max_hp: int = 3
@@ -21,6 +23,9 @@ func _ready() -> void:
 	if sprite.texture == null:
 		sprite.texture = load("res://assets/sprites/enemies/enemy.png")
 	_resolve_player()
+	var stats := get_tree().get_first_node_in_group("run_stats")
+	if stats != null and stats.has_method("watch_enemy"):
+		stats.watch_enemy(self)
 
 
 func _physics_process(delta: float) -> void:
@@ -54,6 +59,7 @@ func take_damage(amount: int) -> void:
 	print("Enemy HP: ", hp, "/", max_hp)
 	if hp <= 0:
 		print("Enemy defeated")
+		defeated.emit()
 		queue_free()
 
 

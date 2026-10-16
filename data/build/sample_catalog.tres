@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildCatalog" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/build/build_catalog.gd" id="1_catalog"]
+[ext_resource type="Resource" path="res://data/build/weapon_club.tres" id="2_club"]
+[ext_resource type="Resource" path="res://data/build/weapon_sling.tres" id="3_sling"]
+[ext_resource type="Resource" path="res://data/build/module_hunt_melee.tres" id="4_melee"]
+[ext_resource type="Resource" path="res://data/build/module_hunt_ranged.tres" id="5_ranged"]
+[ext_resource type="Resource" path="res://data/build/constellation_hunt.tres" id="6_hunt"]
+
+[resource]
+script = ExtResource("1_catalog")
+weapons = Array[WeaponDefinition]([ExtResource("2_club"), ExtResource("3_sling")])
+modules = Array[ModuleDefinition]([ExtResource("4_melee"), ExtResource("5_ranged")])
+constellations = Array[ConstellationDefinition]([ExtResource("6_hunt")])

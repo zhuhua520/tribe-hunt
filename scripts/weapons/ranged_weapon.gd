@@ -1,6 +1,8 @@
 extends Node2D
 ## 弹弓：自动朝射程内最近敌人发射石弹。与近战武器并存。
 
+const WEAPON_CATEGORY := "ranged"
+
 @export var damage: int = 1
 @export var attack_range: float = 320.0
 @export var cooldown: float = 0.85
@@ -32,17 +34,20 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var to_target := target.global_position - global_position
+	var effective_attack_range := BuildRunService.get_effective_attack_range(
+		attack_range, WEAPON_CATEGORY
+	)
 	# 弹弓挂在身侧，只朝向目标，不强行覆盖玩家朝向。
 	sprite.flip_h = to_target.x < 0.0
 
 	if _cooldown_left > 0.0:
 		return
-	if to_target.length() > attack_range:
+	if to_target.length() > effective_attack_range:
 		return
 	if projectile_scene == null:
 		return
 
-	_cooldown_left = cooldown
+	_cooldown_left = BuildRunService.get_effective_cooldown(cooldown, WEAPON_CATEGORY)
 	var stone := projectile_scene.instantiate() as Area2D
 	var host := get_tree().current_scene
 	if host == null:

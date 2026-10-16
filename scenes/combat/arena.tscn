@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqarena0000001"]
+[gd_scene load_steps=11 format=3 uid="uid://bqarena0000001"]
 
 [ext_resource type="Script" path="res://scripts/combat/arena.gd" id="1_arena"]
 [ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="2_player"]
@@ -8,8 +8,11 @@
 [ext_resource type="Resource" path="res://data/waves/wave_2.tres" id="6_w2"]
 [ext_resource type="Resource" path="res://data/waves/wave_3.tres" id="7_w3"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="8_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="9_pause"]
+[ext_resource type="Script" path="res://scripts/combat/run_stats.gd" id="10_stats"]
 
 [node name="Arena" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_arena")
 half_size = Vector2(480, 270)
 
@@ -36,4 +39,9 @@ arena_half_size = Vector2(480, 270)
 delay_before_first_wave = 0.8
 delay_between_waves = 1.2
 
+[node name="RunStats" type="Node" parent="."]
+script = ExtResource("10_stats")
+
 [node name="CombatHUD" parent="." instance=ExtResource("8_hud")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("9_pause")]

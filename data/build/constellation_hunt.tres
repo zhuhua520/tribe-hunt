@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ConstellationDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/build/constellation_definition.gd" id="1_constellation"]
+
+[resource]
+script = ExtResource("1_constellation")
+constellation_id = "constellation_hunt"
+display_name = "狩猎"
+star_point_ids = PackedStringArray("star_hunt_melee", "star_hunt_ranged")

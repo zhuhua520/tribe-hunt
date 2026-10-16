@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/mp_move_arena.gd" id="1_arena"]
+[ext_resource type="Script" path="res://scripts/combat/net_wave_director.gd" id="2_wave"]
+[ext_resource type="Script" path="res://scripts/combat/net_combat.gd" id="3_combat"]
+
+[node name="MpMoveArena" type="Node2D"]
+script = ExtResource("1_arena")
+half_size = Vector2(480, 270)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = true
+
+[node name="Background" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0.18, 0.24, 0.28, 1)
+polygon = PackedVector2Array(-480, -270, 480, -270, 480, 270, -480, 270)
+
+[node name="BoundsLine" type="Line2D" parent="."]
+z_index = -5
+width = 3.0
+default_color = Color(0.55, 0.72, 0.85, 1)
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="WaveDirector" type="Node" parent="."]
+script = ExtResource("2_wave")
+arena_half_size = Vector2(480, 270)
+
+[node name="Stones" type="Node2D" parent="."]
+
+[node name="Combat" type="Node" parent="."]
+script = ExtResource("3_combat")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 280.0
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/Hud"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Hud/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/Hud/Margin/VBox"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "移动测试"
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Hud/Margin/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "返回在线大厅（保持连接）"
+
+[node name="LeaveButton" type="Button" parent="CanvasLayer/Hud/Margin/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "离开会话"

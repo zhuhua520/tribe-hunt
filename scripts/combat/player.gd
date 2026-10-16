@@ -1,7 +1,9 @@
 extends CharacterBody2D
 ## 部落战士：移动、生命；近战木棍 + 远程弹弓挂为子节点。
+## collision_mask 8 只阻挡野猪王身体（碰撞层值 8）。普通敌人仍靠接触区域造成伤害。
 
 signal defeated
+signal damage_taken(amount: int)
 
 @export var move_speed: float = 220.0
 @export var arena_half_size: Vector2 = Vector2(480, 270)
@@ -44,9 +46,11 @@ func take_damage(amount: int) -> void:
 	if _invuln_left > 0.0:
 		return
 
-	hp = maxi(0, hp - amount)
+	var applied := mini(amount, hp)
+	hp -= applied
 	_invuln_left = hurt_invuln_seconds
 	print("Player HP: ", hp, "/", max_hp)
+	damage_taken.emit(applied)
 
 	if hp <= 0:
 		_on_defeated()

@@ -11,6 +11,7 @@ var _status: String = "准备狩猎"
 
 
 func _ready() -> void:
+	BuildRunService.begin_run()
 	_draw_bounds()
 	if wave_manager != null and wave_manager.has_signal("status_changed"):
 		wave_manager.status_changed.connect(_on_status_changed)

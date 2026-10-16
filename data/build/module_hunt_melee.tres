@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ModuleDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/build/module_definition.gd" id="1_module"]
+
+[resource]
+script = ExtResource("1_module")
+module_id = "module_hunt_melee"
+display_name = "狩猎碎片·近战"
+category = 0
+initial_star = 1
+star_point_id = "star_hunt_melee"
+constellation_id = "constellation_hunt"
+weapon_category_tag = "melee"
+weapon_category_label = "近战"
+element_kind = 0
+element_value = 0
+prototype_effect = 1
+prototype_effect_percent = 20.0

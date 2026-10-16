@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/build/weapon_definition.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+weapon_id = "weapon_club"
+display_name = "木棍"
+attack_style = 0
+category_tag = "melee"
+category_label = "近战"
+quality = 0
+rarity = 0
+upgrade_cap = -1
+drop_weight = -1
