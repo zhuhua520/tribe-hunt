@@ -28,6 +28,8 @@ func _ready() -> void:
 			wave_manager.run_lost.connect(_on_run_lost)
 		if wave_manager.has_signal("run_extracted"):
 			wave_manager.run_extracted.connect(_on_run_extracted)
+		if wave_manager.has_signal("run_returned_to_village"):
+			wave_manager.run_returned_to_village.connect(_on_run_extracted)
 	print("Run stats begin elapsed=0 kills=0 damage_taken=0")
 
 

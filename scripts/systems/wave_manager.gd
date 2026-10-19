@@ -8,6 +8,7 @@ signal extraction_choice_requested(wave_index: int, total_waves: int)
 signal run_won
 signal run_lost
 signal run_extracted
+signal run_returned_to_village
 
 const BOAR_KING_SCENE := preload("res://scenes/combat/boar_king.tscn")
 const RETURN_PORTAL_SCRIPT := preload("res://scripts/combat/return_portal.gd")
@@ -85,6 +86,11 @@ func _start_next_wave() -> void:
 		_start_boar_king()
 		return
 	var cfg: WaveConfig = waves[_wave_index]
+	if cfg == null or enemy_scene == null:
+		_phase = "ended"
+		status_changed.emit("波次配置缺失，请返回主菜单并检查资源")
+		_stop_combat()
+		return
 	_to_spawn = maxi(1, cfg.enemy_count)
 	_spawn_interval = maxf(0.05, cfg.spawn_interval)
 	_spawn_cooldown = 0.0
@@ -159,6 +165,7 @@ func _spawn_return_portal() -> void:
 		return
 	var portal := Area2D.new()
 	portal.set_script(RETURN_PORTAL_SCRIPT)
+	portal.entered.connect(_on_return_portal_entered)
 	portal.z_index = 2
 	get_parent().add_child(portal)
 	portal.global_position = _portal_position()
@@ -262,6 +269,7 @@ func _finish_win() -> void:
 	if _phase == "ended":
 		return
 	_phase = "ended"
+	_stop_combat()
 	status_changed.emit("狩猎成功")
 	print("Run won")
 	run_won.emit()
@@ -271,6 +279,7 @@ func _finish_loss() -> void:
 	if _phase == "ended":
 		return
 	_phase = "ended"
+	_stop_combat()
 	status_changed.emit("狩猎失败")
 	print("Run lost")
 	run_lost.emit()
@@ -284,3 +293,20 @@ func _finish_extract() -> void:
 	status_changed.emit("已撤离")
 	print("Run extracted")
 	run_extracted.emit()
+
+
+func _on_return_portal_entered() -> void:
+	if _phase != "portal":
+		return
+	_phase = "ended"
+	_stop_combat()
+	# 回城不弹旧撤离结果页，但本局统计必须结束。
+	run_returned_to_village.emit()
+
+
+func _stop_combat() -> void:
+	for group in ["player", "enemies", "combat_projectiles"]:
+		for actor in get_tree().get_nodes_in_group(group):
+			if actor.is_queued_for_deletion():
+				continue
+			actor.process_mode = Node.PROCESS_MODE_DISABLED

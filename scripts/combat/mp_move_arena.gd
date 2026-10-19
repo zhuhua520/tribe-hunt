@@ -2,6 +2,7 @@ extends Node2D
 ## 多人测试场：玩家移动、服务器权威敌人/波次，以及临时自动攻击结算。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
+const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 const NET_PLAYER_SCENE := preload("res://scenes/combat/net_player.tscn")
 
 const SPAWN_OFFSETS: Array[Vector2] = [
@@ -25,6 +26,8 @@ var _replication_ready_peers: Dictionary = {}
 
 
 func _ready() -> void:
+	var ground_art := $GroundArt as Sprite2D
+	ground_art.texture = PreviewArt.texture("arena_ground.png")
 	_draw_bounds()
 	_back_button.pressed.connect(_on_back_pressed)
 	_leave_button.pressed.connect(_on_leave_pressed)

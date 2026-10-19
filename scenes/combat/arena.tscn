@@ -21,6 +21,10 @@ z_index = -10
 color = Color(0.22, 0.28, 0.18, 1)
 polygon = PackedVector2Array(-1200, -800, 1200, -800, 1200, 800, -1200, 800)
 
+[node name="GroundArt" type="Sprite2D" parent="."]
+z_index = -9
+texture_filter = 1
+
 [node name="BoundsLine" type="Line2D" parent="."]
 z_index = -5
 width = 3.0

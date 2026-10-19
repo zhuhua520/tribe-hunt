@@ -18,10 +18,13 @@ enum PrototypeEffect {
 	NONE,
 	ATTACK_SPEED_PERCENT,
 	ATTACK_RANGE_PERCENT,
+	DAMAGE_FLAT,
+	PROJECTILE_SPEED_PERCENT,
 }
 
 @export var module_id: String = ""
 @export var display_name: String = ""
+@export_multiline var description: String = ""
 @export var category: ModuleCategory = ModuleCategory.SHARD
 ## 获得时的基础档位。不是玩家后来的强化等级。
 @export var initial_star: int = 1
@@ -62,6 +65,10 @@ func element_label() -> String:
 func prototype_effect_label() -> String:
 	var value_text := str(roundi(prototype_effect_percent)) + "%"
 	match prototype_effect:
+		PrototypeEffect.DAMAGE_FLAT:
+			return "%s 伤害 +%d" % [weapon_category_label, roundi(prototype_effect_percent)]
+		PrototypeEffect.PROJECTILE_SPEED_PERCENT:
+			return "%s 弹速 +%s" % [weapon_category_label, value_text]
 		PrototypeEffect.ATTACK_SPEED_PERCENT:
 			return "%s 攻击速度 +%s" % [weapon_category_label, value_text]
 		PrototypeEffect.ATTACK_RANGE_PERCENT:

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 ## 野猪王最小遭遇。追近、锁向冲撞和圆形震地都是临时原型值。
 
 signal defeated
@@ -86,6 +87,7 @@ func _physics_process(delta: float) -> void:
 			_tick_slam_recover()
 		_:
 			_begin_chase()
+	_update_body_facing()
 	global_position = global_position.clamp(-arena_half_size + Vector2(48, 48), arena_half_size - Vector2(48, 48))
 	_update_hp_label()
 
@@ -292,10 +294,25 @@ func _build_placeholder_visuals() -> void:
 
 	_body_sprite = get_node_or_null("BodySprite") as Sprite2D
 	if _body_sprite != null and _body_sprite.texture == null:
-		_body_sprite.texture = load("res://assets/sprites/enemies/enemy.png")
+		_body_sprite.texture = PreviewArt.texture("boar_sheet.png")
+	if _body_sprite != null:
+		_body_sprite.hframes = 2
 	_hp_label = get_node_or_null("HpLabel") as Label
 
 
+func _update_body_facing() -> void:
+	if _body_sprite == null:
+		return
+	var facing := velocity
+	if action_name == "charge_lock":
+		facing = locked_direction
+	elif action_name == "charge_dash":
+		facing = dash_direction
+	elif _player != null and is_instance_valid(_player):
+		facing = _player.global_position - global_position
+	if facing.length_squared() > 0.001:
+		_body_sprite.rotation = facing.angle() - PI
+	_body_sprite.frame = int(_action_time * 4.0) % 2
 func _make_polygon(color: Color, z: int) -> Polygon2D:
 	var poly := Polygon2D.new()
 	poly.color = color
@@ -355,7 +372,7 @@ func _update_hurt_flash(delta: float) -> void:
 		_hurt_flash = maxf(0.0, _hurt_flash - delta)
 		_body_sprite.modulate = Color(1.0, 0.72, 0.72, 1.0)
 	else:
-		_body_sprite.modulate = Color(0.92, 0.42, 0.34, 1.0)
+		_body_sprite.modulate = Color(0.88, 0.64, 0.46, 1.0)
 
 
 func _update_hp_label() -> void:

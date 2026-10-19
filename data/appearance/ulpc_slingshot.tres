@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AppearanceLayer" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/appearance/appearance_layer.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/ulpc/player/slingshot_walk.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+item_id = "ulpc_slingshot"
+layer_id = "held_weapon"
+profile_id = "ulpc_walk_v1"
+texture = ExtResource("2")
+draw_order = 16
+direction_orders = {"up": -1}

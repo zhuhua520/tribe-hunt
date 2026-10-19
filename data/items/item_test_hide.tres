@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/item_definition.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+item_id = &"item_test_hide"
+display_name = "兽皮（测试掉落）"
+description = "外围野兽被击败时掉落的测试物品。掉落规则和用途未定，只用于验证掉落物拾取与背包。"

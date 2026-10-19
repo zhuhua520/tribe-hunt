@@ -28,10 +28,19 @@ enum RarityTier {
 
 @export var weapon_id: String = ""
 @export var display_name: String = ""
+@export_multiline var description: String = ""
+@export_range(1.0, 2000.0) var projectile_speed: float = 420.0
+@export_range(0.1, 10.0) var projectile_lifetime: float = 2.0
 @export var attack_style: AttackStyle = AttackStyle.MELEE
 ## 一般适配用的武器类别标签，不是槽位规则。
 @export var category_tag: String = ""
 @export var category_label: String = ""
+## 当前单人原型的基础战斗值；与品质、成长占位无关。
+@export_range(1, 999) var damage: int = 1
+@export_range(1.0, 2000.0) var attack_range: float = 72.0
+@export_range(0.05, 10.0) var cooldown: float = 0.45
+@export_range(0.0, 1.0) var windup_seconds: float = 0.06
+@export_range(0.01, 1.0) var swing_seconds: float = 0.12
 @export var quality: QualityTier = QualityTier.UNSET
 @export var rarity: RarityTier = RarityTier.CRUDE
 ## 属性加成占位。空字典表示数值未定，预览不应用。
@@ -54,6 +63,15 @@ func attack_style_label() -> String:
 			return "远程"
 		_:
 			return "未定"
+
+
+func combat_summary() -> String:
+	var result := "伤害 %d · 间隔 %.2f秒 · 范围 %.0f" % [damage, cooldown, attack_range]
+	if attack_style == AttackStyle.MELEE:
+		result += " · 前摇 %.2f秒 · 收招 %.2f秒" % [windup_seconds, swing_seconds]
+	else:
+		result += " · 弹速 %.0f · 存续 %.1f秒" % [projectile_speed, projectile_lifetime]
+	return result
 
 
 func quality_label() -> String:

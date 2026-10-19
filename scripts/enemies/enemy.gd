@@ -1,12 +1,18 @@
 extends CharacterBody2D
+const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 ## 野兽占位：追踪玩家，接触造成伤害；可被武器击杀。
 
 signal defeated
+
+const DROP_SCENE := preload("res://scenes/exploration/world_drop.tscn")
 
 @export var move_speed: float = 120.0
 @export var contact_damage: int = 1
 @export var max_hp: int = 3
 @export var arena_half_size: Vector2 = Vector2(480, 270)
+## 可选：死亡时在原地生成的掉落物。为空则不掉落（竞技场敌人保持原行为）。
+@export var drop_item: ItemDefinition
+@export var drop_amount: int = 1
 
 var hp: int
 
@@ -15,13 +21,15 @@ var hp: int
 
 var _player: Node2D
 var _hurt_flash: float = 0.0
+var _walk_clock: float = 0.0
 
 
 func _ready() -> void:
 	add_to_group("enemies")
 	hp = max_hp
 	if sprite.texture == null:
-		sprite.texture = load("res://assets/sprites/enemies/enemy.png")
+		sprite.texture = PreviewArt.texture("boar_sheet.png")
+	sprite.hframes = 2
 	_resolve_player()
 	var stats := get_tree().get_first_node_in_group("run_stats")
 	if stats != null and stats.has_method("watch_enemy"):
@@ -44,10 +52,13 @@ func _physics_process(delta: float) -> void:
 	var to_player := _player.global_position - global_position
 	if to_player.length_squared() > 0.0001:
 		velocity = to_player.normalized() * move_speed
+		sprite.rotation = to_player.angle() - PI
 	else:
 		velocity = Vector2.ZERO
 	move_and_slide()
 	global_position = global_position.clamp(-arena_half_size, arena_half_size)
+	_walk_clock += delta
+	sprite.frame = int(_walk_clock * 5.0) % 2
 	_try_contact_damage()
 
 
@@ -60,7 +71,19 @@ func take_damage(amount: int) -> void:
 	if hp <= 0:
 		print("Enemy defeated")
 		defeated.emit()
+		_spawn_drop()
 		queue_free()
+
+
+func _spawn_drop() -> void:
+	if drop_item == null or drop_amount <= 0 or get_parent() == null:
+		return
+	var drop := DROP_SCENE.instantiate()
+	drop.item = drop_item
+	drop.amount = drop_amount
+	drop.position = position
+	# 死亡可能发生在物理回调中，新增 Area2D 要延后到回调之外。
+	get_parent().add_child.call_deferred(drop)
 
 
 func _resolve_player() -> void:

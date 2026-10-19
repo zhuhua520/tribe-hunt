@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/item_definition.gd" id="1_item"]
+
+[resource]
+script = ExtResource("1_item")
+item_id = &"item_test_material"
+display_name = "测试材料"
+description = "林地外围支路里的一次性测试拾取。用途未定，只用于验证拾取、背包与存档。"

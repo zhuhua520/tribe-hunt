@@ -1,9 +1,13 @@
 extends Control
-## 主菜单：开始远征（动态加载进入部落村落）、在线合作、创意工坊、设置、退出。
+## 主菜单：继续（有进度存档时显示，回到保存的安全点入口）、开始远征（动态加载进入部落村落）、
+## 在线合作、创意工坊、设置、退出。开始远征沿用已读取的进度，目前没有「新游戏/删除进度」。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 const SettingsStore = preload("res://scripts/save/settings_store.gd")
+const ProgressStore = preload("res://scripts/save/progress_store.gd")
 
+@onready var _continue_button: Button = $Center/Panel/Margin/VBox/ContinueButton
+@onready var _save_status_label: Label = $Center/Panel/Margin/VBox/SaveStatusLabel
 @onready var _start_button: Button = $Center/Panel/Margin/VBox/StartButton
 @onready var _online_button: Button = $Center/Panel/Margin/VBox/OnlineButton
 @onready var _workshop_button: Button = $Center/Panel/Margin/VBox/WorkshopButton
@@ -23,7 +27,13 @@ func _ready() -> void:
 	_workshop_button.pressed.connect(_on_workshop_pressed)
 	_settings_button.pressed.connect(_on_settings_pressed)
 	_quit_button.pressed.connect(_on_quit_pressed)
-	_start_button.grab_focus()
+	_continue_button.pressed.connect(_on_continue_pressed)
+	_continue_button.visible = ProgressState.has_continue()
+	_show_save_status()
+	if _continue_button.visible:
+		_continue_button.grab_focus()
+	else:
+		_start_button.grab_focus()
 	set_process(false)
 
 
@@ -81,6 +91,28 @@ func _show_loading_overlay() -> void:
 	_loading_label.add_theme_font_size_override("font_size", 24)
 	_loading_label.add_theme_color_override("font_color", Color(0.93, 0.86, 0.72, 1.0))
 	center.add_child(_loading_label)
+
+
+func _on_continue_pressed() -> void:
+	if not _loading_target.is_empty():
+		return
+	var location := ProgressState.continue_location()
+	if location.is_empty():
+		return
+	SceneFlow.go_to_entry(location.scene_path, location.entry_id)
+
+
+func _show_save_status() -> void:
+	var text := ""
+	match ProgressState.load_status:
+		ProgressStore.LoadStatus.RESTORED_FROM_BACKUP:
+			text = "主进度文件损坏或缺失，已从备份恢复。"
+		ProgressStore.LoadStatus.CORRUPT:
+			text = "进度文件无法读取，已另存为 progress.json.corrupt，从空进度开始。"
+		ProgressStore.LoadStatus.NEWER_VERSION:
+			text = "进度文件来自更新版本，本版本不读取也不会覆盖它。"
+	_save_status_label.text = text
+	_save_status_label.visible = not text.is_empty()
 
 
 func _on_online_pressed() -> void:

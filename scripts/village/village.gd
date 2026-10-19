@@ -4,14 +4,16 @@ extends Node2D
 ## - 村内设置武器店（仅边框形状占位，不弹 UI）与合成店占位（仅形状占位，不弹 UI）
 ## - 玩家走上右侧出村道路时打开出征选择 UI（左侧分类占位、右侧具体目的地出征点）
 ## - 出征选择返回时回到村落；确认出征进入战斗场景 Arena
+## - 左侧道路（OutskirtsExit）进入林地外围探索图；从外围返回时出生在 SpawnPoints/from_outskirts
+## - 村落是安全点：每次进入都把持有物、领取状态和当前入口写入进度存档
 ## - 摄像机挂在玩家身上，画面只显示镜头范围内的村落；地图大于视口
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
+const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 
 const VILLAGE_HALF_SIZE := Vector2(1600.0, 1000.0)
 const GROUND_MARGIN := Vector2(320.0, 240.0)
-const TREE_BLOCK_SIZE := 36.0
-const TREE_BLOCK_STEP := 42.0
+const TREE_BLOCK_STEP := 94.0
 const ROAD_HALF_HEIGHT := 56.0
 const ROAD_INNER_INSET := 40.0
 const ROAD_OUTER_LENGTH := 180.0
@@ -25,6 +27,8 @@ const ROAD_OUTER_LENGTH := 180.0
 @onready var _tree_hint: Label = $TreeHintLabel
 @onready var _tree_ring: Node2D = $TreeBorderRing
 @onready var _player: CharacterBody2D = $VillagePlayer
+@onready var _player_sprite: Sprite2D = $VillagePlayer/Sprite2D
+@onready var _ground_art: Sprite2D = $GroundArt
 @onready var _road_area: Area2D = $ExitRoadArea
 @onready var _expedition_overlay: Control = $UI/ExpeditionOverlay
 @onready var _confirm_button: Button = $UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/BottomBar/ConfirmButton
@@ -43,13 +47,26 @@ const ROAD_OUTER_LENGTH := 180.0
 var _module_checkboxes: Dictionary = {}
 var _selected_dest_valid: bool = true
 var _leaving: bool = false
+var _tree_texture_a: Texture2D
+var _tree_texture_b: Texture2D
 
 
 func _ready() -> void:
 	DisplayServer.window_set_title("TribeHunt - 部落村落")
+	_ground_art.texture = PreviewArt.texture("village_ground.png")
+	$VillagePlayer/Shadow.texture = PreviewArt.texture("shadow.png")
+	$WeaponShopArt/Sprite2D.texture = PreviewArt.texture("hut_weapon.png")
+	$SynthesisShopArt/Sprite2D.texture = PreviewArt.texture("hut_synthesis.png")
+	_tree_texture_a = PreviewArt.texture("tree_round.png")
+	_tree_texture_b = PreviewArt.texture("tree_tall.png")
+	var entry_id := SceneFlow.place_at_entry(_player, $SpawnPoints, &"default")
+	var saved := ProgressState.save_at_safe_point(&"village", entry_id)
+	var save_note := "进度已保存" if saved else "进度未保存（存档版本较新或写入失败）"
+	$UI/InventoryLabel.text = "%s · %s" % [ProgressState.summary_text(), save_note]
 	_layout_map()
 	_configure_camera()
 	_spawn_tree_border_blocks()
+	_spawn_village_decor()
 	_expedition_overlay.visible = false
 	_road_area.body_entered.connect(_on_exit_road_body_entered)
 	_confirm_button.pressed.connect(_on_confirm_expedition_pressed)
@@ -65,17 +82,20 @@ func _ready() -> void:
 	_on_category_selected("forest")
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if _expedition_overlay.visible or _leaving:
 		_player.velocity = Vector2.ZERO
 		return
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_player.velocity = input_vector * 240.0
 	_player.move_and_slide()
+	_update_player_sprite(input_vector, delta)
+	var min_x := -VILLAGE_HALF_SIZE.x + 24.0
 	var max_x := VILLAGE_HALF_SIZE.x - 24.0
 	if absf(_player.global_position.y) <= ROAD_HALF_HEIGHT - 12.0:
+		min_x = -VILLAGE_HALF_SIZE.x - 120.0
 		max_x = VILLAGE_HALF_SIZE.x + 120.0
-	_player.global_position.x = clampf(_player.global_position.x, -VILLAGE_HALF_SIZE.x + 24.0, max_x)
+	_player.global_position.x = clampf(_player.global_position.x, min_x, max_x)
 	_player.global_position.y = clampf(_player.global_position.y, -VILLAGE_HALF_SIZE.y + 24.0, VILLAGE_HALF_SIZE.y - 24.0)
 
 
@@ -137,33 +157,56 @@ func _place_label(label: Label, rect: Rect2) -> void:
 
 
 func _spawn_tree_border_blocks() -> void:
-	var half := TREE_BLOCK_SIZE * 0.5
-	var square := PackedVector2Array([
-		Vector2(-half, -half),
-		Vector2(half, -half),
-		Vector2(half, half),
-		Vector2(-half, half),
-	])
 	var x := -VILLAGE_HALF_SIZE.x
 	while x <= VILLAGE_HALF_SIZE.x:
-		_add_tree_block(Vector2(x, -VILLAGE_HALF_SIZE.y), square)
-		_add_tree_block(Vector2(x, VILLAGE_HALF_SIZE.y), square)
+		_add_tree_block(Vector2(x, -VILLAGE_HALF_SIZE.y))
+		_add_tree_block(Vector2(x, VILLAGE_HALF_SIZE.y))
 		x += TREE_BLOCK_STEP
 
 	var y := -VILLAGE_HALF_SIZE.y + TREE_BLOCK_STEP
 	while y <= VILLAGE_HALF_SIZE.y - TREE_BLOCK_STEP:
-		_add_tree_block(Vector2(-VILLAGE_HALF_SIZE.x, y), square)
 		if absf(y) > ROAD_HALF_HEIGHT:
-			_add_tree_block(Vector2(VILLAGE_HALF_SIZE.x, y), square)
+			_add_tree_block(Vector2(-VILLAGE_HALF_SIZE.x, y))
+			_add_tree_block(Vector2(VILLAGE_HALF_SIZE.x, y))
 		y += TREE_BLOCK_STEP
 
 
-func _add_tree_block(pos: Vector2, square: PackedVector2Array) -> void:
-	var poly := Polygon2D.new()
-	poly.position = pos
-	poly.polygon = square
-	poly.color = Color(0.18, 0.32, 0.16, 1.0)
-	_tree_ring.add_child(poly)
+func _add_tree_block(pos: Vector2) -> void:
+	var tree := Node2D.new()
+	tree.position = pos
+	var sprite := Sprite2D.new()
+	sprite.texture = _tree_texture_a if int(round(pos.x / TREE_BLOCK_STEP + pos.y / TREE_BLOCK_STEP)) % 2 == 0 else _tree_texture_b
+	sprite.position = Vector2(0.0, -48.0)
+	sprite.scale = Vector2(2.0, 2.0)
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	tree.add_child(sprite)
+	_tree_ring.add_child(tree)
+
+
+func _spawn_village_decor() -> void:
+	var positions: Array[Vector2] = [
+		Vector2(-480, 60),
+		Vector2(480, 60),
+		Vector2(-500, 270),
+		Vector2(500, 270),
+		Vector2(-300, 420),
+		Vector2(300, 420),
+	]
+	for index in positions.size():
+		var tree := Node2D.new()
+		tree.name = "VillageTree_%02d" % index
+		tree.position = positions[index]
+		var sprite := Sprite2D.new()
+		sprite.texture = _tree_texture_a if index % 2 == 0 else _tree_texture_b
+		sprite.position = Vector2(0.0, -48.0)
+		sprite.scale = Vector2(2.0, 2.0)
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		tree.add_child(sprite)
+		add_child(tree)
+
+
+func _update_player_sprite(input_vector: Vector2, delta: float) -> void:
+	_player_sprite.update_motion(input_vector, delta)
 
 
 func _on_exit_road_body_entered(body: Node) -> void:

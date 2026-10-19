@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/item_detail_popup.gd" id="1_popup"]
+
+[node name="ItemDetailPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_popup")
+
+[node name="Panel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 260.0
+offset_bottom = 120.0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="NameLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "物品名"
+
+[node name="AmountLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "数量：1"
+
+[node name="DescriptionLabel" type="Label" parent="Panel/VBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "说明"
+autowrap_mode = 3
+
+[node name="HintLabel" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "靠近后按 E 拾取"

@@ -1,4 +1,5 @@
 extends Node2D
+const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 ## 战斗场地：边界 + 读取玩家/波次信息更新窗口标题。
 
 @export var half_size: Vector2 = Vector2(1200, 800)
@@ -12,6 +13,8 @@ var _status: String = "准备狩猎"
 
 func _ready() -> void:
 	BuildRunService.begin_run()
+	_load_ground_art()
+	_spawn_field_trees()
 	if player != null and "arena_half_size" in player:
 		player.arena_half_size = half_size
 	if wave_manager != null and "arena_half_size" in wave_manager:
@@ -20,6 +23,35 @@ func _ready() -> void:
 	_configure_camera()
 	if wave_manager != null and wave_manager.has_signal("status_changed"):
 		wave_manager.status_changed.connect(_on_status_changed)
+
+
+func _load_ground_art() -> void:
+	var ground_art := get_node_or_null("GroundArt") as Sprite2D
+	if ground_art == null or ground_art.texture != null:
+		return
+	ground_art.texture = PreviewArt.texture("arena_ground.png")
+
+
+func _spawn_field_trees() -> void:
+	var tree_a := PreviewArt.texture("tree_round.png")
+	var tree_b := PreviewArt.texture("tree_tall.png")
+	var positions: Array[Vector2] = [
+		Vector2(-550, -140),
+		Vector2(550, -140),
+		Vector2(-550, 260),
+		Vector2(550, 260),
+	]
+	for index in positions.size():
+		var tree := Node2D.new()
+		tree.name = "ArenaTree_%02d" % index
+		tree.position = positions[index]
+		var sprite := Sprite2D.new()
+		sprite.texture = tree_a if index % 2 == 0 else tree_b
+		sprite.position = Vector2(0, -48)
+		sprite.scale = Vector2(2, 2)
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		tree.add_child(sprite)
+		add_child(tree)
 
 
 func _layout_field() -> void:

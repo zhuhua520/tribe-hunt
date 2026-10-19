@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration/resource_pickup.gd" id="1_pickup"]
+
+[sub_resource type="CircleShape2D" id="Circle_pickup"]
+radius = 36.0
+
+[node name="WorldDrop" type="Area2D"]
+script = ExtResource("1_pickup")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_pickup")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.72, 0.5, 0.32, 1)
+polygon = PackedVector2Array(-10, -8, 10, -8, 12, 6, -12, 6)
+
+[node name="Prompt" type="Label" parent="."]
+z_index = 5
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -16.0
+theme_override_font_sizes/font_size = 16
+text = "E 拾取"
+horizontal_alignment = 1

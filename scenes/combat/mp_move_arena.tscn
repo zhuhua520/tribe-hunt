@@ -16,14 +16,22 @@ z_index = -10
 color = Color(0.18, 0.24, 0.28, 1)
 polygon = PackedVector2Array(-480, -270, 480, -270, 480, 270, -480, 270)
 
+[node name="GroundArt" type="Sprite2D" parent="."]
+z_index = -9
+texture_filter = 1
+region_enabled = true
+region_rect = Rect2(720, 530, 960, 540)
+
 [node name="BoundsLine" type="Line2D" parent="."]
 z_index = -5
 width = 3.0
 default_color = Color(0.55, 0.72, 0.85, 1)
 
 [node name="Players" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Enemies" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="WaveDirector" type="Node" parent="."]
 script = ExtResource("2_wave")

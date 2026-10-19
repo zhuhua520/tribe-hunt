@@ -1,0 +1,1542 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+ERROR: Could not create editor data directory: C:/Users/wangy/AppData/Roaming/Godot
+   at: EditorPaths (editor/file_system/editor_paths.cpp:201)
+ERROR: Could not create editor config directory: C:/Users/wangy/AppData/Roaming/Godot
+   at: EditorPaths (editor/file_system/editor_paths.cpp:216)
+
+ERROR: Could not open 'user://' directory: 'user://'.
+   at: _get_and_create_snapshot_storage_dir (modules/objectdb_profiler/editor/objectdb_profiler_panel.cpp:157)
+ERROR: Safe save failed. This may be a permissions problem, but also may happen because you are running a paranoid antivirus. If this is the case, please switch to Windows Defender or disable the 'safe save' option in editor settings. This makes it work, but increases the risk of file corruption in a crash.
+   at: _close (drivers/windows/file_access_windows.cpp:277)
+ERROR: Cannot open directory 'C:/Users/wangy/AppData/Roaming/Godot/feature_profiles'.
+   at: _update_profile_list (editor/settings/editor_feature_profile.cpp:392)
+[   0% ] first_scan_filesystem | Started 项目初始化 (5 steps)
+[   0% ] first_scan_filesystem | 正在扫描文件结构……
+WARNING: Detected another project.godot at res://tmp/asset_source/NinjaV4_extract/NinjaAdventure. The folder will be ignored.
+   at: _should_skip_directory (editor/file_system/editor_file_system.cpp:3497)
+[  16% ] first_scan_filesystem | 正在加载全局类名……
+[  33% ] first_scan_filesystem | 正在校验 GDExtension……
+[  50% ] first_scan_filesystem | 正在创建自动加载脚本……
+[  66% ] first_scan_filesystem | 正在初始化插件……
+WARNING: Addon 'res://addons/hd2d_scene_tools/plugin.cfg' failed to load. No directory found. Removing from enabled plugins.
+   at: set_addon_plugin_enabled (editor/editor_node.cpp:4464)
+[  83% ] first_scan_filesystem | 正在启动文件扫描……
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started 正在注册全局类…… (20 steps)
+[   0% ] update_scripts_classes | AppearanceLayer
+[   4% ] update_scripts_classes | AppearanceProfile
+[   9% ] update_scripts_classes | 
+[  14% ] update_scripts_classes | WeaponDefinition
+[  19% ] update_scripts_classes | 
+[  23% ] update_scripts_classes | 
+[  28% ] update_scripts_classes | 
+[  33% ] update_scripts_classes | 
+[  38% ] update_scripts_classes | 
+[  42% ] update_scripts_classes | 
+[  47% ] update_scripts_classes | 
+[  52% ] update_scripts_classes | 
+[  57% ] update_scripts_classes | 
+[  61% ] update_scripts_classes | 
+[  66% ] update_scripts_classes | 
+[  71% ] update_scripts_classes | 
+[  76% ] update_scripts_classes | 
+[  80% ] update_scripts_classes | 
+[  85% ] update_scripts_classes | 
+[  90% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] _update_scan_actions | Started 正在扫描动作…… (321 steps)
+[   0% ] _update_scan_actions | mcp_panel.csv
+[   0% ] _update_scan_actions | tool_descriptions.csv
+[   0% ] _update_scan_actions | arena_ground.png
+[   0% ] _update_scan_actions | boar_sheet.png
+[   1% ] _update_scan_actions | club_in_hand.png
+[   1% ] _update_scan_actions | floor_atlas.png
+[   1% ] _update_scan_actions | hut_synthesis.png
+[   2% ] _update_scan_actions | hut_weapon.png
+[   2% ] _update_scan_actions | player_sheet.png
+[   2% ] _update_scan_actions | shadow.png
+[   3% ] _update_scan_actions | tree_round.png
+[   3% ] _update_scan_actions | tree_tall.png
+[   3% ] _update_scan_actions | village_atlas.png
+[   4% ] _update_scan_actions | village_ground.png
+[   4% ] _update_scan_actions | ._collisions.png
+[   4% ] _update_scan_actions | ._exit-open.png
+[   4% ] _update_scan_actions | ._objects.png
+[   5% ] _update_scan_actions | ._tileset.png
+[   5% ] _update_scan_actions | ._ancient_path.mp3
+[   5% ] _update_scan_actions | ._ancient_path.ogg
+[   6% ] _update_scan_actions | ._credits-text.png
+[   6% ] _update_scan_actions | ._game-over.png
+[   6% ] _update_scan_actions | ._instructions.png
+[   7% ] _update_scan_actions | ._loading.png
+[   7% ] _update_scan_actions | ._press-enter-text.png
+[   7% ] _update_scan_actions | ._title-screen-bg.png
+[   8% ] _update_scan_actions | ._title-screen.png
+[   8% ] _update_scan_actions | ._tileset.png
+[   8% ] _update_scan_actions | ._arrow.png
+[   9% ] _update_scan_actions | ._bush-tall.png
+[   9% ] _update_scan_actions | ._bush.png
+[   9% ] _update_scan_actions | ._rock-monument.png
+[   9% ] _update_scan_actions | ._rock.png
+[  10% ] _update_scan_actions | ._sign.png
+[  10% ] _update_scan_actions | ._tree-dried.png
+[  10% ] _update_scan_actions | ._tree-orange.png
+[  11% ] _update_scan_actions | ._tree-pink.png
+[  11% ] _update_scan_actions | ._trunk.png
+[  11% ] _update_scan_actions | ._waterfall-1.png
+[  12% ] _update_scan_actions | ._waterfall-2.png
+[  12% ] _update_scan_actions | ._waterfall-3.png
+[  12% ] _update_scan_actions | ._objects.png
+[  13% ] _update_scan_actions | ._tileset-sliced.png
+[  13% ] _update_scan_actions | ._tileset.png
+[  13% ] _update_scan_actions | ._hero-attack-back-1.png
+[  13% ] _update_scan_actions | ._hero-attack-back-2.png
+[  14% ] _update_scan_actions | ._hero-attack-back-3.png
+[  14% ] _update_scan_actions | ._hero-attack-front-1.png
+[  14% ] _update_scan_actions | ._hero-attack-front-2.png
+[  15% ] _update_scan_actions | ._hero-attack-front-3.png
+[  15% ] _update_scan_actions | ._hero-attack-side-1.png
+[  15% ] _update_scan_actions | ._hero-attack-side-2.png
+[  16% ] _update_scan_actions | ._hero-attack-side-3.png
+[  16% ] _update_scan_actions | ._hero-attack-back-weapon-1.png
+[  16% ] _update_scan_actions | ._hero-attack-back-weapon-2.png
+[  17% ] _update_scan_actions | ._hero-attack-back-weapon-3.png
+[  17% ] _update_scan_actions | ._hero-attack-front-weapon-1.png
+[  17% ] _update_scan_actions | ._hero-attack-front-weapon-2.png
+[  18% ] _update_scan_actions | ._hero-attack-front-weapon-3.png
+[  18% ] _update_scan_actions | ._hero-attack-side-weapon-1.png
+[  18% ] _update_scan_actions | ._hero-attack-side-weapon-2.png
+[  18% ] _update_scan_actions | ._hero-attack-side-weapon-3.png
+[  19% ] _update_scan_actions | ._hero-idle-back.png
+[  19% ] _update_scan_actions | ._hero-idle-front.png
+[  19% ] _update_scan_actions | ._hero-idle-side.png
+[  20% ] _update_scan_actions | ._hero-walk-back-1.png
+[  20% ] _update_scan_actions | ._hero-walk-back-2.png
+[  20% ] _update_scan_actions | ._hero-walk-back-3.png
+[  21% ] _update_scan_actions | ._hero-walk-back-4.png
+[  21% ] _update_scan_actions | ._hero-walk-back-5.png
+[  21% ] _update_scan_actions | ._hero-walk-back-6.png
+[  22% ] _update_scan_actions | ._hero-walk-front-1.png
+[  22% ] _update_scan_actions | ._hero-walk-front-2.png
+[  22% ] _update_scan_actions | ._hero-walk-front-3.png
+[  22% ] _update_scan_actions | ._hero-walk-front-4.png
+[  23% ] _update_scan_actions | ._hero-walk-front-5.png
+[  23% ] _update_scan_actions | ._hero-walk-front-6.png
+[  23% ] _update_scan_actions | ._hero-walk-side-1.png
+[  24% ] _update_scan_actions | ._hero-walk-side-2.png
+[  24% ] _update_scan_actions | ._hero-walk-side-3.png
+[  24% ] _update_scan_actions | ._hero-walk-side-4.png
+[  25% ] _update_scan_actions | ._hero-walk-side-5.png
+[  25% ] _update_scan_actions | ._hero-walk-side-6.png
+[  25% ] _update_scan_actions | ._coin-1.png
+[  26% ] _update_scan_actions | ._coin-2.png
+[  26% ] _update_scan_actions | ._coin-3.png
+[  26% ] _update_scan_actions | ._coin-4.png
+[  27% ] _update_scan_actions | ._enemy-death-1.png
+[  27% ] _update_scan_actions | ._enemy-death-2.png
+[  27% ] _update_scan_actions | ._enemy-death-3.png
+[  27% ] _update_scan_actions | ._enemy-death-4.png
+[  28% ] _update_scan_actions | ._enemy-death-5.png
+[  28% ] _update_scan_actions | ._enemy-death-6.png
+[  28% ] _update_scan_actions | ._gem-1.png
+[  29% ] _update_scan_actions | ._gem-2.png
+[  29% ] _update_scan_actions | ._gem-3.png
+[  29% ] _update_scan_actions | ._gem-4.png
+[  30% ] _update_scan_actions | ._hearts-1.png
+[  30% ] _update_scan_actions | ._hearts-2.png
+[  30% ] _update_scan_actions | ._arrow.png
+[  31% ] _update_scan_actions | ._mole-idle-back.png
+[  31% ] _update_scan_actions | ._mole-idle-front.png
+[  31% ] _update_scan_actions | ._mole-idle-side.png
+[  31% ] _update_scan_actions | ._mole-walk-back-1.png
+[  32% ] _update_scan_actions | ._mole-walk-back-2.png
+[  32% ] _update_scan_actions | ._mole-walk-back-3.png
+[  32% ] _update_scan_actions | ._mole-walk-back-4.png
+[  33% ] _update_scan_actions | ._mole-walk-front-1.png
+[  33% ] _update_scan_actions | ._mole-walk-front-2.png
+[  33% ] _update_scan_actions | ._mole-walk-front-3.png
+[  34% ] _update_scan_actions | ._mole-walk-front-4.png
+[  34% ] _update_scan_actions | ._mole-walk-side-1.png
+[  34% ] _update_scan_actions | ._mole-walk-side-2.png
+[  35% ] _update_scan_actions | ._mole-walk-side-3.png
+[  35% ] _update_scan_actions | ._mole-walk-side-4.png
+[  35% ] _update_scan_actions | ._treant-idle-back.png
+[  36% ] _update_scan_actions | ._treant-idle-front.png
+[  36% ] _update_scan_actions | ._treant-idle-side.png
+[  36% ] _update_scan_actions | ._treant-walk-back-1.png
+[  36% ] _update_scan_actions | ._treant-walk-back-2.png
+[  37% ] _update_scan_actions | ._treant-walk-back-3.png
+[  37% ] _update_scan_actions | ._treant-walk-back-4.png
+[  37% ] _update_scan_actions | ._treant-walk-front-1.png
+[  38% ] _update_scan_actions | ._treant-walk-front-2.png
+[  38% ] _update_scan_actions | ._treant-walk-front-3.png
+[  38% ] _update_scan_actions | ._treant-walk-front-4.png
+[  39% ] _update_scan_actions | ._treant-walk-side-1.png
+[  39% ] _update_scan_actions | ._treant-walk-side-2.png
+[  39% ] _update_scan_actions | ._treant-walk-side-3.png
+[  40% ] _update_scan_actions | ._treant-walk-side-4.png
+[  40% ] _update_scan_actions | ._hero-attack-back.png
+[  40% ] _update_scan_actions | ._hero-attack-front.png
+[  40% ] _update_scan_actions | ._hero-attack-side.png
+[  41% ] _update_scan_actions | ._hero-attack-back-weapon.png
+[  41% ] _update_scan_actions | ._hero-attack-front-weapon.png
+[  41% ] _update_scan_actions | ._hero-attack-side-weapon.png
+[  42% ] _update_scan_actions | ._hero-idle-back.png
+[  42% ] _update_scan_actions | ._hero-idle-front.png
+[  42% ] _update_scan_actions | ._hero-idle-side.png
+[  43% ] _update_scan_actions | ._hero-back-walk.png
+[  43% ] _update_scan_actions | ._hero-walk-front.png
+[  43% ] _update_scan_actions | ._hero-walk-side.png
+[  44% ] _update_scan_actions | ._coin.png
+[  44% ] _update_scan_actions | ._enemy-death.png
+[  44% ] _update_scan_actions | ._gem.png
+[  45% ] _update_scan_actions | ._mole-idle-back.png
+[  45% ] _update_scan_actions | ._mole-idle-front.png
+[  45% ] _update_scan_actions | ._mole-idle-side.png
+[  45% ] _update_scan_actions | ._mole-walk-back.png
+[  46% ] _update_scan_actions | ._mole-walk-front.png
+[  46% ] _update_scan_actions | ._mole-walk-side.png
+[  46% ] _update_scan_actions | ._treant-idle-back.png
+[  47% ] _update_scan_actions | ._treant-idle-front.png
+[  47% ] _update_scan_actions | ._treant-idle-side.png
+[  47% ] _update_scan_actions | ._treant-walk-back.png
+[  48% ] _update_scan_actions | ._treant-walk-front.png
+[  48% ] _update_scan_actions | ._treant-walk-side.png
+[  48% ] _update_scan_actions | atlas-props.png
+[  49% ] _update_scan_actions | atlas.png
+[  49% ] _update_scan_actions | collisions.png
+[  49% ] _update_scan_actions | exit-open.png
+[  50% ] _update_scan_actions | objects.png
+[  50% ] _update_scan_actions | tileset.png
+[  50% ] _update_scan_actions | ancient_path.mp3
+[  50% ] _update_scan_actions | ancient_path.ogg
+[  51% ] _update_scan_actions | enemy-death.mp3
+[  51% ] _update_scan_actions | enemy-death.ogg
+[  51% ] _update_scan_actions | hurt.mp3
+[  52% ] _update_scan_actions | hurt.ogg
+[  52% ] _update_scan_actions | item.mp3
+[  52% ] _update_scan_actions | item.ogg
+[  53% ] _update_scan_actions | slash.mp3
+[  53% ] _update_scan_actions | slash.ogg
+[  53% ] _update_scan_actions | credits-text.png
+[  54% ] _update_scan_actions | game-over.png
+[  54% ] _update_scan_actions | instructions.png
+[  54% ] _update_scan_actions | loading.png
+[  54% ] _update_scan_actions | press-enter-text.png
+[  55% ] _update_scan_actions | title-screen-bg.png
+[  55% ] _update_scan_actions | title-screen.png
+[  55% ] _update_scan_actions | tileset.png
+[  56% ] _update_scan_actions | arrow.png
+[  56% ] _update_scan_actions | bush-tall.png
+[  56% ] _update_scan_actions | bush.png
+[  57% ] _update_scan_actions | rock-monument.png
+[  57% ] _update_scan_actions | rock.png
+[  57% ] _update_scan_actions | sign.png
+[  58% ] _update_scan_actions | tree-dried.png
+[  58% ] _update_scan_actions | tree-orange.png
+[  58% ] _update_scan_actions | tree-pink.png
+[  59% ] _update_scan_actions | trunk.png
+[  59% ] _update_scan_actions | waterfall-1.png
+[  59% ] _update_scan_actions | waterfall-2.png
+[  59% ] _update_scan_actions | waterfall-3.png
+[  60% ] _update_scan_actions | objects.png
+[  60% ] _update_scan_actions | tileset-sliced.png
+[  60% ] _update_scan_actions | tileset.png
+[  61% ] _update_scan_actions | hero-attack-back-1.png
+[  61% ] _update_scan_actions | hero-attack-back-2.png
+[  61% ] _update_scan_actions | hero-attack-back-3.png
+[  62% ] _update_scan_actions | hero-attack-front-1.png
+[  62% ] _update_scan_actions | hero-attack-front-2.png
+[  62% ] _update_scan_actions | hero-attack-front-3.png
+[  63% ] _update_scan_actions | hero-attack-side-1.png
+[  63% ] _update_scan_actions | hero-attack-side-2.png
+[  63% ] _update_scan_actions | hero-attack-side-3.png
+[  63% ] _update_scan_actions | hero-attack-back-weapon-1.png
+[  64% ] _update_scan_actions | hero-attack-back-weapon-2.png
+[  64% ] _update_scan_actions | hero-attack-back-weapon-3.png
+[  64% ] _update_scan_actions | hero-attack-front-weapon-1.png
+[  65% ] _update_scan_actions | hero-attack-front-weapon-2.png
+[  65% ] _update_scan_actions | hero-attack-front-weapon-3.png
+[  65% ] _update_scan_actions | hero-attack-side-weapon-1.png
+[  66% ] _update_scan_actions | hero-attack-side-weapon-2.png
+[  66% ] _update_scan_actions | hero-attack-side-weapon-3.png
+[  66% ] _update_scan_actions | hero-idle-back.png
+[  67% ] _update_scan_actions | hero-idle-front.png
+[  67% ] _update_scan_actions | hero-idle-side.png
+[  67% ] _update_scan_actions | hero-walk-back-1.png
+[  68% ] _update_scan_actions | hero-walk-back-2.png
+[  68% ] _update_scan_actions | hero-walk-back-3.png
+[  68% ] _update_scan_actions | hero-walk-back-4.png
+[  68% ] _update_scan_actions | hero-walk-back-5.png
+[  69% ] _update_scan_actions | hero-walk-back-6.png
+[  69% ] _update_scan_actions | hero-walk-front-1.png
+[  69% ] _update_scan_actions | hero-walk-front-2.png
+[  70% ] _update_scan_actions | hero-walk-front-3.png
+[  70% ] _update_scan_actions | hero-walk-front-4.png
+[  70% ] _update_scan_actions | hero-walk-front-5.png
+[  71% ] _update_scan_actions | hero-walk-front-6.png
+[  71% ] _update_scan_actions | hero-walk-side-1.png
+[  71% ] _update_scan_actions | hero-walk-side-2.png
+[  72% ] _update_scan_actions | hero-walk-side-3.png
+[  72% ] _update_scan_actions | hero-walk-side-4.png
+[  72% ] _update_scan_actions | hero-walk-side-5.png
+[  72% ] _update_scan_actions | hero-walk-side-6.png
+[  73% ] _update_scan_actions | coin-1.png
+[  73% ] _update_scan_actions | coin-2.png
+[  73% ] _update_scan_actions | coin-3.png
+[  74% ] _update_scan_actions | coin-4.png
+[  74% ] _update_scan_actions | enemy-death-1.png
+[  74% ] _update_scan_actions | enemy-death-2.png
+[  75% ] _update_scan_actions | enemy-death-3.png
+[  75% ] _update_scan_actions | enemy-death-4.png
+[  75% ] _update_scan_actions | enemy-death-5.png
+[  76% ] _update_scan_actions | enemy-death-6.png
+[  76% ] _update_scan_actions | gem-1.png
+[  76% ] _update_scan_actions | gem-2.png
+[  77% ] _update_scan_actions | gem-3.png
+[  77% ] _update_scan_actions | gem-4.png
+[  77% ] _update_scan_actions | hearts-1.png
+[  77% ] _update_scan_actions | hearts-2.png
+[  78% ] _update_scan_actions | arrow.png
+[  78% ] _update_scan_actions | mole-idle-back.png
+[  78% ] _update_scan_actions | mole-idle-front.png
+[  79% ] _update_scan_actions | mole-idle-side.png
+[  79% ] _update_scan_actions | mole-walk-back-1.png
+[  79% ] _update_scan_actions | mole-walk-back-2.png
+[  80% ] _update_scan_actions | mole-walk-back-3.png
+[  80% ] _update_scan_actions | mole-walk-back-4.png
+[  80% ] _update_scan_actions | mole-walk-front-1.png
+[  81% ] _update_scan_actions | mole-walk-front-2.png
+[  81% ] _update_scan_actions | mole-walk-front-3.png
+[  81% ] _update_scan_actions | mole-walk-front-4.png
+[  81% ] _update_scan_actions | mole-walk-side-1.png
+[  82% ] _update_scan_actions | mole-walk-side-2.png
+[  82% ] _update_scan_actions | mole-walk-side-3.png
+[  82% ] _update_scan_actions | mole-walk-side-4.png
+[  83% ] _update_scan_actions | treant-idle-back.png
+[  83% ] _update_scan_actions | treant-idle-front.png
+[  83% ] _update_scan_actions | treant-idle-side.png
+[  84% ] _update_scan_actions | treant-walk-back-1.png
+[  84% ] _update_scan_actions | treant-walk-back-2.png
+[  84% ] _update_scan_actions | treant-walk-back-3.png
+[  85% ] _update_scan_actions | treant-walk-back-4.png
+[  85% ] _update_scan_actions | treant-walk-front-1.png
+[  85% ] _update_scan_actions | treant-walk-front-2.png
+[  86% ] _update_scan_actions | treant-walk-front-3.png
+[  86% ] _update_scan_actions | treant-walk-front-4.png
+[  86% ] _update_scan_actions | treant-walk-side-1.png
+[  86% ] _update_scan_actions | treant-walk-side-2.png
+[  87% ] _update_scan_actions | treant-walk-side-3.png
+[  87% ] _update_scan_actions | treant-walk-side-4.png
+[  87% ] _update_scan_actions | hero-attack-back.png
+[  88% ] _update_scan_actions | hero-attack-front.png
+[  88% ] _update_scan_actions | hero-attack-side.png
+[  88% ] _update_scan_actions | hero-attack-back-weapon.png
+[  89% ] _update_scan_actions | hero-attack-front-weapon.png
+[  89% ] _update_scan_actions | hero-attack-side-weapon.png
+[  89% ] _update_scan_actions | hero-idle-back.png
+[  90% ] _update_scan_actions | hero-idle-front.png
+[  90% ] _update_scan_actions | hero-idle-side.png
+[  90% ] _update_scan_actions | hero-back-walk.png
+[  90% ] _update_scan_actions | hero-walk-front.png
+[  91% ] _update_scan_actions | hero-walk-side.png
+[  91% ] _update_scan_actions | coin.png
+[  91% ] _update_scan_actions | enemy-death.png
+[  92% ] _update_scan_actions | gem.png
+[  92% ] _update_scan_actions | mole-idle-back.png
+[  92% ] _update_scan_actions | mole-idle-front.png
+[  93% ] _update_scan_actions | mole-idle-side.png
+[  93% ] _update_scan_actions | mole-walk-back.png
+[  93% ] _update_scan_actions | mole-walk-front.png
+[  94% ] _update_scan_actions | mole-walk-side.png
+[  94% ] _update_scan_actions | treant-idle-back.png
+[  94% ] _update_scan_actions | treant-idle-front.png
+[  95% ] _update_scan_actions | treant-idle-side.png
+[  95% ] _update_scan_actions | treant-walk-back.png
+[  95% ] _update_scan_actions | treant-walk-front.png
+[  95% ] _update_scan_actions | treant-walk-side.png
+[  96% ] _update_scan_actions | borrowed_preview_contact.png
+[  96% ] _update_scan_actions | floor_candidates.png
+[  96% ] _update_scan_actions | floor_grid.png
+[  97% ] _update_scan_actions | floor_sheet_preview.png
+[  97% ] _update_scan_actions | ninja_sheet_preview.png
+[  97% ] _update_scan_actions | pig_sheet_preview.png
+[  98% ] _update_scan_actions | preview_arena.png
+[  98% ] _update_scan_actions | preview_village.png
+[  98% ] _update_scan_actions | village_grid.png
+[  99% ] _update_scan_actions | village_sheet_preview.png
+[  99% ] _update_scan_actions | weapons_preview.png
+[ DONE ] _update_scan_actions
+
+[   0% ] reimport | Started 正在导入或重新导入资产 (130 steps)
+[   0% ] reimport | 正在准备重新导入文件……
+[   0% ] reimport | 正在准备重新导入文件……
+[   1% ] reimport | 正在准备重新导入文件……
+[   2% ] reimport | 正在准备重新导入文件……
+[   3% ] reimport | 正在准备重新导入文件……
+[   3% ] reimport | 正在准备重新导入文件……
+[   4% ] reimport | 正在准备重新导入文件……
+[   5% ] reimport | 正在准备重新导入文件……
+[   6% ] reimport | 正在准备重新导入文件……
+[   6% ] reimport | 正在准备重新导入文件……
+[   7% ] reimport | 正在准备重新导入文件……
+[   8% ] reimport | 正在准备重新导入文件……
+[   9% ] reimport | 正在准备重新导入文件……
+[   9% ] reimport | 正在准备重新导入文件……
+[  10% ] reimport | 正在准备重新导入文件……
+[  11% ] reimport | 正在准备重新导入文件……
+[  12% ] reimport | 正在准备重新导入文件……
+[  12% ] reimport | 正在准备重新导入文件……
+[  13% ] reimport | 正在准备重新导入文件……
+[  14% ] reimport | 正在准备重新导入文件……
+[  15% ] reimport | 正在准备重新导入文件……
+[  16% ] reimport | 正在准备重新导入文件……
+[  16% ] reimport | 正在准备重新导入文件……
+[  17% ] reimport | 正在准备重新导入文件……
+[  18% ] reimport | 正在准备重新导入文件……
+[  19% ] reimport | 正在准备重新导入文件……
+[  19% ] reimport | 正在准备重新导入文件……
+[  20% ] reimport | 正在准备重新导入文件……
+[  21% ] reimport | 正在准备重新导入文件……
+[  22% ] reimport | 正在准备重新导入文件……
+[  22% ] reimport | 正在准备重新导入文件……
+[  23% ] reimport | 正在准备重新导入文件……
+[  24% ] reimport | 正在准备重新导入文件……
+[  25% ] reimport | 正在准备重新导入文件……
+[  25% ] reimport | 正在准备重新导入文件……
+[  26% ] reimport | 正在准备重新导入文件……
+[  27% ] reimport | 正在准备重新导入文件……
+[  28% ] reimport | 正在准备重新导入文件……
+[  29% ] reimport | 正在准备重新导入文件……
+[  29% ] reimport | 正在准备重新导入文件……
+[  30% ] reimport | 正在准备重新导入文件……
+[  31% ] reimport | 正在准备重新导入文件……
+[  32% ] reimport | 正在准备重新导入文件……
+[  32% ] reimport | 正在准备重新导入文件……
+[  33% ] reimport | 正在准备重新导入文件……
+[  34% ] reimport | 正在准备重新导入文件……
+[  35% ] reimport | 正在准备重新导入文件……
+[  35% ] reimport | 正在准备重新导入文件……
+[  36% ] reimport | 正在准备重新导入文件……
+[  37% ] reimport | 正在准备重新导入文件……
+[  38% ] reimport | 正在准备重新导入文件……
+[  38% ] reimport | 正在准备重新导入文件……
+[  39% ] reimport | 正在准备重新导入文件……
+[  40% ] reimport | 正在准备重新导入文件……
+[  41% ] reimport | 正在准备重新导入文件……
+[  41% ] reimport | 正在准备重新导入文件……
+[  42% ] reimport | 正在准备重新导入文件……
+[  43% ] reimport | 正在准备重新导入文件……
+[  44% ] reimport | 正在准备重新导入文件……
+[  45% ] reimport | 正在准备重新导入文件……
+[  45% ] reimport | 正在准备重新导入文件……
+[  46% ] reimport | 正在准备重新导入文件……
+[  47% ] reimport | 正在准备重新导入文件……
+[  48% ] reimport | 正在准备重新导入文件……
+[  48% ] reimport | 正在准备重新导入文件……
+[  49% ] reimport | 正在准备重新导入文件……
+[  50% ] reimport | 正在准备重新导入文件……
+[  51% ] reimport | 正在准备重新导入文件……
+[  51% ] reimport | 正在准备重新导入文件……
+[  52% ] reimport | 正在准备重新导入文件……
+[  53% ] reimport | 正在准备重新导入文件……
+[  54% ] reimport | 正在准备重新导入文件……
+[  54% ] reimport | 正在准备重新导入文件……
+[  55% ] reimport | 正在准备重新导入文件……
+[  56% ] reimport | 正在准备重新导入文件……
+[  57% ] reimport | 正在准备重新导入文件……
+[  58% ] reimport | 正在准备重新导入文件……
+[  58% ] reimport | 正在准备重新导入文件……
+[  59% ] reimport | 正在准备重新导入文件……
+[  60% ] reimport | 正在准备重新导入文件……
+[  61% ] reimport | 正在准备重新导入文件……
+[  61% ] reimport | 正在准备重新导入文件……
+[  62% ] reimport | 正在准备重新导入文件……
+[  63% ] reimport | 正在准备重新导入文件……
+[  64% ] reimport | 正在准备重新导入文件……
+[  64% ] reimport | 正在准备重新导入文件……
+[  65% ] reimport | 正在准备重新导入文件……
+[  66% ] reimport | 正在准备重新导入文件……
+[  67% ] reimport | 正在准备重新导入文件……
+[  67% ] reimport | 正在准备重新导入文件……
+[  68% ] reimport | 正在准备重新导入文件……
+[  69% ] reimport | 正在准备重新导入文件……
+[  70% ] reimport | 正在准备重新导入文件……
+[  70% ] reimport | 正在准备重新导入文件……
+[  71% ] reimport | 正在准备重新导入文件……
+[  72% ] reimport | 正在准备重新导入文件……
+[  73% ] reimport | 正在准备重新导入文件……
+[  74% ] reimport | 正在准备重新导入文件……
+[  74% ] reimport | 正在准备重新导入文件……
+[  75% ] reimport | 正在准备重新导入文件……
+[  76% ] reimport | 正在准备重新导入文件……
+[  77% ] reimport | 正在准备重新导入文件……
+[  77% ] reimport | 正在准备重新导入文件……
+[  78% ] reimport | 正在准备重新导入文件……
+[  79% ] reimport | 正在准备重新导入文件……
+[  80% ] reimport | 正在准备重新导入文件……
+[  80% ] reimport | 正在准备重新导入文件……
+[  81% ] reimport | 正在准备重新导入文件……
+[  82% ] reimport | 正在准备重新导入文件……
+[  83% ] reimport | 正在准备重新导入文件……
+[  83% ] reimport | 正在准备重新导入文件……
+[  84% ] reimport | 正在准备重新导入文件……
+[  85% ] reimport | 正在准备重新导入文件……
+[  86% ] reimport | 正在准备重新导入文件……
+[  87% ] reimport | 正在准备重新导入文件……
+[  87% ] reimport | 正在准备重新导入文件……
+[  88% ] reimport | 正在准备重新导入文件……
+[  89% ] reimport | 正在准备重新导入文件……
+[  90% ] reimport | 正在准备重新导入文件……
+[  90% ] reimport | 正在准备重新导入文件……
+[  91% ] reimport | 正在准备重新导入文件……
+[  92% ] reimport | 正在准备重新导入文件……
+[  93% ] reimport | 正在准备重新导入文件……
+[  93% ] reimport | 正在准备重新导入文件……
+[  94% ] reimport | 正在准备重新导入文件……
+[  95% ] reimport | 正在准备重新导入文件……
+[  96% ] reimport | 正在准备重新导入文件……
+[  96% ] reimport | 正在准备重新导入文件……
+[  97% ] reimport | 正在准备重新导入文件……
+[  98% ] reimport | 正在准备重新导入文件……
+[   0% ] reimport | 正在执行重新导入的前置操作……
+[   0% ] reimport | ._hero-attack-back.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-2.png'.
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: load_image (core/io/image_loader.cpp:102)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack/._hero-attack-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-4.png'.
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-3.png'.
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/idle/._treant-idle-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/idle/._treant-idle-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-4.png'.
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-3.png'.
+WARNING: Not a PNG file
+   at: load_image (core/io/image_loader.cpp:102)
+   at: load_image (core/io/image_loader.cpp:102)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/idle/._treant-idle-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack/._hero-attack-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   0% ] reimport | ._treant-walk-side-4.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   1% ] reimport | ._treant-walk-side-3.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   2% ] reimport | ._treant-walk-side-2.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/idle/._treant-idle-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   3% ] reimport | ._treant-walk-side-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[   3% ] reimport | ._treant-walk-front-4.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[   4% ] reimport | ._treant-walk-front-3.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/idle/._treant-idle-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   5% ] reimport | ._treant-walk-front-2.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[   6% ] reimport | ._treant-walk-front-1.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/idle/._mole-idle-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/idle/._mole-idle-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   6% ] reimport | ._treant-walk-back-4.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/idle/._mole-idle-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/._arrow.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   7% ] reimport | ._treant-walk-back-3.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   8% ] reimport | ._treant-walk-back-2.png
+[   9% ] reimport | ._treant-walk-back-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-side/._treant-walk-side-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[   9% ] reimport | ._treant-idle-side.png
+[  10% ] reimport | ._treant-idle-front.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/idle/._treant-idle-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  11% ] reimport | ._treant-idle-back.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-back/._treant-walk-back-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  12% ] reimport | ._mole-walk-side-4.png
+[  12% ] reimport | ._mole-walk-side-3.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  13% ] reimport | ._mole-walk-side-2.png
+[  14% ] reimport | ._mole-walk-side-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-side/._mole-walk-side-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  15% ] reimport | ._mole-walk-front-4.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-front/._mole-walk-front-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  16% ] reimport | ._mole-walk-front-3.png
+[  16% ] reimport | ._mole-walk-front-2.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  17% ] reimport | ._mole-walk-front-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/treant/walk/treant-walk-front/._treant-walk-front-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  18% ] reimport | ._mole-walk-back-4.png
+[  19% ] reimport | ._mole-walk-back-3.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/idle/._treant-idle-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/walk/._treant-walk-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/walk/._treant-walk-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/walk/._treant-walk-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/idle/._treant-idle-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/walk/._mole-walk-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/walk/._mole-walk-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/walk/._mole-walk-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/idle/._treant-idle-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack/._hero-attack-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  19% ] reimport | ._mole-walk-back-2.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  20% ] reimport | ._mole-walk-back-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/idle/._mole-idle-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  21% ] reimport | ._mole-idle-side.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/walk/mole-walk-back/._mole-walk-back-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  22% ] reimport | ._mole-idle-front.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/idle/._mole-idle-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  22% ] reimport | ._mole-idle-back.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack/._hero-attack-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/._arrow.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/mole/idle/._mole-idle-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+[  23% ] reimport | ._arrow.png
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  24% ] reimport | preview_village.png
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack-weapon/._hero-attack-front-weapon.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack-weapon/._hero-attack-side-weapon.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack-weapon/._hero-attack-back-weapon.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/idle/._hero-idle-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/idle/._hero-idle-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/idle/._hero-idle-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/idle/._treant-idle-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  25% ] reimport | preview_arena.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/walk/._hero-back-walk.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/walk/._treant-walk-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  25% ] reimport | objects.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/walk/._hero-walk-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/walk/._treant-walk-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  26% ] reimport | exit-open.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/walk/._mole-walk-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  27% ] reimport | collisions.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/idle/._treant-idle-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  28% ] reimport | atlas.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/walk/._hero-walk-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  29% ] reimport | atlas-props.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/misc/._coin.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/walk/._mole-walk-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack/._hero-attack-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  29% ] reimport | ._treant-walk-side.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  30% ] reimport | ._treant-walk-front.png
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/misc/._enemy-death.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/walk/._mole-walk-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/walk/._treant-walk-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/treant/idle/._treant-idle-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  31% ] reimport | ._treant-walk-back.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  32% ] reimport | ._treant-idle-side.png
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/misc/._gem.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  32% ] reimport | ._treant-idle-front.png
+[  33% ] reimport | ._treant-idle-back.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/idle/._mole-idle-back.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/idle/._mole-idle-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._tree-orange.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/idle/._mole-idle-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack/._hero-attack-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  34% ] reimport | ._mole-walk-side.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/idle/._hero-idle-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[  35% ] reimport | ._mole-walk-front.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._tree-dried.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack-weapon/._hero-attack-back-weapon.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  35% ] reimport | ._mole-walk-back.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack-weapon/._hero-attack-front-weapon.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[  36% ] reimport | ._hero-attack-front.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._sign.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  37% ] reimport | ._hero-attack-side.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/attack-weapon/._hero-attack-side-weapon.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/idle/._hero-idle-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  38% ] reimport | ._hero-attack-back-weapon.png
+[  38% ] reimport | ._hero-attack-front-weapon.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/idle/._hero-idle-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  39% ] reimport | ._hero-attack-side-weapon.png
+[  40% ] reimport | ._hero-idle-back.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._rock.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._rock-monument.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._bush-tall.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+[  41% ] reimport | ._hero-idle-front.png
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/GIFS/sprites/Misc/._arrow.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._bush.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/walk/._hero-back-walk.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  41% ] reimport | ._hero-idle-side.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/GIFS/environment/._tileset.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  42% ] reimport | ._hero-back-walk.png
+[  43% ] reimport | ._hero-walk-front.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._title-screen.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/walk/._hero-walk-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._title-screen-bg.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  44% ] reimport | ._hero-walk-side.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._press-enter-text.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/hero/walk/._hero-walk-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[  45% ] reimport | ._coin.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._instructions.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/misc/._coin.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  45% ] reimport | ._enemy-death.png
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._loading.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._game-over.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._tileset.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._credits-text.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._objects.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._exit-open.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/misc/._enemy-death.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  46% ] reimport | ._gem.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/misc/._gem.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  47% ] reimport | ._mole-idle-back.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/idle/._mole-idle-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  48% ] reimport | ._mole-idle-front.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._collisions.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/idle/._mole-idle-back.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  48% ] reimport | ._mole-idle-side.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/spritesheets/mole/idle/._mole-idle-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  49% ] reimport | ._tree-orange.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._tree-orange.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  50% ] reimport | ._tree-dried.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._sign.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  51% ] reimport | ._sign.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._tree-dried.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  51% ] reimport | ._rock.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/GIFS/sprites/Misc/._arrow.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  52% ] reimport | ._rock-monument.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/GIFS/environment/._tileset.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  53% ] reimport | ._bush.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._bush-tall.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  54% ] reimport | ._bush-tall.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._rock.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  54% ] reimport | ._arrow.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._rock-monument.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  55% ] reimport | ._tileset.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._bush.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  56% ] reimport | ._title-screen.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/hearts/._hearts-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._title-screen-bg.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  57% ] reimport | ._title-screen-bg.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._title-screen.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  58% ] reimport | ._press-enter-text.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._tileset.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  58% ] reimport | ._loading.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/hearts/._hearts-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._objects.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  59% ] reimport | ._instructions.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._press-enter-text.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  60% ] reimport | ._game-over.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._instructions.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  61% ] reimport | ._credits-text.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._exit-open.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  61% ] reimport | ._tileset.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._credits-text.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._game-over.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  62% ] reimport | ._objects.png
+[  63% ] reimport | ._exit-open.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/environment/._collisions.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  64% ] reimport | ._collisions.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/Demo/assets/sprites/._loading.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  64% ] reimport | village_ground.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-6.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-5.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/hearts/._hearts-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  65% ] reimport | village_atlas.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/hearts/._hearts-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  66% ] reimport | tree_tall.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  67% ] reimport | tree_round.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  67% ] reimport | shadow.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  68% ] reimport | player_sheet.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._tree-pink.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+[  69% ] reimport | hut_weapon.png
+[  70% ] reimport | hut_synthesis.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  70% ] reimport | floor_atlas.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/gem/._gem-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  71% ] reimport | club_in_hand.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[  72% ] reimport | boar_sheet.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[  73% ] reimport | arena_ground.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-6.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._trunk.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+[  74% ] reimport | ._hearts-2.png
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+[  74% ] reimport | ._hearts-1.png
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/waterfall animation/._waterfall-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-5.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  75% ] reimport | ._gem-4.png
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/waterfall animation/._waterfall-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/waterfall animation/._waterfall-3.png'.
+[  76% ] reimport | ._gem-3.png
+   at: load_image (core/io/image_loader.cpp:102)
+[  77% ] reimport | ._gem-2.png
+[  77% ] reimport | ._gem-1.png
+[  78% ] reimport | ._enemy-death-6.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/._objects.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/._tileset-sliced.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/._tileset.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/idle/hero-idle-front/._hero-idle-front.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  79% ] reimport | ._enemy-death-5.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  80% ] reimport | ._enemy-death-4.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  80% ] reimport | ._enemy-death-3.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/idle/hero-idle-side/._hero-idle-side.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  81% ] reimport | ._enemy-death-2.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-2.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-3.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/enemy-death/._enemy-death-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+[  82% ] reimport | ._enemy-death-1.png
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-4.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  83% ] reimport | ._coin-4.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  83% ] reimport | ._coin-3.png
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-5.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-front/._hero-walk-front-1.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+WARNING: Not a PNG file
+   at: check_error (drivers/png/png_driver_common.cpp:57)
+ERROR: Condition "!success" is true. Returning: ERR_FILE_CORRUPT
+   at: png_to_image (drivers/png/png_driver_common.cpp:70)
+ERROR: Error loading image: 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-6.png'.
+   at: load_image (core/io/image_loader.cpp:102)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/misc/coin/._coin-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  84% ] reimport | ._coin-2.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._tree-pink.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  85% ] reimport | ._coin-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/sliced-objects/._trunk.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  86% ] reimport | ._tree-pink.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/waterfall animation/._waterfall-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/waterfall animation/._waterfall-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  87% ] reimport | ._trunk.png
+[  87% ] reimport | ._waterfall-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/._objects.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  88% ] reimport | ._waterfall-2.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/waterfall animation/._waterfall-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/._tileset.png'.
+[  89% ] reimport | ._waterfall-3.png
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  90% ] reimport | ._objects.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/environment/._tileset-sliced.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  90% ] reimport | ._tileset-sliced.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/idle/hero-idle-front/._hero-idle-front.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  91% ] reimport | ._tileset.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/idle/hero-idle-side/._hero-idle-side.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  92% ] reimport | ._hero-idle-front.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-2.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  93% ] reimport | ._hero-idle-side.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  93% ] reimport | ._hero-walk-back-1.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-front/._hero-walk-front-1.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  94% ] reimport | ._hero-walk-back-2.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-4.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-3.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-6.png'.
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  95% ] reimport | ._hero-walk-back-3.png
+[  96% ] reimport | ._hero-walk-back-4.png
+ERROR: Error importing 'res://tmp/asset_source/tiny_extract/__MACOSX/tiny-RPG-forest-files/PNG/sprites/hero/walk/hero-walk-back/._hero-walk-back-5.png'.
+[  96% ] reimport | ._hero-walk-back-5.png
+   at: _reimport_file (editor/file_system/editor_file_system.cpp:3093)
+[  97% ] reimport | ._hero-walk-back-6.png
+[  98% ] reimport | ._hero-walk-front-1.png
+[  99% ] reimport | 正在结束资产导入……
+[ DONE ] reimport
+
+[   0% ] reimport | Started 正在导入或重新导入资产 (130 steps)
+[   0% ] reimport | 正在执行重新导入的后置操作……
+[ DONE ] reimport
+
+[   0% ] loading_editor_layout | Started 正在加载编辑器 (5 steps)
+[   0% ] loading_editor_layout | 正在加载编辑器布局……
+[  16% ] loading_editor_layout | 正在加载停靠面板……
+[  33% ] loading_editor_layout | 正在重新打开场景……
+[  50% ] loading_editor_layout | 正在加载中央编辑器布局……
+[  66% ] loading_editor_layout | 正在加载插件窗口布局……
+[  83% ] loading_editor_layout | 编辑器布局就绪。
+[ DONE ] loading_editor_layout
+
+ERROR: Can't save resource to empty path. Provide non-empty path or a Resource with non-empty resource_path.
+   at: save (core/io/resource_saver.cpp:108)
+ERROR: Error saving editor settings to 
+   at: save (editor/settings/editor_settings.cpp:1525)

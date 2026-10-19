@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration/action_training.gd" id="1_training"]
+[ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/combat/enemy.tscn" id="3_enemy"]
+[ext_resource type="Script" path="res://scripts/combat/training_hazard.gd" id="4_hazard"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="5_pause"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ns"]
+size = Vector2(1328, 64)
+
+[sub_resource type="RectangleShape2D" id="Rect_we"]
+size = Vector2(64, 720)
+
+[node name="ActionTraining" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_training")
+
+[node name="Floor" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0.27, 0.33, 0.22, 1)
+polygon = PackedVector2Array(-664, -424, 664, -424, 664, 424, -664, 424)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="North" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -392)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/North"]
+shape = SubResource("Rect_ns")
+
+[node name="Visual" type="Polygon2D" parent="Walls/North"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-664, -32, 664, -32, 664, 32, -664, 32)
+
+[node name="South" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 392)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/South"]
+shape = SubResource("Rect_ns")
+
+[node name="Visual" type="Polygon2D" parent="Walls/South"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-664, -32, 664, -32, 664, 32, -664, 32)
+
+[node name="West" type="StaticBody2D" parent="Walls"]
+position = Vector2(-632, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/West"]
+shape = SubResource("Rect_we")
+
+[node name="Visual" type="Polygon2D" parent="Walls/West"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-32, -360, 32, -360, 32, 360, -32, 360)
+
+[node name="East" type="StaticBody2D" parent="Walls"]
+position = Vector2(632, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/East"]
+shape = SubResource("Rect_we")
+
+[node name="Visual" type="Polygon2D" parent="Walls/East"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-32, -360, 32, -360, 32, 360, -32, 360)
+
+[node name="Hazard" type="Node2D" parent="."]
+position = Vector2(-260, 0)
+script = ExtResource("4_hazard")
+
+[node name="Warning" type="Polygon2D" parent="Hazard"]
+z_index = -5
+color = Color(1, 0.3, 0.2, 0.15)
+
+[node name="HazardLabel" type="Label" parent="Hazard"]
+z_index = 5
+offset_left = -80.0
+offset_top = -96.0
+offset_right = 80.0
+offset_bottom = -72.0
+theme_override_font_sizes/font_size = 14
+text = "测试攻击：红圈预警后结算"
+horizontal_alignment = 1
+
+[node name="Dummy" parent="." instance=ExtResource("3_enemy")]
+position = Vector2(170, 0)
+move_speed = 0.0
+contact_damage = 0
+max_hp = 30
+arena_half_size = Vector2(600, 360)
+
+[node name="HpLabel" type="Label" parent="Dummy"]
+z_index = 5
+offset_left = -50.0
+offset_top = -48.0
+offset_right = 50.0
+offset_bottom = -26.0
+theme_override_font_sizes/font_size = 14
+text = "木桩 30/30"
+horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+arena_half_size = Vector2(600, 360)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="HintLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 1260.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 16
+text = "动作试验场（S4 原型，数值为测试值）：WASD 移动，鼠标瞄准，左键攻击，空格闪避（无耐力），T 切换自动攻击辅助，Escape 暂停。
+扇形：淡黄=前摇，橙=生效，灰=后摇。闪避期间半透明=无敌。"
+autowrap_mode = 3
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_pause")]

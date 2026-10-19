@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func get_module_definitions() -> Array[ModuleDefinition]:
-	return _modules
+	return _modules.duplicate()
 
 
 func get_module(module_id: String) -> ModuleDefinition:
@@ -47,7 +47,7 @@ func set_prepared_module_ids(module_ids: Array[String]) -> void:
 
 
 func begin_run() -> void:
-	_equipped_module_ids = _copy_ids(prepared_module_ids)
+	_equipped_module_ids = _valid_unique_ids(prepared_module_ids)
 	loadout_changed.emit()
 
 
@@ -91,6 +91,14 @@ func active_summary() -> String:
 	if labels.is_empty():
 		return "当前构筑：无模块"
 	return "当前构筑：" + "、".join(labels)
+
+
+func get_effective_damage(weapon: WeaponDefinition) -> int:
+	return maxi(1, weapon.damage + roundi(_sum_effect_percent(weapon.category_tag, ModuleDefinition.PrototypeEffect.DAMAGE_FLAT)))
+
+
+func get_effective_projectile_speed(weapon: WeaponDefinition) -> float:
+	return maxf(1.0, weapon.projectile_speed * (1.0 + _sum_effect_percent(weapon.category_tag, ModuleDefinition.PrototypeEffect.PROJECTILE_SPEED_PERCENT) / 100.0))
 
 
 func _sum_effect_percent(

@@ -68,6 +68,27 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 mouse_filter = 2
 
+[node name="ContinueButton" type="Button" parent="Center/Panel/Margin/VBox"]
+visible = false
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.78, 0.71, 0.58, 1)
+theme_override_colors/font_focus_color = Color(1, 0.95, 0.82, 1)
+theme_override_colors/font_pressed_color = Color(0.95, 0.72, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 0.95, 0.82, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.95, 0.72, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.02, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_transparent")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
+text = "继续"
+flat = true
+
 [node name="StartButton" type="Button" parent="Center/Panel/Margin/VBox"]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
@@ -167,3 +188,14 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_transparent")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_transparent")
 text = "退出游戏"
 flat = true
+
+[node name="SaveStatusLabel" type="Label" parent="Center/Panel/Margin/VBox"]
+visible = false
+custom_minimum_size = Vector2(328, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.86, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.06, 0.04, 0.02, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+autowrap_mode = 3

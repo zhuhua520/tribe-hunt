@@ -1,6 +1,15 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/appearance/layered_character.gd" id="99_layers"]
+[ext_resource type="Resource" path="res://data/appearance/ulpc_profile.tres" id="98_profile"]
+[ext_resource type="Texture2D" path="res://assets/ulpc/player/body_male_walk.png" id="97_body"]
 
 [ext_resource type="Script" path="res://scripts/village/village.gd" id="1_village"]
+[ext_resource type="Script" path="res://scripts/exploration/scene_exit.gd" id="2_exit"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="3_inventory"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_outskirts_exit"]
+size = Vector2(96, 108)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(28, 28)
@@ -9,25 +18,34 @@ size = Vector2(28, 28)
 size = Vector2(96, 108)
 
 [node name="Village" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_village")
 
 [node name="Ground" type="Polygon2D" parent="."]
 z_index = -10
+visible = false
 color = Color(0.19, 0.21, 0.16, 1)
 polygon = PackedVector2Array(-1920, -1240, 1920, -1240, 1920, 1240, -1920, 1240)
 
+[node name="GroundArt" type="Sprite2D" parent="."]
+z_index = -9
+texture_filter = 1
+
 [node name="VillageFloor" type="Polygon2D" parent="."]
 z_index = -8
+visible = false
 color = Color(0.25, 0.24, 0.18, 1)
 polygon = PackedVector2Array(-1600, -1000, 1600, -1000, 1600, 1000, -1600, 1000)
 
 [node name="ExitRoadFloor" type="Polygon2D" parent="."]
 z_index = -7
+visible = false
 color = Color(0.38, 0.31, 0.2, 1)
 polygon = PackedVector2Array(1560, -56, 1780, -56, 1780, 56, 1560, 56)
 
 [node name="ExitRoadBorder" type="Line2D" parent="."]
 z_index = -6
+visible = false
 points = PackedVector2Array(1560, -56, 1780, -56, 1780, 56, 1560, 56)
 width = 3.0
 default_color = Color(0.76, 0.62, 0.34, 1)
@@ -42,44 +60,71 @@ text = "出村道路 → 出征"
 horizontal_alignment = 1
 
 [node name="WeaponShopBorder" type="Line2D" parent="."]
-position = Vector2(-900, -350)
+position = Vector2(-260, -170)
 points = PackedVector2Array(-90, -55, 90, -55, 90, 55, -90, 55)
 closed = true
-width = 3.0
-default_color = Color(0.85, 0.68, 0.36, 1)
+width = 0.0
+default_color = Color(0.85, 0.68, 0.36, 0)
 
 [node name="WeaponShopLabel" type="Label" parent="WeaponShopBorder"]
+z_index = 5
 offset_left = -80.0
 offset_top = -14.0
 offset_right = 80.0
 offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.12, 0.07, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 18
-text = "武器店（边框占位）"
+text = "武器铺"
 horizontal_alignment = 1
 
 [node name="SynthesisShopPlaceholder" type="Node2D" parent="."]
-position = Vector2(700, 400)
+position = Vector2(260, -160)
 
 [node name="ShopFill" type="Polygon2D" parent="SynthesisShopPlaceholder"]
+visible = false
 color = Color(0.22, 0.2, 0.28, 0.65)
 polygon = PackedVector2Array(-90, -55, 90, -55, 90, 55, -90, 55)
 
 [node name="ShopBorder" type="Line2D" parent="SynthesisShopPlaceholder"]
+visible = false
 points = PackedVector2Array(-90, -55, 90, -55, 90, 55, -90, 55)
 closed = true
 width = 3.0
 default_color = Color(0.65, 0.56, 0.86, 1)
 
 [node name="ShopLabel" type="Label" parent="SynthesisShopPlaceholder"]
+z_index = 5
 offset_left = -80.0
 offset_top = -14.0
 offset_right = 80.0
 offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.12, 0.07, 1)
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 18
-text = "合成店（占位）"
+text = "合成铺"
 horizontal_alignment = 1
 
+[node name="WeaponShopArt" type="Node2D" parent="."]
+position = Vector2(-260, -20)
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponShopArt"]
+position = Vector2(0, -80)
+scale = Vector2(2, 2)
+texture_filter = 1
+
+[node name="SynthesisShopArt" type="Node2D" parent="."]
+position = Vector2(260, -20)
+
+[node name="Sprite2D" type="Sprite2D" parent="SynthesisShopArt"]
+position = Vector2(0, -64)
+scale = Vector2(2, 2)
+texture_filter = 1
+
 [node name="TreeBorderRing" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="TreeHintLabel" type="Label" parent="."]
 offset_left = -260.0
@@ -87,7 +132,7 @@ offset_top = -952.0
 offset_right = 260.0
 offset_bottom = -922.0
 theme_override_font_sizes/font_size = 16
-text = "四周方块边界（未来树木 UI 占位，限制村落范围）"
+text = "村落边界 · 林地"
 horizontal_alignment = 1
 
 [node name="ExitRoadArea" type="Area2D" parent="."]
@@ -96,6 +141,41 @@ position = Vector2(1680, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitRoadArea"]
 shape = SubResource("RectangleShape2D_road")
 
+[node name="OutskirtsRoadFloor" type="Polygon2D" parent="."]
+z_index = -7
+color = Color(0.4, 0.33, 0.22, 1)
+polygon = PackedVector2Array(-1780, -56, -1560, -56, -1560, 56, -1780, 56)
+
+[node name="OutskirtsRoadLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -1772.0
+offset_top = -96.0
+offset_right = -1568.0
+offset_bottom = -64.0
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.12, 0.07, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "← 林地外围（探索）"
+horizontal_alignment = 1
+
+[node name="OutskirtsExit" type="Area2D" parent="."]
+position = Vector2(-1680, 0)
+script = ExtResource("2_exit")
+target_scene = "res://scenes/exploration/outskirts.tscn"
+target_entry_id = &"from_village"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutskirtsExit"]
+shape = SubResource("RectangleShape2D_outskirts_exit")
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="default" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(0, 120)
+
+[node name="from_outskirts" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(-1460, 0)
+
 [node name="VillagePlayer" type="CharacterBody2D" parent="."]
 position = Vector2(0, 120)
 
@@ -103,13 +183,32 @@ position = Vector2(0, 120)
 process_callback = 0
 
 [node name="BodyShape" type="Polygon2D" parent="VillagePlayer"]
+visible = false
 color = Color(0.88, 0.78, 0.42, 1)
 polygon = PackedVector2Array(-14, -14, 14, -14, 14, 14, -14, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VillagePlayer"]
 shape = SubResource("RectangleShape2D_player")
 
+[node name="Shadow" type="Sprite2D" parent="VillagePlayer"]
+position = Vector2(0, 5)
+z_index = -1
+scale = Vector2(2, 2)
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="VillagePlayer"]
+texture = ExtResource("97_body")
+script = ExtResource("99_layers")
+profile = ExtResource("98_profile")
+initial_layer_paths = PackedStringArray("res://data/appearance/ulpc_head.tres", "res://data/appearance/ulpc_hair.tres", "res://data/appearance/ulpc_shirt.tres", "res://data/appearance/ulpc_pants.tres", "res://data/appearance/ulpc_sandals.tres", "res://data/appearance/ulpc_slingshot.tres")
+offset = Vector2(0, -24)
+texture_filter = 1
+hframes = 9
+vframes = 4
+frame_coords = Vector2i(0, 0)
+
 [node name="PlayerLabel" type="Label" parent="VillagePlayer"]
+visible = false
 offset_left = -32.0
 offset_top = -38.0
 offset_right = 32.0
@@ -136,7 +235,15 @@ text = "返回主菜单"
 [node name="HintLabel" type="Label" parent="UI/TopBar"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "部落村落：WASD/方向键移动，镜头跟随玩家；向右走上「出村道路」打开出征选择"
+text = "部落村落：WASD 移动，I 背包；向右「出村道路」竞技场出征；向左「林地外围（探索）」"
+
+[node name="InventoryLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 600.0
+offset_bottom = 88.0
+theme_override_font_sizes/font_size = 16
+text = "持有：无"
 
 [node name="ExpeditionOverlay" type="Control" parent="UI"]
 visible = false
@@ -297,3 +404,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "确认出征（进入战斗）"
+
+[node name="InventoryPanel" parent="." instance=ExtResource("3_inventory")]

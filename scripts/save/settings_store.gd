@@ -1,5 +1,5 @@
 extends RefCounted
-## 本地设置存档。只记录已经能生效的主音量和窗口模式。
+## 本地设置存档。只记录已经能生效的主音量、窗口模式和自动攻击辅助开关。
 
 const SCHEMA_VERSION := 1
 const SETTINGS_PATH := "user://settings.json"
@@ -12,6 +12,8 @@ const WINDOW_MODES: Array[String] = [WINDOW_WINDOWED, WINDOW_FULLSCREEN]
 
 const DEFAULT_MASTER_VOLUME := 1.0
 const DEFAULT_WINDOW_MODE := WINDOW_WINDOWED
+## D1：手动攻击为主，自动攻击是默认关闭的辅助模式。
+const DEFAULT_AUTO_ATTACK := false
 
 const _PARSE_OK := 0
 const _PARSE_INVALID := 1
@@ -21,15 +23,34 @@ static var master_volume: float = DEFAULT_MASTER_VOLUME
 static var window_mode: String = DEFAULT_WINDOW_MODE
 static var _saved_volume: float = DEFAULT_MASTER_VOLUME
 static var _saved_window_mode: String = DEFAULT_WINDOW_MODE
+static var auto_attack: bool = DEFAULT_AUTO_ATTACK
+static var _saved_auto_attack: bool = DEFAULT_AUTO_ATTACK
 static var _loaded: bool = false
 static var _block_save: bool = false
 
 
 static func load_and_apply() -> void:
+	_ensure_loaded()
+	apply()
+
+
+static func is_auto_attack_enabled() -> bool:
+	_ensure_loaded()
+	return auto_attack
+
+
+static func set_auto_attack(enabled: bool, persist: bool = true) -> void:
+	_ensure_loaded()
+	auto_attack = enabled
+	if persist:
+		_save_if_needed()
+
+
+## 直接运行场景时主菜单没有读过设置；保存前必须先读盘，避免用默认值覆盖已有设置。
+static func _ensure_loaded() -> void:
 	if not _loaded:
 		_read_from_disk()
 		_loaded = true
-	apply()
 
 
 static func apply() -> void:
@@ -52,11 +73,12 @@ static func set_window_mode(mode: String, persist: bool = true) -> void:
 
 
 static func _save_if_needed() -> void:
-	if is_equal_approx(master_volume, _saved_volume) and window_mode == _saved_window_mode:
+	if is_equal_approx(master_volume, _saved_volume) and window_mode == _saved_window_mode and auto_attack == _saved_auto_attack:
 		return
 	if save():
 		_saved_volume = master_volume
 		_saved_window_mode = window_mode
+		_saved_auto_attack = auto_attack
 
 
 static func save() -> bool:
@@ -84,6 +106,8 @@ static func _read_from_disk() -> void:
 	window_mode = DEFAULT_WINDOW_MODE
 	_saved_volume = DEFAULT_MASTER_VOLUME
 	_saved_window_mode = DEFAULT_WINDOW_MODE
+	auto_attack = DEFAULT_AUTO_ATTACK
+	_saved_auto_attack = DEFAULT_AUTO_ATTACK
 	_block_save = false
 	if not FileAccess.file_exists(SETTINGS_PATH):
 		return
@@ -107,8 +131,10 @@ static func _read_from_disk() -> void:
 static func _adopt(parsed: Dictionary) -> void:
 	master_volume = parsed["master_volume"]
 	window_mode = parsed["window_mode"]
+	auto_attack = parsed["auto_attack"]
 	_saved_volume = master_volume
 	_saved_window_mode = window_mode
+	_saved_auto_attack = auto_attack
 
 
 static func _to_dictionary() -> Dictionary:
@@ -117,6 +143,7 @@ static func _to_dictionary() -> Dictionary:
 		"updated_at": Time.get_datetime_string_from_system(true),
 		"master_volume": master_volume,
 		"window_mode": window_mode,
+		"auto_attack": auto_attack,
 	}
 
 
@@ -134,6 +161,7 @@ static func _parse_text(text: String) -> Dictionary:
 		"result": _PARSE_INVALID,
 		"master_volume": DEFAULT_MASTER_VOLUME,
 		"window_mode": DEFAULT_WINDOW_MODE,
+		"auto_attack": DEFAULT_AUTO_ATTACK,
 	}
 	if text.is_empty():
 		return failed
@@ -154,6 +182,7 @@ static func _parse_text(text: String) -> Dictionary:
 		"result": _PARSE_OK,
 		"master_volume": _read_volume(migrated.get("master_volume", DEFAULT_MASTER_VOLUME)),
 		"window_mode": _read_window_mode(migrated.get("window_mode", DEFAULT_WINDOW_MODE)),
+		"auto_attack": migrated.get("auto_attack", DEFAULT_AUTO_ATTACK) if typeof(migrated.get("auto_attack")) == TYPE_BOOL else DEFAULT_AUTO_ATTACK,
 	}
 
 

@@ -2,6 +2,7 @@ extends Area2D
 ## 波次结束后的回城传送门。走进后返回部落村落；不走进就可以留在副本里。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
+signal entered
 
 var _leaving: bool = false
 
@@ -54,4 +55,5 @@ func _on_body_entered(body: Node) -> void:
 	if _leaving or not body.is_in_group("player"):
 		return
 	_leaving = true
+	entered.emit()
 	SceneFlow.go_to(SceneFlow.VILLAGE)

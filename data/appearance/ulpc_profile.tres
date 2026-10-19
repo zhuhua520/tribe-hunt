@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AppearanceProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/appearance/appearance_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+profile_id = "ulpc_walk_v1"
+grid = Vector2i(9, 4)
+frames_per_second = 10.0
+directions_in_rows = true
+direction_order = PackedStringArray("down", "left", "right", "up")
+idle_frame_index = 0
+walk_frame_count = 9

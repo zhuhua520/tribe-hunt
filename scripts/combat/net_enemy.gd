@@ -1,4 +1,5 @@
 extends CharacterBody2D
+const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 ## 联机敌人。服务器驱动位移并结算生命；客户端只显示权威位置和生命。
 
 @export var move_speed: float = 120.0
@@ -7,6 +8,7 @@ extends CharacterBody2D
 
 var enemy_id: int = 0
 var hp: int = 3
+var _walk_clock: float = 0.0
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _hp_label: Label = $HpLabel
@@ -16,7 +18,9 @@ func _ready() -> void:
 	add_to_group("net_enemies")
 	hp = max_hp
 	if _sprite.texture == null:
-		_sprite.texture = load("res://assets/sprites/enemies/enemy.png")
+		_sprite.texture = PreviewArt.texture("boar_sheet.png")
+	_sprite.hframes = 2
+	$Shadow.texture = PreviewArt.texture("shadow.png")
 	refresh_hp_label()
 
 
@@ -25,10 +29,16 @@ func setup(p_enemy_id: int) -> void:
 	name = "e%d" % enemy_id
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	var target := _nearest_net_player()
+	if target != null:
+		var facing := target.global_position - global_position
+		if facing.length_squared() > 0.001:
+			_sprite.rotation = facing.angle() - PI
+		_walk_clock += delta
+		_sprite.frame = int(_walk_clock * 5.0) % 2
 	if multiplayer.multiplayer_peer == null or not multiplayer.is_server():
 		return
-	var target := _nearest_net_player()
 	if target == null:
 		velocity = Vector2.ZERO
 	else:
