@@ -46,8 +46,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_sprite_frame(input_vector: Vector2, delta: float) -> void:
+	if actions != null and actions.locks_facing() and sprite.has_method("play_attack"):
+		if sprite.state != "attack":
+			sprite.play_attack(actions.aim_direction)
+		else:
+			sprite.set_facing(actions.aim_direction)
+		return
 	sprite.update_motion(input_vector, delta)
-	if actions != null and actions.is_attacking():
+	if actions != null and actions.locks_facing():
 		sprite.set_facing(actions.aim_direction)
 
 

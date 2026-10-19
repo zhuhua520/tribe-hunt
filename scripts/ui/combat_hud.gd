@@ -65,8 +65,8 @@ func _pause_hint_text() -> String:
 			if code == 0:
 				code = key_event.keycode
 			if code != 0:
-				return "%s 暂停 · 左键攻击 · 空格闪避 · T 自动攻击" % OS.get_keycode_string(code)
-	return "暂停 · 左键攻击 · 空格闪避 · T 自动攻击"
+				return "%s 暂停 · 点按连击 · 按住蓄力 · 空格闪避 · T 自动攻击" % OS.get_keycode_string(code)
+	return "暂停 · 点按连击 · 按住蓄力 · 空格闪避 · T 自动攻击"
 
 
 func _on_wave_changed(wave_index: int, total_waves: int) -> void:

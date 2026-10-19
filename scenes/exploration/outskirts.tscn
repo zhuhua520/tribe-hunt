@@ -1,7 +1,7 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scripts/exploration/outskirts.gd" id="1_outskirts"]
-[ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="Script" path="res://scripts/exploration/scene_exit.gd" id="3_exit"]
 [ext_resource type="Script" path="res://scripts/exploration/resource_pickup.gd" id="4_pickup"]
 [ext_resource type="Resource" path="res://data/items/item_test_material.tres" id="5_item"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" path="res://data/items/item_test_hide.tres" id="8_hide"]
 [ext_resource type="PackedScene" path="res://scenes/ui/item_detail_popup.tscn" id="9_popup"]
 [ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="10_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/wolf.tscn" id="11_wolf"]
 
 [sub_resource type="RectangleShape2D" id="Rect_branch_south"]
 size = Vector2(540, 48)
@@ -250,6 +251,9 @@ position = Vector2(-560, -150)
 arena_half_size = Vector2(1200, 800)
 drop_item = ExtResource("8_hide")
 
+[node name="Wolf" parent="." instance=ExtResource("11_wolf")]
+position = Vector2(-200, 400)
+
 [node name="PlaceholderTree" type="Node2D" parent="."]
 position = Vector2(700, 250)
 
@@ -313,7 +317,7 @@ offset_top = 16.0
 offset_right = 900.0
 offset_bottom = 48.0
 theme_override_font_sizes/font_size = 16
-text = "林地外围（灰盒）：WASD 移动，鼠标瞄准左键攻击，空格闪避，T 自动攻击，E 拾取，I 背包，Escape 暂停；东侧通道回村。"
+text = "林地外围（灰盒）：WASD 移动，鼠标瞄准，点按左键连击，按住蓄力斩，空格闪避，T 自动攻击，E 拾取，I 背包，Escape 暂停；东侧通道回村。南侧淡圈是野狼活动范围，离开后它会返回。"
 
 [node name="InventoryLabel" type="Label" parent="UI"]
 offset_left = 20.0

@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://scripts/appearance/layered_character.gd" id="99_layers"]
-[ext_resource type="Resource" path="res://data/appearance/ulpc_profile.tres" id="98_profile"]
-[ext_resource type="Texture2D" path="res://assets/ulpc/player/body_male_walk.png" id="97_body"]
+[ext_resource type="Script" path="res://scripts/appearance/hunter_sprite.gd" id="99_hunter"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/hunter_sheet.png" id="97_hunter"]
 
 [ext_resource type="Script" path="res://scripts/village/village.gd" id="1_village"]
 [ext_resource type="Script" path="res://scripts/exploration/scene_exit.gd" id="2_exit"]
 [ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="3_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/ui/shop_panel.tscn" id="4_shop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_outskirts_exit"]
 size = Vector2(96, 108)
@@ -108,6 +108,7 @@ text = "合成铺"
 horizontal_alignment = 1
 
 [node name="WeaponShopArt" type="Node2D" parent="."]
+visible = false
 position = Vector2(-260, -20)
 
 [node name="Sprite2D" type="Sprite2D" parent="WeaponShopArt"]
@@ -116,6 +117,7 @@ scale = Vector2(2, 2)
 texture_filter = 1
 
 [node name="SynthesisShopArt" type="Node2D" parent="."]
+visible = false
 position = Vector2(260, -20)
 
 [node name="Sprite2D" type="Sprite2D" parent="SynthesisShopArt"]
@@ -142,6 +144,7 @@ position = Vector2(1680, 0)
 shape = SubResource("RectangleShape2D_road")
 
 [node name="OutskirtsRoadFloor" type="Polygon2D" parent="."]
+visible = false
 z_index = -7
 color = Color(0.4, 0.33, 0.22, 1)
 polygon = PackedVector2Array(-1780, -56, -1560, -56, -1560, 56, -1780, 56)
@@ -178,6 +181,7 @@ position = Vector2(-1460, 0)
 
 [node name="VillagePlayer" type="CharacterBody2D" parent="."]
 position = Vector2(0, 120)
+collision_mask = 16
 
 [node name="Camera2D" type="Camera2D" parent="VillagePlayer"]
 process_callback = 0
@@ -197,15 +201,12 @@ scale = Vector2(2, 2)
 texture_filter = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="VillagePlayer"]
-texture = ExtResource("97_body")
-script = ExtResource("99_layers")
-profile = ExtResource("98_profile")
-initial_layer_paths = PackedStringArray("res://data/appearance/ulpc_head.tres", "res://data/appearance/ulpc_hair.tres", "res://data/appearance/ulpc_shirt.tres", "res://data/appearance/ulpc_pants.tres", "res://data/appearance/ulpc_sandals.tres", "res://data/appearance/ulpc_slingshot.tres")
-offset = Vector2(0, -24)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("97_hunter")
+script = ExtResource("99_hunter")
 texture_filter = 1
-hframes = 9
+hframes = 4
 vframes = 4
-frame_coords = Vector2i(0, 0)
 
 [node name="PlayerLabel" type="Label" parent="VillagePlayer"]
 visible = false
@@ -235,7 +236,7 @@ text = "返回主菜单"
 [node name="HintLabel" type="Label" parent="UI/TopBar"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = "部落村落：WASD 移动，I 背包；向右「出村道路」竞技场出征；向左「林地外围（探索）」"
+text = "部落村落：WASD 移动，I 背包；武器铺、合成铺门前按 E 查看；向右出征，向左林地外围"
 
 [node name="InventoryLabel" type="Label" parent="UI"]
 offset_left = 20.0
@@ -404,5 +405,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "确认出征（进入战斗）"
+
+[node name="ShopPanel" parent="." instance=ExtResource("4_shop")]
 
 [node name="InventoryPanel" parent="." instance=ExtResource("3_inventory")]

@@ -28,7 +28,7 @@ Boar king HP: 13/14
 Boar king HP: 0/14
 Boar king defeated
 Run won
-Run stats outcome=victory elapsed=0.0 kills=4 damage_taken=0 boar_active=true boar_defeated=true boar_seconds=0.0
+Run stats outcome=victory elapsed=0.1 kills=4 damage_taken=0 boar_active=true boar_defeated=true boar_seconds=0.0
 Extraction interval: 2
 Run stats begin elapsed=0 kills=0 damage_taken=0
 Wave start: 1
@@ -49,18 +49,18 @@ Boar king HP: 13/14
 Boar king HP: 0/14
 Boar king defeated
 Run won
-Run stats outcome=victory elapsed=0.0 kills=4 damage_taken=0 boar_active=true boar_defeated=true boar_seconds=0.0
+Run stats outcome=victory elapsed=0.1 kills=4 damage_taken=0 boar_active=true boar_defeated=true boar_seconds=0.0
 Extraction interval: 1
 Run stats begin elapsed=0 kills=0 damage_taken=0
 Player HP: 0/8
 Player defeated
 Run lost
-Run stats outcome=defeat elapsed=0.0 kills=0 damage_taken=8 boar_active=false boar_defeated=false boar_seconds=0.0
+Run stats outcome=defeat elapsed=0.1 kills=0 damage_taken=8 boar_active=false boar_defeated=false boar_seconds=0.0
 Extraction interval: 1
 Run stats begin elapsed=0 kills=0 damage_taken=0
 Extraction choice wave=1 interval=1
 Return portal open
-Run stats outcome=extracted elapsed=0.0 kills=0 damage_taken=0 boar_active=false boar_defeated=false boar_seconds=0.0
+Run stats outcome=extracted elapsed=0.1 kills=0 damage_taken=0 boar_active=false boar_defeated=false boar_seconds=0.0
 Extraction interval: 1
 Run stats begin elapsed=0 kills=0 damage_taken=0
 Run stats boar start
@@ -69,7 +69,7 @@ Boar king start
 Boar king HP: 0/14
 Boar king defeated
 Run won
-Run stats outcome=victory elapsed=0.1 kills=1 damage_taken=0 boar_active=true boar_defeated=true boar_seconds=0.1
+Run stats outcome=victory elapsed=0.2 kills=1 damage_taken=0 boar_active=true boar_defeated=true boar_seconds=0.1
 Extraction interval: 1
 Run stats begin elapsed=0 kills=0 damage_taken=0
 WARNING: SceneFlow: 未知入口 no_such_entry，使用默认入口 from_village
@@ -88,107 +88,107 @@ WARNING: ProgressStore: 主进度文件无法读取，尝试备份
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:44)
-       [2] _test_progress_store (res://tests/regression.gd:418)
+       [2] _test_progress_store (res://tests/regression.gd:420)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 主进度文件无法读取，尝试备份
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:48)
-       [2] _test_progress_store (res://tests/regression.gd:425)
+       [2] _test_progress_store (res://tests/regression.gd:427)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressState: 进度文件来自更新版本，本次不读取也不覆盖
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] load_from_disk (res://scripts/progression/progress_state.gd:101)
        [1] use_store_for_tests (res://scripts/progression/progress_state.gd:164)
-       [2] _test_progress_store (res://tests/regression.gd:432)
+       [2] _test_progress_store (res://tests/regression.gd:434)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressState: 进度文件版本较新，未保存
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] save_at_safe_point (res://scripts/progression/progress_state.gd:117)
-       [1] _test_progress_store (res://tests/regression.gd:433)
+       [1] _test_progress_store (res://tests/regression.gd:435)
        [2] _run (res://tests/regression.gd:107)
-       [3] _test_terrain_combat (res://tests/regression.gd:390)
-       [4] _physics_frames (res://tests/regression.gd:350)
+       [3] _test_terrain_combat (res://tests/regression.gd:392)
+       [4] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 未知继续场景 ID：moon_base
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:39)
-       [2] _test_progress_store (res://tests/regression.gd:443)
+       [2] _test_progress_store (res://tests/regression.gd:445)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 无效入口 ID：
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:39)
-       [2] _test_progress_store (res://tests/regression.gd:443)
+       [2] _test_progress_store (res://tests/regression.gd:445)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 忽略未知物品 ID：item_from_future
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:39)
-       [2] _test_progress_store (res://tests/regression.gd:443)
+       [2] _test_progress_store (res://tests/regression.gd:445)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 忽略无效物品数量：item_test_material=1.5
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:39)
-       [2] _test_progress_store (res://tests/regression.gd:443)
+       [2] _test_progress_store (res://tests/regression.gd:445)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 忽略无效对象 ID：7.0
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:39)
-       [2] _test_progress_store (res://tests/regression.gd:443)
+       [2] _test_progress_store (res://tests/regression.gd:445)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 忽略无效对象 ID：
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:39)
-       [2] _test_progress_store (res://tests/regression.gd:443)
+       [2] _test_progress_store (res://tests/regression.gd:445)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 主进度文件无法读取，尝试备份
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] _result (res://scripts/save/progress_store.gd:168)
        [1] load_data (res://scripts/save/progress_store.gd:48)
-       [2] _test_progress_store (res://tests/regression.gd:447)
+       [2] _test_progress_store (res://tests/regression.gd:449)
        [3] _run (res://tests/regression.gd:107)
-       [4] _test_terrain_combat (res://tests/regression.gd:390)
-       [5] _physics_frames (res://tests/regression.gd:350)
+       [4] _test_terrain_combat (res://tests/regression.gd:392)
+       [5] _physics_frames (res://tests/regression.gd:352)
 WARNING: ProgressStore: 模拟提交失败
    at: push_warning (core/variant/variant_utility.cpp:1033)
    GDScript backtrace (most recent call first):
        [0] save_data (res://scripts/save/progress_store.gd:65)
-       [1] _test_progress_store (res://tests/regression.gd:453)
+       [1] _test_progress_store (res://tests/regression.gd:455)
        [2] _run (res://tests/regression.gd:107)
-       [3] _test_terrain_combat (res://tests/regression.gd:390)
-       [4] _physics_frames (res://tests/regression.gd:350)
+       [3] _test_terrain_combat (res://tests/regression.gd:392)
+       [4] _physics_frames (res://tests/regression.gd:352)
 Enemy HP: 0/3
 Enemy defeated
 Enemy HP: 29/30
@@ -198,4 +198,20 @@ Player HP: 7/8
 Player HP: 6/8
 Player HP: 0/8
 Player defeated
-REGRESSION: 238 checks, 0 failures
+Enemy HP: 29/30
+Enemy HP: 29/30
+Enemy HP: 28/30
+Enemy HP: 28/30
+Enemy HP: 27/30
+Enemy HP: 27/30
+Enemy HP: 29/30
+Enemy HP: 29/30
+Enemy HP: 28/30
+Enemy HP: 28/30
+Enemy HP: 28/30
+Enemy HP: 28/30
+Enemy HP: 29/30
+Enemy HP: 29/30
+Enemy HP: 29/30
+Enemy HP: 29/30
+REGRESSION: 272 checks, 0 failures

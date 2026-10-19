@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "effects": [
+    {
+      "id": "effect_sword_combo",
+      "name": "三段斩",
+      "attack_style": "combo_slash",
+      "description": "点按为三段连击，按住后松开为蓄力斩。"
+    },
+    {
+      "id": "effect_sword_heavy",
+      "name": "重斩",
+      "attack_style": "heavy_slash",
+      "description": "点按直接打出单次重斩，不进入三段连击。"
+    }
+  ]
+}

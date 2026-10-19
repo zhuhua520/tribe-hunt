@@ -10,11 +10,15 @@ extends Node2D
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
+const HOUSE_SCENE := preload("res://scenes/town/house.tscn")
+const TREE_SCENE := preload("res://scenes/town/tree.tscn")
+const SHOP_DOOR_SCENE := preload("res://scenes/town/shop_door.tscn")
+const TOWN_GROUND: Texture2D = preload("res://assets/sprites/town/town_ground.png")
 
 const VILLAGE_HALF_SIZE := Vector2(1600.0, 1000.0)
 const GROUND_MARGIN := Vector2(320.0, 240.0)
-const TREE_BLOCK_STEP := 94.0
-const ROAD_HALF_HEIGHT := 56.0
+const TREE_BLOCK_STEP := 150.0
+const ROAD_HALF_HEIGHT := 70.0
 const ROAD_INNER_INSET := 40.0
 const ROAD_OUTER_LENGTH := 180.0
 
@@ -25,9 +29,8 @@ const ROAD_OUTER_LENGTH := 180.0
 @onready var _road_border: Line2D = $ExitRoadBorder
 @onready var _road_label: Label = $ExitRoadLabel
 @onready var _tree_hint: Label = $TreeHintLabel
-@onready var _tree_ring: Node2D = $TreeBorderRing
 @onready var _player: CharacterBody2D = $VillagePlayer
-@onready var _player_sprite: Sprite2D = $VillagePlayer/Sprite2D
+@onready var _player_sprite = $VillagePlayer/Sprite2D
 @onready var _ground_art: Sprite2D = $GroundArt
 @onready var _road_area: Area2D = $ExitRoadArea
 @onready var _expedition_overlay: Control = $UI/ExpeditionOverlay
@@ -43,22 +46,23 @@ const ROAD_OUTER_LENGTH := 180.0
 @onready var _dest_placeholder_btn: Button = $UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestList/DestPlaceholderButton
 @onready var _dest_desc_label: Label = $UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestDescLabel
 @onready var _return_menu_btn: Button = $UI/TopBar/ReturnMenuButton
+@onready var _shop = $ShopPanel
 
 var _module_checkboxes: Dictionary = {}
 var _selected_dest_valid: bool = true
 var _leaving: bool = false
-var _tree_texture_a: Texture2D
-var _tree_texture_b: Texture2D
+var _tree_index: int = 0
 
 
 func _ready() -> void:
 	DisplayServer.window_set_title("TribeHunt - 部落村落")
-	_ground_art.texture = PreviewArt.texture("village_ground.png")
+	_ground_art.texture = TOWN_GROUND
+	_ground_art.centered = true
+	_ground_art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	var ground_half := VILLAGE_HALF_SIZE + GROUND_MARGIN
+	var tex_size: Vector2 = TOWN_GROUND.get_size()
+	_ground_art.scale = Vector2(ground_half.x * 2.0 / tex_size.x, ground_half.y * 2.0 / tex_size.y)
 	$VillagePlayer/Shadow.texture = PreviewArt.texture("shadow.png")
-	$WeaponShopArt/Sprite2D.texture = PreviewArt.texture("hut_weapon.png")
-	$SynthesisShopArt/Sprite2D.texture = PreviewArt.texture("hut_synthesis.png")
-	_tree_texture_a = PreviewArt.texture("tree_round.png")
-	_tree_texture_b = PreviewArt.texture("tree_tall.png")
 	var entry_id := SceneFlow.place_at_entry(_player, $SpawnPoints, &"default")
 	var saved := ProgressState.save_at_safe_point(&"village", entry_id)
 	var save_note := "进度已保存" if saved else "进度未保存（存档版本较新或写入失败）"
@@ -83,12 +87,15 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _expedition_overlay.visible or _leaving:
+	if _expedition_overlay.visible or _leaving or _shop.is_open():
 		_player.velocity = Vector2.ZERO
 		return
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	_player.velocity = input_vector * 240.0
 	_player.move_and_slide()
+	if Input.is_action_just_pressed("attack"):
+		var facing := input_vector if input_vector.length_squared() > 0.001 else Vector2.DOWN
+		_player_sprite.play_attack(facing)
 	_update_player_sprite(input_vector, delta)
 	var min_x := -VILLAGE_HALF_SIZE.x + 24.0
 	var max_x := VILLAGE_HALF_SIZE.x - 24.0
@@ -100,13 +107,29 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_echo() or not event.is_action_pressed("ui_cancel"):
+	if event.is_echo():
+		return
+	if event.is_action_pressed("interact") and not _expedition_overlay.visible and not _shop.is_open():
+		var door = _door_player_is_in()
+		if door != null:
+			get_viewport().set_input_as_handled()
+			_player.velocity = Vector2.ZERO
+			_shop.open_shop(door.shop_title, door.category_id)
+		return
+	if not event.is_action_pressed("ui_cancel") or _shop.is_open():
 		return
 	var viewport := get_viewport()
 	if viewport != null:
 		viewport.set_input_as_handled()
 	if _expedition_overlay.visible:
 		_on_close_expedition_overlay()
+
+
+func _door_player_is_in():
+	for node in get_children():
+		if node is Area2D and node.has_method("player_inside") and node.player_inside():
+			return node
+	return null
 
 
 func _layout_map() -> void:
@@ -172,37 +195,56 @@ func _spawn_tree_border_blocks() -> void:
 
 
 func _add_tree_block(pos: Vector2) -> void:
-	var tree := Node2D.new()
-	tree.position = pos
-	var sprite := Sprite2D.new()
-	sprite.texture = _tree_texture_a if int(round(pos.x / TREE_BLOCK_STEP + pos.y / TREE_BLOCK_STEP)) % 2 == 0 else _tree_texture_b
-	sprite.position = Vector2(0.0, -48.0)
-	sprite.scale = Vector2(2.0, 2.0)
-	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	tree.add_child(sprite)
-	_tree_ring.add_child(tree)
+	_add_tree(pos)
 
 
 func _spawn_village_decor() -> void:
-	var positions: Array[Vector2] = [
-		Vector2(-480, 60),
-		Vector2(480, 60),
-		Vector2(-500, 270),
-		Vector2(500, 270),
-		Vector2(-300, 420),
-		Vector2(300, 420),
+	_add_house(Vector2(-420, -240), &"WeaponHouse")
+	_add_house(Vector2(420, -240), &"SynthesisHouse")
+	_add_house(Vector2(-360, 280), &"HomeWest")
+	_add_house(Vector2(380, 300), &"HomeEast")
+	_add_shop_door(Vector2(-420, -200), "WeaponDoor", "武器铺", "weapon")
+	_add_shop_door(Vector2(420, -200), "SynthesisDoor", "合成铺", "material")
+	$WeaponShopBorder.position = Vector2(-420, -470)
+	$SynthesisShopPlaceholder.position = Vector2(420, -470)
+	var trees: Array[Vector2] = [
+		Vector2(-560, -320),
+		Vector2(560, -340),
+		Vector2(-620, 220),
+		Vector2(600, 240),
+		Vector2(-160, 420),
+		Vector2(180, -420),
+		Vector2(-1100, -720),
+		Vector2(1100, -720),
+		Vector2(-1100, 760),
+		Vector2(1100, 760),
 	]
-	for index in positions.size():
-		var tree := Node2D.new()
-		tree.name = "VillageTree_%02d" % index
-		tree.position = positions[index]
-		var sprite := Sprite2D.new()
-		sprite.texture = _tree_texture_a if index % 2 == 0 else _tree_texture_b
-		sprite.position = Vector2(0.0, -48.0)
-		sprite.scale = Vector2(2.0, 2.0)
-		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		tree.add_child(sprite)
-		add_child(tree)
+	for pos in trees:
+		_add_tree(pos)
+
+
+func _add_shop_door(pos: Vector2, door_name: String, title: String, category_id: String) -> void:
+	var door := SHOP_DOOR_SCENE.instantiate()
+	door.name = door_name
+	door.position = pos
+	door.shop_title = title
+	door.category_id = category_id
+	add_child(door)
+
+
+func _add_house(pos: Vector2, house_name: StringName) -> void:
+	var house := HOUSE_SCENE.instantiate()
+	house.name = String(house_name)
+	house.position = pos
+	add_child(house)
+
+
+func _add_tree(pos: Vector2) -> void:
+	var tree := TREE_SCENE.instantiate()
+	tree.name = "TownTree_%02d" % _tree_index
+	_tree_index += 1
+	tree.position = pos
+	add_child(tree)
 
 
 func _update_player_sprite(input_vector: Vector2, delta: float) -> void:

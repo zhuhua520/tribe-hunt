@@ -1,0 +1,157 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/debug/developer_panel.gd" id="1_panel"]
+
+[node name="DeveloperPanel" type="CanvasLayer"]
+layer = 40
+process_mode = 3
+script = ExtResource("1_panel")
+
+[node name="Tab" type="Button" parent="."]
+offset_right = 52.0
+offset_bottom = 36.0
+offset_left = 0.0
+offset_top = 8.0
+text = "开发"
+tooltip_text = "F1 展开或收起开发者菜单"
+
+[node name="Panel" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 48.0
+offset_right = 300.0
+offset_bottom = -8.0
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.08, 0.09, 0.08, 0.92)
+
+[node name="Scroll" type="ScrollContainer" parent="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Box" type="VBoxContainer" parent="Panel/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Panel/Scroll/Box"]
+layout_mode = 2
+text = "开发者模式"
+
+[node name="Hint" type="Label" parent="Panel/Scroll/Box"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+text = "F1 收起。用来验证当前战斗逻辑。物品进村才存档。金钱尚未定义。"
+autowrap_mode = 3
+
+[node name="Status" type="Label" parent="Panel/Scroll/Box"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+autowrap_mode = 3
+text = "状态"
+
+[node name="LogicTitle" type="Label" parent="Panel/Scroll/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.86, 0.72, 1)
+text = "验证逻辑"
+
+[node name="Slash1" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "第一段"
+
+[node name="Slash2" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "第二段"
+
+[node name="Slash3" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "第三段"
+
+[node name="BeginCharge" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "开始蓄力"
+
+[node name="ChargedSlash" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "蓄力斩"
+
+[node name="Dodge" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "闪避"
+
+[node name="AimRight" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "瞄准朝右"
+
+[node name="AimLeft" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "瞄准朝左"
+
+[node name="Refill" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "目标回满"
+
+[node name="ItemsTitle" type="Label" parent="Panel/Scroll/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.86, 0.72, 1)
+text = "物品"
+
+[node name="Items" type="VBoxContainer" parent="Panel/Scroll/Box"]
+layout_mode = 2
+
+[node name="DummyTitle" type="Label" parent="Panel/Scroll/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.86, 0.72, 1)
+text = "木桩"
+
+[node name="PlaceDummy" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "在瞄准方向放置木桩"
+
+[node name="ClearDummies" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "清除开发者木桩"
+
+[node name="MoneyTitle" type="Label" parent="Panel/Scroll/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.86, 0.72, 1)
+text = "金钱"
+
+[node name="MoneyHint" type="Label" parent="Panel/Scroll/Box"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+text = "货币规则未定。下面的按钮不会写入存档。"
+autowrap_mode = 3
+
+[node name="GrantMoney" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "领取测试金钱"

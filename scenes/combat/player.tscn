@@ -1,64 +1,58 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqplayer000001"]
+[gd_scene format=3 uid="uid://tmqjkxkgjxsd"]
 
-[ext_resource type="Script" path="res://scripts/appearance/layered_character.gd" id="99_layers"]
+[ext_resource type="Script" uid="uid://bhxsxfvjkxc78" path="res://scripts/combat/player.gd" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://d3apneciom53" path="res://scenes/weapons/melee_weapon.tscn" id="3_melee"]
+[ext_resource type="PackedScene" uid="uid://8i1hboqquuki" path="res://scenes/weapons/ranged_weapon.tscn" id="4_ranged"]
+[ext_resource type="Script" uid="uid://mjr41qxc7d7b" path="res://scripts/combat/player_action_controller.gd" id="5_actions"]
+[ext_resource type="Texture2D" uid="uid://dvncfeqon3ss7" path="res://assets/ulpc/player/body_male_walk.png" id="97_body"]
 [ext_resource type="Resource" path="res://data/appearance/ulpc_profile.tres" id="98_profile"]
-[ext_resource type="Texture2D" path="res://assets/ulpc/player/body_male_walk.png" id="97_body"]
-
-[ext_resource type="Script" path="res://scripts/combat/player.gd" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/weapons/melee_weapon.tscn" id="3_melee"]
-[ext_resource type="PackedScene" path="res://scenes/weapons/ranged_weapon.tscn" id="4_ranged"]
-[ext_resource type="Script" path="res://scripts/combat/player_action_controller.gd" id="5_actions"]
+[ext_resource type="Script" uid="uid://d2tqbv4dugvjw" path="res://scripts/appearance/layered_character.gd" id="99_layers"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 28)
 
-[node name="Player" type="CharacterBody2D"]
-collision_layer = 1
+[node name="Player" type="CharacterBody2D" unique_id=768046957]
 collision_mask = 24
 script = ExtResource("1_player")
-move_speed = 220.0
-arena_half_size = Vector2(1200, 800)
-max_hp = 8
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1745171992]
 process_callback = 0
 
-[node name="Shadow" type="Sprite2D" parent="."]
-position = Vector2(0, 5)
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1389483894]
 z_index = -1
-scale = Vector2(2, 2)
 texture_filter = 1
+position = Vector2(0, 5)
+scale = Vector2(2, 2)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=832837230]
+texture_filter = 1
 texture = ExtResource("97_body")
+offset = Vector2(0, -24)
+hframes = 9
+vframes = 4
 script = ExtResource("99_layers")
 profile = ExtResource("98_profile")
 initial_layer_paths = PackedStringArray("res://data/appearance/ulpc_head.tres", "res://data/appearance/ulpc_hair.tres", "res://data/appearance/ulpc_shirt.tres", "res://data/appearance/ulpc_pants.tres", "res://data/appearance/ulpc_sandals.tres", "res://data/appearance/ulpc_slingshot.tres")
-offset = Vector2(0, -24)
-texture_filter = 1
-hframes = 9
-vframes = 4
-frame_coords = Vector2i(0, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=507655415]
 shape = SubResource("RectangleShape2D_body")
 
-[node name="MeleeWeapon" parent="." instance=ExtResource("3_melee")]
+[node name="MeleeWeapon" parent="." unique_id=381886114 instance=ExtResource("3_melee")]
 
-[node name="RangedWeapon" parent="." instance=ExtResource("4_ranged")]
+[node name="RangedWeapon" parent="." unique_id=829929270 instance=ExtResource("4_ranged")]
 
-[node name="ActionController" type="Node2D" parent="."]
+[node name="ActionController" type="Node2D" parent="." unique_id=1013461225]
 script = ExtResource("5_actions")
 
-[node name="AttackArc" type="Polygon2D" parent="ActionController"]
+[node name="AttackArc" type="Polygon2D" parent="ActionController" unique_id=1166014029]
 visible = false
 color = Color(1, 0.9, 0.4, 0.18)
 
-[node name="AimLine" type="Line2D" parent="ActionController"]
+[node name="AimLine" type="Line2D" parent="ActionController" unique_id=352339011]
 width = 2.0
 default_color = Color(1, 0.95, 0.75, 0.7)
 
-[node name="AutoLabel" type="Label" parent="ActionController"]
+[node name="AutoLabel" type="Label" parent="ActionController" unique_id=1425814570]
 visible = false
 offset_left = -40.0
 offset_top = -78.0

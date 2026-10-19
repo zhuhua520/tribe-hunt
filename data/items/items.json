@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "categories": [
+    {
+      "id": "weapon",
+      "name": "武器",
+      "groups": [
+        {
+          "id": "sword",
+          "name": "剑",
+          "items": [
+            {
+              "id": "sword_training",
+              "name": "试验短剑",
+              "description": "逻辑验证用。攻击方式看特效表，不在这里写动作。",
+              "attack": 1,
+              "abilities": ["combo"],
+              "effect_id": "effect_sword_combo"
+            },
+            {
+              "id": "sword_hunter",
+              "name": "猎手短剑",
+              "description": "逻辑验证用。和试验短剑不是同一个特效。",
+              "attack": 2,
+              "abilities": ["heavy"],
+              "effect_id": "effect_sword_heavy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "name": "素材",
+      "groups": [
+        {
+          "id": "fiber",
+          "name": "纤维",
+          "items": [
+            {
+              "id": "material_fiber",
+              "name": "测试纤维",
+              "description": "素材大类的测试条目。没有攻击力，也不关联武器特效。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -33,8 +33,11 @@ static func has_line_of_sight(source: Node2D, target: Node2D) -> bool:
 	return space.intersect_ray(query).is_empty()
 
 
-static func hit(target: Node, damage: int) -> bool:
+static func hit(target: Node, damage: int, armor_break: int = 0) -> bool:
 	if damage <= 0 or not is_live_target(target):
 		return false
-	target.take_damage(damage)
+	if target.has_method("receive_hit"):
+		target.receive_hit(damage, armor_break)
+	else:
+		target.take_damage(damage)
 	return true

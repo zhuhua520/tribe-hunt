@@ -37,15 +37,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_instance_valid(_player) or ("hp" in _player and _player.hp <= 0):
 		return
 	get_viewport().set_input_as_handled()
-	if item == null:
-		return
+	try_pickup()
+
+
+func try_pickup() -> bool:
+	if _taken or item == null:
+		return false
+	if _player != null and (not is_instance_valid(_player) or ("hp" in _player and _player.hp <= 0)):
+		return false
 	var accepted := ProgressState.add_item(item.item_id, amount) if object_id == &"" \
 		else ProgressState.claim_pickup(object_id, item.item_id, amount)
 	if not accepted:
-		return
+		return false
 	_taken = true
 	picked.emit(item.item_id, amount)
 	queue_free()
+	return true
 
 
 func contains_point(world_point: Vector2) -> bool:

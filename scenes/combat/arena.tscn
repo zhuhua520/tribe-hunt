@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bqarena0000001"]
 
 [ext_resource type="Script" path="res://scripts/combat/arena.gd" id="1_arena"]
-[ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
 [ext_resource type="Script" path="res://scripts/systems/wave_manager.gd" id="3_wave"]
 [ext_resource type="PackedScene" path="res://scenes/combat/enemy.tscn" id="4_enemy"]
 [ext_resource type="Resource" path="res://data/waves/wave_1.tres" id="5_w1"]

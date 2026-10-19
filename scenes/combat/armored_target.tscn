@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/armored_target.gd" id="1_armor"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(26, 26)
+
+[node name="ArmoredTarget" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 16
+motion_mode = 1
+script = ExtResource("1_armor")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visual" type="Polygon2D" parent="."]
+color = Color(0.55, 0.58, 0.62, 1)
+polygon = PackedVector2Array(-12, -10, 12, -10, 12, 10, -12, 10)
+
+[node name="Plate" type="Polygon2D" parent="Visual"]
+color = Color(0.75, 0.78, 0.82, 1)
+polygon = PackedVector2Array(-8, -6, 8, -6, 8, 6, -8, 6)
+
+[node name="StatusLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -70.0
+offset_top = -48.0
+offset_right = 70.0
+offset_bottom = -26.0
+theme_override_font_sizes/font_size = 14
+text = "装甲 12/12  破甲 0/3"
+horizontal_alignment = 1

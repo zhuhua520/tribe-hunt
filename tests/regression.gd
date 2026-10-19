@@ -59,14 +59,52 @@ func _run() -> void:
 	var menu := await _scene("res://scenes/menu/main_menu.tscn")
 	_check(menu != null, "主菜单加载")
 	var village := await _scene("res://scenes/village/village.tscn")
-	_check(village.get_node("VillagePlayer/Sprite2D").texture != null, "村落已导入纹理加载")
-	_check(village.get_node("VillagePlayer/Sprite2D").equipped_ids().size() == 6, "村落加载 ULPC 分层外观")
+	var hunter = village.get_node("VillagePlayer/Sprite2D")
+	_check(hunter.texture != null and hunter.hframes == 4 and hunter.vframes == 4, "城镇猎人图集已加载")
+	hunter.update_motion(Vector2.ZERO, 0.1)
+	_check(hunter.state == "idle" and hunter.frame_coords == Vector2i(0, 0), "城镇猎人待机朝下")
+	hunter.update_motion(Vector2.RIGHT, 0.2)
+	_check(hunter.state == "walk" and hunter.frame_coords.y == 2, "城镇猎人向右走路")
+	hunter.play_attack(Vector2.UP)
+	_check(hunter.state == "attack" and hunter.frame_coords == Vector2i(3, 3), "城镇猎人向上攻击")
+	await get_tree().physics_frame
+	var space: PhysicsDirectSpaceState2D = village.get_world_2d().direct_space_state
+	var query := PhysicsPointQueryParameters2D.new()
+	query.collision_mask = 16
+	query.collide_with_areas = false
+	query.position = village.get_node("WeaponHouse").global_position + Vector2(0, -40)
+	_check(not space.intersect_point(query).is_empty(), "房屋碰撞挡住玩家")
+	var town_tree: Node2D = village.get_node("TownTree_00")
+	query.position = town_tree.global_position + Vector2(0, -8)
+	_check(not space.intersect_point(query).is_empty(), "树墩有碰撞")
+	query.position = town_tree.global_position + Vector2(30, -100)
+	_check(space.intersect_point(query).is_empty(), "树冠没有碰撞")
+	var weapon_door := village.get_node("WeaponDoor")
+	weapon_door._set_occupied(village.get_node("VillagePlayer"), true)
+	var interact := InputEventAction.new()
+	interact.action = "interact"
+	interact.pressed = true
+	village._unhandled_input(interact)
+	var shop := village.get_node("ShopPanel")
+	_check(shop.is_open() and shop.row_count() == 2, "武器铺列出物品表里的剑")
+	shop.close()
+	weapon_door._set_occupied(village.get_node("VillagePlayer"), false)
+	var synthesis_door := village.get_node("SynthesisDoor")
+	synthesis_door._set_occupied(village.get_node("VillagePlayer"), true)
+	village._unhandled_input(interact)
+	_check(shop.is_open() and shop.row_count() == 1, "合成铺列出素材")
+	shop.close()
 	village._open_expedition_overlay()
 	_check(village.get_node("UI/ExpeditionOverlay").visible, "村落出征入口")
 	village._on_close_expedition_overlay()
 	var arena := await _arena()
+	var combat_sprite = arena.get_node("Player/Sprite2D")
+	_check(combat_sprite.hframes == 4 and combat_sprite.vframes == 4, "竞技场玩家使用猎人图")
+	combat_sprite.play_attack(Vector2.RIGHT)
+	_check(combat_sprite.state == "attack" and combat_sprite.frame_coords == Vector2i(3, 2), "战斗攻击切到猎人攻击帧")
+	combat_sprite.update_motion(Vector2.ZERO, 1.0)
 	_test_combat(arena)
-	_test_layers(arena.get_node("Player/Sprite2D"))
+	_test_layers(_layered_fixture())
 	await get_tree().process_frame
 	for interval in [1, 2]:
 		arena = await _arena(interval)
@@ -107,6 +145,11 @@ func _run() -> void:
 	_test_progress_store()
 	await _test_drops_and_inventory()
 	await _test_manual_actions()
+	await _test_sword_attacks()
+	await _test_developer_panel()
+	await _test_wolf()
+	await _test_armor()
+	await _test_item_catalog()
 	print("REGRESSION: %d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -498,7 +541,7 @@ func _test_drops_and_inventory() -> void:
 	_check(ProgressState.item_count(HIDE) == 1 and (not is_instance_valid(drop) or drop.is_queued_for_deletion()), "拾取掉落物进入背包（数量 %d）" % ProgressState.item_count(HIDE))
 	popup.update_for_world_point(Vector2(300, 300))
 	_check(not popup.is_showing(), "已拾取的掉落物不再显示详情")
-	var second := preload("res://scenes/exploration/world_drop.tscn").instantiate()
+	var second := preload("res://scenes/props/world_drop.tscn").instantiate()
 	second.item = preload("res://data/items/item_test_hide.tres")
 	second.amount = 2
 	outskirts.add_child(second)
@@ -580,7 +623,7 @@ func _test_manual_actions() -> void:
 	await _physics_frames(1)
 	await _press_action("attack")
 	await _wait_state(actions, S.IDLE)
-	_check(dummy.hp == dummy.max_hp - 1, "只命中瞄准扇形内的目标")
+	_check(dummy.hp == dummy.max_hp - 1, "只命中瞄准方向上的目标")
 	actions.test_aim_point = dummy.global_position
 	var dodges_before: int = actions.dodge_count
 	await _press_action("attack")
@@ -671,6 +714,415 @@ func _test_manual_actions() -> void:
 	training = await _scene("res://scenes/exploration/action_training.tscn")
 	actions = training.get_node("Player/ActionController")
 	_check(actions.state == S.IDLE and actions.attack_count == 0 and not actions.has_buffered_action(), "换场后动作状态不残留")
+
+
+func _hold_action(action: String) -> void:
+	var down := InputEventAction.new()
+	down.action = action
+	down.pressed = true
+	Input.parse_input_event(down)
+	await get_tree().process_frame
+
+
+func _release_action(action: String) -> void:
+	var up := InputEventAction.new()
+	up.action = action
+	up.pressed = false
+	Input.parse_input_event(up)
+	await get_tree().process_frame
+
+
+func _test_sword_attacks() -> void:
+	const S := ActionController.State
+	const Volume := preload("res://scripts/combat/melee_attack_volume.gd")
+	const SwordData := preload("res://scripts/combat/sword_attack_data.gd")
+	const AttackDef := preload("res://scripts/combat/melee_attack_definition.gd")
+	const Keyframe := preload("res://scripts/combat/melee_hit_keyframe.gd")
+	var gap := AttackDef.new()
+	gap.attack_id = "gap"
+	gap.keyframes = [_keyframe(Keyframe, 0.0, Vector2(0, -50), 8.0), _keyframe(Keyframe, 1.0, Vector2(0, 50), 8.0)]
+	var endpoints := [Volume.sample_at(gap, Vector2.ZERO, Vector2.RIGHT, 0.0), Volume.sample_at(gap, Vector2.ZERO, Vector2.RIGHT, 1.0)]
+	var thin := Vector2(0, 0)
+	_check(endpoints[0].center.distance_to(thin) > float(endpoints[0].radius) + 2.0 \
+		and endpoints[1].center.distance_to(thin) > float(endpoints[1].radius) + 2.0 \
+		and Volume.overlaps(Volume.samples_between(gap, Vector2.ZERO, Vector2.ZERO, Vector2.RIGHT, 0.0, 1.0), thin, 2.0),
+		"大步长扫掠命中两端圆之间的薄目标")
+	var shifted := Volume.samples_between(gap, Vector2(-90, 0), Vector2(90, 0), Vector2.RIGHT, 0.0, 1.0)
+	_check(shifted[0].center.distance_to(thin) > float(shifted[0].radius) + 2.0 \
+		and shifted[-1].center.distance_to(thin) > float(shifted[-1].radius) + 2.0 \
+		and Volume.overlaps(shifted, thin, 2.0),
+		"高移速下扫掠命中中途目标")
+	var facing_right: Vector2 = Volume.sample_at(SwordData.combo_attacks()[0], Vector2.ZERO, Vector2.RIGHT, 0.0).center
+	var facing_left: Vector2 = Volume.sample_at(SwordData.combo_attacks()[0], Vector2.ZERO, Vector2.LEFT, 0.0).center
+	_check(facing_right.x > 10.0 and facing_left.x < -10.0, "转向时判定区域跟着朝向翻转")
+	var sword: WeaponDefinition = load("res://data/build/weapon_sword.tres")
+	_check(sword.weapon_id == "weapon_sword" and sword.damage == 1, "剑伤害来自武器定义")
+
+	SettingsStore.set_auto_attack(false, false)
+	var training := await _scene("res://scenes/exploration/action_training.tscn")
+	var player := training.get_node("Player") as CharacterBody2D
+	var actions := training.get_node("Player/ActionController")
+	var hazard := training.get_node("Hazard")
+	hazard.set_physics_process(false)
+	player.set_physics_process(false)
+	var dummy := training.get_node("Dummy")
+	var other := training.get_node("DummyB")
+	dummy.set_physics_process(false)
+	other.set_physics_process(false)
+	_place_sword_targets(player, dummy, other, Vector2(52, -22), Vector2(52, 22))
+	actions.test_aim_point = player.global_position + Vector2(300, 0)
+	await _press_action("attack")
+	_check(actions.state == S.WINDUP and actions.hit_samples().is_empty() and dummy.hp == dummy.max_hp, "剑前摇不造成伤害")
+	await _wait_state(actions, S.ACTIVE)
+	var forward: bool = actions.hit_samples().size() >= 1 and actions.visual_matches_hits()
+	for sample in actions.hit_samples():
+		forward = forward and (sample.center as Vector2).x > player.global_position.x + 10.0
+	_check(forward, "生效调试圈与命中采样一致，且落在瞄准方向")
+	await _wait_state(actions, S.RECOVERY)
+	_check(dummy.hp == dummy.max_hp - 1 and other.hp == other.max_hp - 1, "一段挥砍命中两个目标且各只一次")
+	_check(actions.current_attack_id() == "sword_slash_1", "第一段是独立攻击")
+	await _press_action("attack")
+	await _wait_state(actions, S.RECOVERY)
+	_check(actions.current_attack_id() == "sword_slash_2" and dummy.hp == dummy.max_hp - 2 and other.hp == other.max_hp - 2, "第二段可以再次命中")
+	await _press_action("attack")
+	await _wait_state(actions, S.RECOVERY)
+	_check(actions.current_attack_id() == "sword_slash_3" and dummy.hp == dummy.max_hp - 3 and other.hp == other.max_hp - 3, "第三段可以再次命中")
+	await _wait_state(actions, S.IDLE)
+	_check(dummy.hp == dummy.max_hp - 3 and other.hp == other.max_hp - 3, "后摇不再造成伤害")
+
+	_place_sword_targets(player, dummy, other, Vector2(52, -22), Vector2(52, 22))
+	actions.test_aim_point = player.global_position + Vector2(-300, 0)
+	await _press_action("attack")
+	await _wait_state(actions, S.ACTIVE)
+	var turned: bool = actions.hit_samples().size() > 0
+	for sample in actions.hit_samples():
+		turned = turned and (sample.center as Vector2).x < player.global_position.x - 10.0
+	await _wait_state(actions, S.IDLE)
+	_check(turned and dummy.hp == dummy.max_hp and other.hp == other.max_hp, "反向挥砍落空")
+
+	_place_sword_targets(player, dummy, other, Vector2(52, -22), Vector2(52, 22))
+	actions.test_aim_point = player.global_position + Vector2(300, 0)
+	await _press_action("attack")
+	var opened := false
+	for i in 90:
+		if actions.recovery_cancel_open():
+			opened = true
+			break
+		await get_tree().physics_frame
+	var attacks_before: int = actions.attack_count
+	actions.request(&"dodge")
+	_check(opened and actions.state == S.DODGE and actions.combo_index() == 0, "后摇后段闪避取消连击")
+	await _release_action("attack")
+	await _wait_state(actions, S.IDLE)
+	await _physics_frames(12)
+	await _press_action("attack")
+	_check(actions.current_attack_id() == "sword_slash_1" and actions.attack_count == attacks_before + 1, "取消后下一次从第一段开始")
+	await _wait_state(actions, S.IDLE)
+
+	_place_sword_targets(player, dummy, other, Vector2(52, -22), Vector2(52, 22))
+	actions.test_aim_point = player.global_position + Vector2(300, 0)
+	await _hold_action("attack")
+	var charging := false
+	for i in 40:
+		await get_tree().physics_frame
+		if actions.state == S.CHARGE:
+			charging = true
+			break
+	_check(charging and dummy.hp == dummy.max_hp and other.hp == other.max_hp, "蓄力期间不造成伤害")
+	attacks_before = actions.attack_count
+	actions.request(&"dodge")
+	await _release_action("attack")
+	await _wait_state(actions, S.IDLE)
+	await _physics_frames(8)
+	_check(actions.attack_count == attacks_before and dummy.hp == dummy.max_hp and other.hp == other.max_hp, "闪避放弃蓄力，松手不再斩出")
+
+	_place_sword_targets(player, dummy, other, Vector2(52, -22), Vector2(52, 22))
+	await _hold_action("attack")
+	charging = false
+	for i in 40:
+		await get_tree().physics_frame
+		if actions.state == S.CHARGE:
+			charging = true
+			break
+	await _release_action("attack")
+	var saw_charge := false
+	for i in 90:
+		if actions.current_attack_id() == "sword_charge":
+			saw_charge = true
+		if saw_charge and actions.state == S.IDLE:
+			break
+		await get_tree().physics_frame
+	_check(charging and saw_charge and dummy.hp == dummy.max_hp - 2 and other.hp == other.max_hp - 2, "蓄力斩单独结算且命中两个目标")
+	_check(sword.damage == 1, "结算不改写剑的武器定义")
+
+	_place_sword_targets(player, dummy, other, Vector2(36, 0), Vector2(400, 0))
+	actions.test_aim_point = player.global_position + Vector2(300, 0)
+	var slash: MeleeAttackDefinition = SwordData.combo_attacks()[0]
+	var start_sample: Dictionary = Volume.sample_at(slash, player.global_position, Vector2.RIGHT, 0.0)
+	var end_sample: Dictionary = Volume.sample_at(slash, player.global_position, Vector2.RIGHT, 1.0)
+	var body_radius := Volume.body_radius(dummy)
+	var outside_ends: bool = start_sample.center.distance_to(dummy.global_position) > float(start_sample.radius) + body_radius \
+		and end_sample.center.distance_to(dummy.global_position) > float(end_sample.radius) + body_radius
+	var ticks: int = get_node("/root/DeveloperPanel").set_physics_ticks(2)
+	await get_tree().physics_frame
+	actions.request(&"attack")
+	await _wait_state(actions, S.IDLE, 8)
+	get_node("/root/DeveloperPanel").set_physics_ticks(ticks)
+	_check(outside_ends and dummy.hp == dummy.max_hp - 1 and other.hp == other.max_hp, "低物理帧率下整段扫掠仍命中中间目标")
+	player.set_physics_process(true)
+
+
+func _test_developer_panel() -> void:
+	const S := ActionController.State
+	var panel := get_node_or_null("/root/DeveloperPanel")
+	_check(panel != null and not panel.is_open(), "开发者菜单在左侧且默认收起")
+	if panel == null:
+		return
+	panel.set_open(true)
+	_check(panel.is_open(), "开发者菜单可以展开")
+	var material := &"item_test_material"
+	var before := ProgressState.item_count(material)
+	var saved := ProgressState.last_save_ok
+	_check(panel.grant_item(material, 1), "开发者菜单可以加入已定义物品")
+	_check(ProgressState.item_count(material) == before + 1, "加入的物品进入进度状态")
+	_check(panel.grant_money_note() == "金钱尚未定义，没有写入存档" and ProgressState.last_save_ok == saved \
+		and ProgressState.item_count(material) == before + 1, "金钱入口不写入存档")
+
+	var training := await _scene("res://scenes/exploration/action_training.tscn")
+	var player := training.get_node("Player") as CharacterBody2D
+	var actions := training.get_node("Player/ActionController")
+	var hazard := training.get_node("Hazard")
+	hazard.set_physics_process(false)
+	player.set_physics_process(false)
+	actions.set_process_unhandled_input(false)
+	_place_sword_targets(player, training.get_node("Dummy"), training.get_node("DummyB"), Vector2(52, -22), Vector2(52, 22))
+	actions.test_aim_point = player.global_position + Vector2(300, 0)
+	var placed: bool = panel.place_dummy()
+	var spawned := get_tree().get_nodes_in_group("developer_dummies")
+	_check(placed and spawned.size() == 1 and spawned[0].move_speed == 0.0 and spawned[0].contact_damage == 0, "开发者菜单可以放置静止木桩")
+	var dummy := training.get_node("Dummy")
+	var other := training.get_node("DummyB")
+	_check(actions.debug_start_combo_step(2) and actions.state == S.WINDUP and actions.current_attack_id() == "sword_slash_3", "开发者菜单可以直接打出第三段")
+	await _wait_state(actions, S.IDLE)
+	_check(dummy.hp == dummy.max_hp - 1 and other.hp == other.max_hp - 1, "第三段命中两个目标且各只一次")
+	panel.clear_dummies()
+	await get_tree().process_frame
+	_check(get_tree().get_nodes_in_group("developer_dummies").is_empty(), "开发者木桩可以清除")
+	panel.set_open(false)
+	player.set_physics_process(true)
+
+
+func _test_wolf() -> void:
+	var outskirts := await _scene("res://scenes/exploration/outskirts.tscn")
+	var wolf: CharacterBody2D = outskirts.get_node("Wolf")
+	var player := outskirts.get_node("Player") as CharacterBody2D
+	var actions := player.get_node("ActionController")
+	outskirts.get_node("BranchEnemy").set_physics_process(false)
+	player.set_physics_process(false)
+	actions.set_process_unhandled_input(false)
+	await get_tree().physics_frame
+	_check(not _body_hits_terrain(wolf), "野狼出生点不在墙内")
+
+	var home: Vector2 = wolf.home_position()
+	wolf.debug_velocity = Vector2(400, 0)
+	wolf.global_position = Vector2(180, -250)
+	var crossed := false
+	for _i in 12:
+		await get_tree().physics_frame
+		if wolf.global_position.x > 212.0:
+			crossed = true
+	wolf.debug_velocity = null
+	wolf.velocity = Vector2.ZERO
+	wolf.global_position = home
+	_check(not crossed, "野狼不穿墙")
+
+	player.global_position = home + Vector2(0, wolf.activity_radius + 120.0)
+	await _physics_frames(20)
+	_check(not wolf.is_chasing(), "离开活动范围不追击")
+
+	player.hurt_invuln_seconds = 0.0
+	player._invuln_left = 0.0
+	player.global_position = wolf.global_position + Vector2(28, 0)
+	var hp_before: int = player.hp
+	var bitten := false
+	var repeated := false
+	for _i in 120:
+		await get_tree().physics_frame
+		if player.hp < hp_before:
+			bitten = true
+			var once: int = player.hp
+			for _j in 15:
+				await get_tree().physics_frame
+			repeated = player.hp < once
+			break
+	_check(bitten and not repeated, "撕咬持续重叠只结算一次")
+
+	wolf.set_physics_process(false)
+	wolf.hp = wolf.max_hp
+	player.global_position = wolf.global_position + Vector2(-60, 0)
+	actions.test_aim_point = wolf.global_position
+	var before: int = wolf.hp
+	_check(actions.debug_start_combo_step(0), "可以对野狼打出剑")
+	await _wait_state(actions, ActionController.State.IDLE)
+	_check(wolf.hp == before - 1, "剑可以打中野狼")
+	var deaths := {"n": 0}
+	wolf.defeated.connect(func() -> void: deaths.n += 1)
+	wolf.take_damage(999)
+	wolf.take_damage(999)
+	_check(int(deaths.n) == 1, "野狼死亡事件只发一次")
+
+
+func _test_armor() -> void:
+	var training := await _scene("res://scenes/exploration/action_training.tscn")
+	var player := training.get_node("Player") as CharacterBody2D
+	var actions := training.get_node("Player/ActionController")
+	var target := training.get_node("ArmoredTarget")
+	var dummy := training.get_node("Dummy")
+	training.get_node("Hazard").set_physics_process(false)
+	training.get_node("DummyB").set_physics_process(false)
+	dummy.set_physics_process(false)
+	player.set_physics_process(false)
+	actions.set_process_unhandled_input(false)
+
+	var before: int = dummy.hp
+	dummy.take_damage(1)
+	_check(dummy.hp == before - 1 and not dummy.has_method("receive_hit"), "无甲目标仍按原伤害结算")
+
+	target.refill()
+	target.receive_hit(2, 1)
+	_check(target.hp == target.max_hp - 1 and target.armor_value == 1 and not target.broken, "未破甲时先按护甲减伤结算")
+	target.refill()
+	target.receive_hit(1, 1)
+	target.receive_hit(1, 1)
+	_check(target.hp == target.max_hp and target.armor_value == 2 and not target.broken, "护甲可以把伤害降到零并积累破甲")
+	target.receive_hit(1, 1)
+	_check(target.hp == target.max_hp and target.broken and target.armor_value == 0, "触发破甲的一击仍按破甲前防护结算")
+	target.receive_hit(1, 9)
+	_check(target.hp == target.max_hp - 1 and target.broken and target.armor_value == 0, "破甲期间造成全额伤害且不积累下一轮")
+	target._break_left = 0.05
+	await _physics_frames(12)
+	_check(not target.broken and target.armor_value == 0, "破甲结束恢复护甲并重置破甲值")
+	var hp_after: int = target.hp
+	target.receive_hit(1, 1)
+	_check(target.hp == hp_after and target.armor_value == 1 and not target.broken, "护甲恢复后再次减伤")
+
+	player.global_position = Vector2(0, 40)
+	dummy.global_position = Vector2(800, 800)
+	training.get_node("DummyB").global_position = Vector2(900, 800)
+	target.refill()
+	target.global_position = player.global_position + Vector2(52, -22)
+	actions.test_aim_point = player.global_position + Vector2(300, 0)
+	_check(actions.debug_start_combo_step(0), "可以对装甲目标挥剑")
+	await _wait_state(actions, ActionController.State.IDLE)
+	_check(target.hp == target.max_hp and target.armor_value == 1 and not target.broken, "剑的破甲贡献进入装甲目标")
+
+	var starts := {"n": 0}
+	target.break_started.connect(func() -> void: starts.n += 1)
+	target.hp = 1
+	target.armor_value = target.armor_break_threshold - 1
+	target.broken = false
+	target.receive_hit(target.max_hp + target.armor_reduction, 10)
+	_check(target.hp == 0 and not target.broken and int(starts.n) == 0, "死亡不再触发破甲")
+
+
+func _test_item_catalog() -> void:
+	const Catalog := preload("res://scripts/items/item_catalog.gd")
+	const Link := preload("res://scripts/items/weapon_effect_link.gd")
+	var training_sword: Dictionary = Catalog.get_item(&"sword_training")
+	var hunter_sword: Dictionary = Catalog.get_item(&"sword_hunter")
+	var fiber: Dictionary = Catalog.get_item(&"material_fiber")
+	_check(training_sword.get("category_id") == "weapon" and training_sword.get("group_id") == "sword" \
+		and int(training_sword.get("attack", 0)) == 1, "试验短剑在武器大类、剑中类下")
+	_check(fiber.get("category_id") == "material" and fiber.get("group_id") == "fiber", "素材大类可以登记具体物品")
+	var combo: Dictionary = Link.resolve(&"sword_training")
+	var heavy: Dictionary = Link.resolve(&"sword_hunter")
+	_check(combo.get("id") == "effect_sword_combo" and combo.get("attack_style") == "combo_slash", "试验短剑连到三段斩特效")
+	_check(heavy.get("id") == "effect_sword_heavy" and heavy.get("attack_style") == "heavy_slash" \
+		and int(hunter_sword.get("attack", 0)) == 2, "猎手短剑连到另一种特效")
+	_check(Link.resolve(&"material_fiber").is_empty(), "素材不套用武器特效")
+	_check(ProgressState.add_item(&"material_fiber", 1) and ProgressState.item_count(&"material_fiber") == 1, "物品表里的素材可以进背包")
+
+	var training := await _scene("res://scenes/exploration/action_training.tscn")
+	var player := training.get_node("Player") as CharacterBody2D
+	var actions := training.get_node("Player/ActionController")
+	training.get_node("Hazard").set_physics_process(false)
+	player.set_physics_process(false)
+	actions.set_process_unhandled_input(false)
+	var enemy := preload("res://scenes/combat/enemy.tscn").instantiate()
+	enemy.move_speed = 0.0
+	enemy.contact_damage = 0
+	enemy.max_hp = 1
+	enemy.drop_item_id = &"sword_hunter"
+	enemy.drop_amount = 1
+	training.add_child(enemy)
+	enemy.global_position = player.global_position + Vector2(90, 0)
+	var before: int = ProgressState.item_count(&"sword_hunter")
+	enemy.take_damage(5)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var drop: Node = null
+	for node in training.get_children():
+		if node.has_method("try_pickup") and node.get("item") != null and node.item.item_id == &"sword_hunter":
+			drop = node
+			break
+	_check(drop != null, "击倒后按物品表生成掉落")
+	if drop != null:
+		drop.global_position = player.global_position
+		drop._on_body_entered(player)
+		_check(drop.try_pickup(), "掉落物可以拾取")
+	_check(ProgressState.item_count(&"sword_hunter") == before + 1, "掉落的剑进入背包")
+	_check(ProgressState.get_definition(&"sword_hunter").display_name == "猎手短剑", "背包能读到物品表里的名字")
+	actions.weapon_item_id = &"sword_hunter"
+	_check(actions.effect_attack_style() == "heavy_slash", "换上猎手短剑后攻击方式跟着特效变")
+	actions.request(&"attack")
+	_check(actions.current_attack_id() == "sword_charge", "重斩特效点按打出单次重斩")
+	actions.weapon_item_id = &"sword_training"
+	_check(actions.effect_attack_style() == "combo_slash", "换回试验短剑后恢复三段斩")
+
+
+func _body_hits_terrain(body: CharacterBody2D) -> bool:
+	var shape_node := body.get_node("CollisionShape2D") as CollisionShape2D
+	var params := PhysicsShapeQueryParameters2D.new()
+	params.shape = shape_node.shape
+	params.transform = shape_node.global_transform
+	params.collision_mask = 16
+	params.exclude = [body.get_rid()]
+	return not body.get_world_2d().direct_space_state.intersect_shape(params, 1).is_empty()
+
+
+func _keyframe(keyframe_script: GDScript, time: float, offset: Vector2, radius: float) -> Resource:
+	var keyframe: Resource = keyframe_script.new()
+	keyframe.time = time
+	keyframe.offset = offset
+	keyframe.radius = radius
+	return keyframe
+
+
+func _place_sword_targets(player: Node2D, first: Node2D, second: Node2D, first_offset: Vector2, second_offset: Vector2) -> void:
+	player.global_position = Vector2(0, 40)
+	first.global_position = player.global_position + first_offset
+	second.global_position = player.global_position + second_offset
+	first.hp = first.max_hp
+	second.hp = second.max_hp
+
+
+func _layered_fixture() -> Sprite2D:
+	var body := Sprite2D.new()
+	body.name = "LayerFixture"
+	body.set_script(preload("res://scripts/appearance/layered_character.gd"))
+	body.texture = load("res://assets/ulpc/player/body_male_walk.png")
+	body.profile = load("res://data/appearance/ulpc_profile.tres")
+	body.initial_layer_paths = PackedStringArray([
+		"res://data/appearance/ulpc_head.tres",
+		"res://data/appearance/ulpc_hair.tres",
+		"res://data/appearance/ulpc_shirt.tres",
+		"res://data/appearance/ulpc_pants.tres",
+		"res://data/appearance/ulpc_sandals.tres",
+		"res://data/appearance/ulpc_slingshot.tres",
+	])
+	body.position = Vector2(-4000, -4000)
+	add_child(body)
+	return body
 
 
 func _test_layers(body: Sprite2D) -> void:

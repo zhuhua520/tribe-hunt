@@ -7,6 +7,7 @@ signal items_changed
 signal item_received(item_id: StringName, amount: int)
 
 const ProgressStore := preload("res://scripts/save/progress_store.gd")
+const ItemCatalog := preload("res://scripts/items/item_catalog.gd")
 const ITEM_DEFINITIONS: Array[ItemDefinition] = [
 	preload("res://data/items/item_test_material.tres"),
 	preload("res://data/items/item_test_hide.tres"),
@@ -61,16 +62,28 @@ func get_definition(item_id: StringName) -> ItemDefinition:
 	for definition in ITEM_DEFINITIONS:
 		if definition.item_id == item_id:
 			return definition
-	return null
+	return ItemCatalog.make_definition(item_id)
 
 
-## 按 ITEM_DEFINITIONS 顺序返回数量大于 0 的条目：[{definition, count}]。
+## 先列原有测试物品，再列物品表里持有的条目：[{definition, count}]。
 func inventory_entries() -> Array:
 	var entries: Array = []
+	var seen: Dictionary = {}
 	for definition in ITEM_DEFINITIONS:
+		seen[definition.item_id] = true
 		var count := item_count(definition.item_id)
 		if count > 0:
 			entries.append({"definition": definition, "count": count})
+	for item_id in ItemCatalog.item_ids():
+		if seen.has(item_id):
+			continue
+		var count := item_count(item_id)
+		if count <= 0:
+			continue
+		var definition := get_definition(item_id)
+		if definition == null:
+			continue
+		entries.append({"definition": definition, "count": count})
 	return entries
 
 
@@ -85,6 +98,9 @@ func known_item_ids() -> Array:
 	var ids: Array = []
 	for definition in ITEM_DEFINITIONS:
 		ids.append(definition.item_id)
+	for item_id in ItemCatalog.item_ids():
+		if not ids.has(item_id):
+			ids.append(item_id)
 	return ids
 
 

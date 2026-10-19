@@ -4,7 +4,8 @@ const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 
 signal defeated
 
-const DROP_SCENE := preload("res://scenes/exploration/world_drop.tscn")
+const DROP_SCENE := preload("res://scenes/props/world_drop.tscn")
+const ItemCatalog := preload("res://scripts/items/item_catalog.gd")
 
 @export var move_speed: float = 120.0
 @export var contact_damage: int = 1
@@ -12,6 +13,8 @@ const DROP_SCENE := preload("res://scenes/exploration/world_drop.tscn")
 @export var arena_half_size: Vector2 = Vector2(480, 270)
 ## 可选：死亡时在原地生成的掉落物。为空则不掉落（竞技场敌人保持原行为）。
 @export var drop_item: ItemDefinition
+## 物品表里的 id。drop_item 为空时才用它。新掉落写这个，不要再新增物品资源。
+@export var drop_item_id: StringName = &""
 @export var drop_amount: int = 1
 
 var hp: int
@@ -76,10 +79,13 @@ func take_damage(amount: int) -> void:
 
 
 func _spawn_drop() -> void:
-	if drop_item == null or drop_amount <= 0 or get_parent() == null:
+	var definition := drop_item
+	if definition == null and drop_item_id != &"":
+		definition = ItemCatalog.make_definition(drop_item_id)
+	if definition == null or drop_amount <= 0 or get_parent() == null:
 		return
 	var drop := DROP_SCENE.instantiate()
-	drop.item = drop_item
+	drop.item = definition
 	drop.amount = drop_amount
 	drop.position = position
 	# 死亡可能发生在物理回调中，新增 Area2D 要延后到回调之外。

@@ -1,14 +1,13 @@
 {
-	"claimed_objects": [
-		"outskirts.branch_test_material_01"
-	],
+	"claimed_objects": [],
 	"items": {
+		"item_test_hide": 3,
 		"item_test_material": 1
 	},
 	"location": {
-		"entry_id": "from_outskirts",
+		"entry_id": "default",
 		"scene_id": "village"
 	},
-	"saved_at": "2026-10-18T15:33:38",
+	"saved_at": "2026-10-19T18:02:50",
 	"schema_version": 1
 }

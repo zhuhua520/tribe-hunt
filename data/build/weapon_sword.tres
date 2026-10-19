@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="WeaponDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/build/weapon_definition.gd" id="1_weapon"]
+
+[resource]
+script = ExtResource("1_weapon")
+weapon_id = "weapon_sword"
+display_name = "剑"
+description = "手动近战测试武器。伤害走统一结算；连击和蓄力斩的范围在 sword_attack_data.gd。数值是测试值。"
+attack_style = 0
+category_tag = "melee"
+category_label = "近战"
+damage = 1
+attack_range = 64.0
+cooldown = 0.4
+windup_seconds = 0.12
+swing_seconds = 0.18
+quality = 0
+rarity = 1
+upgrade_cap = -1
+drop_weight = -1

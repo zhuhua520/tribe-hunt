@@ -1,0 +1,25 @@
+---
+description: UI pages are separate scenes; scripts only bind that scene
+alwaysApply: true
+---
+
+# UI 场景原子化
+
+每个 UI 页面是独立的 `.tscn`，脚本只负责这一页的节点、信号和状态。
+
+- 控件、布局、文案和节点名写在该页场景里。脚本用 `@onready` 拿直接子树，在 `_ready` 里连接信号。
+- 不要在一个脚本里 `new()` 出整页按钮、标签和容器。列表里的重复行单独做成行场景，由页面按数据实例化。
+- 一个脚本只服务一个页面。暂停、背包、设置、开发者菜单各自一份场景和脚本，不把多页逻辑堆进同一个文件。
+- 其它场景只实例化这一页，不复制它的内部节点。改文案、间距或按钮时只改该页场景；改行为时只改该页脚本。
+- 需要跨场景一直存在的界面，Autoload 挂这份场景，不挂一段负责拼界面的脚本。
+
+```
+# 不合规：脚本里拼出整页
+var button := Button.new()
+button.text = "继续"
+add_child(button)
+
+# 合规：场景里已有 ResumeButton
+@onready var _resume_button: Button = $PauseRoot/Center/Panel/Margin/VBox/ResumeButton
+_resume_button.pressed.connect(_resume)
+```
