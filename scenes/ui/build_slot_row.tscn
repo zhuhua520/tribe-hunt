@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/build_slot_row.gd" id="1_row"]
+
+[node name="BuildSlotRow" type="HBoxContainer"]
+theme_override_constants/separation = 8
+script = ExtResource("1_row")
+
+[node name="NameLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+text = "槽"
+
+[node name="DetailLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "空"
+autowrap_mode = 3
+
+[node name="ActionButton" type="Button" parent="."]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+text = "卸下"
+
+[node name="LockButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+text = "锁定"
+
+[node name="DismantleButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+text = "拆解"
+
+[node name="EnhanceButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+text = "强化"

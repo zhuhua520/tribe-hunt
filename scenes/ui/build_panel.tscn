@@ -1,0 +1,134 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/build_panel.gd" id="1_panel"]
+
+[node name="BuildPanel" type="CanvasLayer"]
+layer = 17
+script = ExtResource("1_panel")
+
+[node name="OpenButton" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 116.0
+offset_right = 108.0
+offset_bottom = 150.0
+text = "构筑"
+
+[node name="Root" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.04, 0.55)
+
+[node name="Center" type="CenterContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Root/Center"]
+custom_minimum_size = Vector2(680, 560)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Root/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "构筑"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "未成型"
+horizontal_alignment = 1
+
+[node name="PreviewLabel" type="Label" parent="Root/Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(560, 96)
+layout_mode = 2
+text = "预览"
+autowrap_mode = 3
+
+[node name="PresetRow" type="HBoxContainer" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PresetA" type="Button" parent="Root/Center/Panel/Margin/VBox/PresetRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "试验甲"
+
+[node name="PresetB" type="Button" parent="Root/Center/Panel/Margin/VBox/PresetRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "试验乙"
+
+[node name="Slots" type="VBoxContainer" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="CompareLabel" type="Label" parent="Root/Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(620, 48)
+layout_mode = 2
+text = "没有可比较的同名组件"
+autowrap_mode = 3
+
+[node name="CodexLabel" type="Label" parent="Root/Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(620, 36)
+layout_mode = 2
+text = "还没有发现组件"
+autowrap_mode = 3
+
+[node name="ConfirmBox" type="HBoxContainer" parent="Root/Center/Panel/Margin/VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ConfirmLabel" type="Label" parent="Root/Center/Panel/Margin/VBox/ConfirmBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "这件还装在预设里。确认卸下并拆解？"
+autowrap_mode = 3
+
+[node name="ConfirmButton" type="Button" parent="Root/Center/Panel/Margin/VBox/ConfirmBox"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+text = "确认拆解"
+
+[node name="CancelButton" type="Button" parent="Root/Center/Panel/Margin/VBox/ConfirmBox"]
+custom_minimum_size = Vector2(72, 32)
+layout_mode = 2
+text = "取消"
+
+[node name="Instances" type="VBoxContainer" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="CloseButton" type="Button" parent="Root/Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "关闭"

@@ -3,15 +3,76 @@
   "effects": [
     {
       "id": "effect_sword_combo",
-      "name": "三段斩",
+      "name": "扇形扫击",
       "attack_style": "combo_slash",
-      "description": "点按为三段连击，按住后松开为蓄力斩。"
+      "behavior_id": "sector_sweep",
+      "interval": 0.5,
+      "range": 78,
+      "arc_degrees": 110,
+      "description": "自动战斗：按间隔向前扫出扇形。三段斩只留在手动夹具。"
     },
     {
       "id": "effect_sword_heavy",
-      "name": "重斩",
+      "name": "宽幅挥击",
       "attack_style": "heavy_slash",
-      "description": "点按直接打出单次重斩，不进入三段连击。"
+      "behavior_id": "area_strike",
+      "interval": 1.05,
+      "range": 130,
+      "arc_degrees": 360,
+      "description": "自动战斗：更慢、更大的一次圆形范围。重斩输入只留在手动夹具。"
+    },
+    {
+      "id": "effect_hammer_slam",
+      "name": "重锤冲击",
+      "attack_style": "area_slam",
+      "behavior_id": "area_strike",
+      "interval": 1.6,
+      "range": 150,
+      "arc_degrees": 360,
+      "armor_break": 2,
+      "description": "自动战斗：慢速圆形冲击，并带破甲。不锁移动，也不走蓄力。"
+    },
+    {
+      "id": "effect_bow_shot",
+      "name": "直射",
+      "attack_style": "arrow_shot",
+      "behavior_id": "projectile",
+      "interval": 0.8,
+      "range": 260,
+      "arc_degrees": 10,
+      "armor_break": 0,
+      "projectile_speed": 280,
+      "lifetime": 1.4,
+      "description": "自动战斗：朝当前目标直线射箭。箭不转弯，先碰到的墙或敌人会让它停下。"
+    },
+    {
+      "id": "effect_bow_pierce",
+      "name": "穿杨",
+      "attack_style": "arrow_pierce",
+      "behavior_id": "projectile",
+      "interval": 0.9,
+      "range": 260,
+      "arc_degrees": 10,
+      "armor_break": 0,
+      "projectile_speed": 280,
+      "lifetime": 1.4,
+      "pierce_count": 2,
+      "damage_falloff": 0.5,
+      "description": "自动战斗：一支箭最多命中两个目标。第二个目标只承受一半伤害，并且不会再触发一次回响。"
+    },
+    {
+      "id": "effect_gun_shot",
+      "name": "铳击",
+      "attack_style": "gun_shot",
+      "behavior_id": "projectile",
+      "interval": 2.4,
+      "range": 300,
+      "arc_degrees": 10,
+      "armor_break": 3,
+      "projectile_speed": 900,
+      "lifetime": 0.6,
+      "reload": true,
+      "description": "自动战斗：高速单发，打完进入装填。装填不会因为换武器、暂停或倒下而跳过。"
     }
   ]
 }

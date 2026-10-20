@@ -2,6 +2,7 @@ extends CanvasLayer
 ## 战斗 HUD：波次提示、暂停提示与胜负面板。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
+const THEME := preload("res://data/ui/ui_theme.tres")
 const BUILD_ADJUSTMENT_PANEL := preload("res://scenes/build/build_adjustment_panel.tscn")
 const EXTRACTION_CHOICE_PANEL := preload("res://scenes/ui/extraction_choice_panel.tscn")
 
@@ -22,6 +23,7 @@ var _extraction_choice_panel: Node
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	result_panel.visible = false
+	result_panel.theme = THEME
 	pause_hint.text = _pause_hint_text()
 	restart_button.pressed.connect(_on_restart_pressed)
 	main_menu_button.pressed.connect(_on_main_menu_pressed)
@@ -65,8 +67,8 @@ func _pause_hint_text() -> String:
 			if code == 0:
 				code = key_event.keycode
 			if code != 0:
-				return "%s 暂停 · 点按连击 · 按住蓄力 · 空格闪避 · T 自动攻击" % OS.get_keycode_string(code)
-	return "暂停 · 点按连击 · 按住蓄力 · 空格闪避 · T 自动攻击"
+				return "%s 暂停 · 空格闪避 · 对照：木棍+弹弓" % OS.get_keycode_string(code)
+	return "暂停 · 空格闪避 · 对照：木棍+弹弓"
 
 
 func _on_wave_changed(wave_index: int, total_waves: int) -> void:

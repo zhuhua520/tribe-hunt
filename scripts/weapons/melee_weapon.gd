@@ -1,5 +1,6 @@
 extends Node2D
-## 自动木棍（D1 后为可开关辅助，默认关闭）：准备、命中、收招；目标在出手时锁定，命中时重新检查距离和实心地形遮挡。
+## 过渡自动木棍。正式战斗始终出手；手动夹具里才看旧的 auto_attack 开关。
+## 出手时锁定目标，命中时重新检查距离和实心地形遮挡。目标失效则这一击取消，下一轮重选。
 
 const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
 const Targeting := preload("res://scripts/combat/combat_targeting.gd")
@@ -18,11 +19,15 @@ func _ready() -> void:
 	if sprite.texture == null:
 		sprite.texture = PreviewArt.texture("club_in_hand.png")
 	sprite.position = Vector2(18, 0)
+	var wielder := get_parent()
+	if wielder == null or not bool(wielder.get("use_historical_auto_weapons")):
+		set_physics_process(false)
 
 
 func _physics_process(delta: float) -> void:
 	var wielder := get_parent()
 	if definition == null or wielder == null or not "hp" in wielder or wielder.hp <= 0:
+		cancel_pending()
 		return
 	_cooldown_left = maxf(0.0, _cooldown_left - delta)
 	if _phase != "idle":
@@ -37,7 +42,7 @@ func _physics_process(delta: float) -> void:
 				_phase = "idle"
 				sprite.rotation = 0.0
 		return
-	if _cooldown_left > 0.0 or not SettingsStore.is_auto_attack_enabled():
+	if _cooldown_left > 0.0 or not _can_begin_auto_attack():
 		return
 	_target = Targeting.nearest_enemy(self, effective_range())
 	if _target == null:
@@ -48,6 +53,30 @@ func _physics_process(delta: float) -> void:
 	_phase_left = maxf(0.0, definition.windup_seconds)
 	if _phase_left <= 0.0:
 		_resolve_strike()
+
+
+func cancel_pending() -> void:
+	if _phase != "windup":
+		return
+	_phase = "idle"
+	_phase_left = 0.0
+	_target = null
+	if sprite != null:
+		sprite.rotation = 0.0
+
+
+func _can_begin_auto_attack() -> bool:
+	var wielder := get_parent()
+	if wielder == null:
+		return false
+	var actions := wielder.get_node_or_null("ActionController")
+	if actions == null:
+		return true
+	if actions.has_method("blocks_new_auto_attack") and actions.blocks_new_auto_attack():
+		return false
+	if actions.has_method("allows_transitional_auto"):
+		return actions.allows_transitional_auto()
+	return SettingsStore.is_auto_attack_enabled()
 
 
 func effective_range() -> float:

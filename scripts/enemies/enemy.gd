@@ -6,6 +6,7 @@ signal defeated
 
 const DROP_SCENE := preload("res://scenes/props/world_drop.tscn")
 const ItemCatalog := preload("res://scripts/items/item_catalog.gd")
+const LootTable := preload("res://scripts/loot/loot_table.gd")
 
 @export var move_speed: float = 120.0
 @export var contact_damage: int = 1
@@ -16,6 +17,12 @@ const ItemCatalog := preload("res://scripts/items/item_catalog.gd")
 ## 物品表里的 id。drop_item 为空时才用它。新掉落写这个，不要再新增物品资源。
 @export var drop_item_id: StringName = &""
 @export var drop_amount: int = 1
+## 非空时按掉落表生成。同一次死亡只发一次。
+@export var loot_table_id: String = ""
+@export var loot_seed: int = 0
+## 击败后按唯一标记发放一个组件。重复击杀不会再发一份。
+@export var component_object_id: StringName = &""
+@export var component_definition_id: String = ""
 
 var hp: int
 
@@ -79,6 +86,14 @@ func take_damage(amount: int) -> void:
 
 
 func _spawn_drop() -> void:
+	if loot_table_id != "":
+		LootTable.release_once(self, loot_table_id, loot_seed, false)
+		return
+	if get_meta("loot_released", false) == true:
+		return
+	set_meta("loot_released", true)
+	if component_object_id != &"" and component_definition_id != "":
+		ProgressState.grant_claimed_instance(component_object_id, component_definition_id)
 	var definition := drop_item
 	if definition == null and drop_item_id != &"":
 		definition = ItemCatalog.make_definition(drop_item_id)

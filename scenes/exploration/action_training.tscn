@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/exploration/action_training.gd" id="1_training"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -6,6 +6,10 @@
 [ext_resource type="Script" path="res://scripts/combat/training_hazard.gd" id="4_hazard"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="5_pause"]
 [ext_resource type="PackedScene" path="res://scenes/combat/armored_target.tscn" id="6_armor"]
+[ext_resource type="PackedScene" path="res://scenes/ui/equipment_panel.tscn" id="7_equipment"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_panel.tscn" id="8_build"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_combat_readout.tscn" id="9_readout"]
+[ext_resource type="PackedScene" path="res://scenes/ui/codex_panel.tscn" id="10_codex"]
 
 [sub_resource type="RectangleShape2D" id="Rect_ns"]
 size = Vector2(1328, 64)
@@ -139,8 +143,15 @@ offset_top = 16.0
 offset_right = 1260.0
 offset_bottom = 70.0
 theme_override_font_sizes/font_size = 16
-text = "动作试验场：WASD 移动，鼠标瞄准。点按左键三段连击，按住左键蓄力，松开斩出。空格闪避。T 自动攻击，Escape 暂停，F1 开发者菜单。上方灰色目标有护甲，连击攒满后短暂破甲。
-调试圈=实际判定：淡黄前摇，蓝色蓄力，橙色生效扫掠，灰色后摇。数值是测试值。"
+text = "动作试验场：WASD 移动，空格闪避。自动攻击当前装备的一把武器，左上角「装备」可换。Escape 暂停，F1 开发者菜单。上方灰色目标有护甲。数值是测试值。"
 autowrap_mode = 3
 
 [node name="PauseMenu" parent="." instance=ExtResource("5_pause")]
+
+[node name="EquipmentPanel" parent="." instance=ExtResource("7_equipment")]
+
+[node name="BuildPanel" parent="." instance=ExtResource("8_build")]
+
+[node name="BuildCombatReadout" parent="." instance=ExtResource("9_readout")]
+
+[node name="CodexPanel" parent="." instance=ExtResource("10_codex")]

@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 func open_for_wave(_wave_index: int, _total_waves: int) -> void:
-	_title_label.text = "调整构筑"
+	_title_label.text = "调整构筑（旧测试模式，不影响当前构筑）"
 	for module in BuildRunService.get_module_definitions():
 		var checkbox := _module_checkboxes[module.module_id] as CheckBox
 		checkbox.button_pressed = BuildRunService.is_equipped(module.module_id)

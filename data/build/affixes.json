@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "affixes": [
+    {
+      "id": "affix_edge",
+      "name": "锋利",
+      "stat": "flat_damage",
+      "min": 1,
+      "max": 2
+    },
+    {
+      "id": "affix_span",
+      "name": "延展",
+      "stat": "range_flat",
+      "min": 2,
+      "max": 5
+    },
+    {
+      "id": "affix_tempo",
+      "name": "急拍",
+      "stat": "interval_percent",
+      "min": -4,
+      "max": -1
+    }
+  ]
+}

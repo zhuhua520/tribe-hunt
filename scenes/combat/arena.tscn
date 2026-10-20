@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqarena0000001"]
+[gd_scene load_steps=12 format=3 uid="uid://bqarena0000001"]
 
 [ext_resource type="Script" path="res://scripts/combat/arena.gd" id="1_arena"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="8_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="9_pause"]
 [ext_resource type="Script" path="res://scripts/combat/run_stats.gd" id="10_stats"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_combat_readout.tscn" id="11_readout"]
 
 [node name="Arena" type="Node2D"]
 y_sort_enabled = true
@@ -31,6 +32,7 @@ width = 3.0
 default_color = Color(0.75, 0.62, 0.35, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
+use_historical_auto_weapons = true
 
 [node name="WaveManager" type="Node" parent="."]
 script = ExtResource("3_wave")
@@ -46,3 +48,5 @@ script = ExtResource("10_stats")
 [node name="CombatHUD" parent="." instance=ExtResource("8_hud")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("9_pause")]
+
+[node name="BuildCombatReadout" parent="." instance=ExtResource("11_readout")]

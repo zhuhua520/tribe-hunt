@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/appearance/hunter_sprite.gd" id="99_hunter"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/hunter_sheet.png" id="97_hunter"]
@@ -7,6 +7,11 @@
 [ext_resource type="Script" path="res://scripts/exploration/scene_exit.gd" id="2_exit"]
 [ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="3_inventory"]
 [ext_resource type="PackedScene" path="res://scenes/ui/shop_panel.tscn" id="4_shop"]
+[ext_resource type="PackedScene" path="res://scenes/ui/craft_panel.tscn" id="7_craft"]
+[ext_resource type="PackedScene" path="res://scenes/ui/equipment_panel.tscn" id="5_equipment"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_panel.tscn" id="6_build"]
+[ext_resource type="PackedScene" path="res://scenes/ui/growth_panel.tscn" id="8_growth"]
+[ext_resource type="PackedScene" path="res://scenes/ui/codex_panel.tscn" id="9_codex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_outskirts_exit"]
 size = Vector2(96, 108)
@@ -246,6 +251,13 @@ offset_bottom = 88.0
 theme_override_font_sizes/font_size = 16
 text = "持有：无"
 
+[node name="StarterButton" type="Button" parent="UI"]
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 180.0
+offset_bottom = 196.0
+text = "领取基础武装"
+
 [node name="ExpeditionOverlay" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -368,7 +380,7 @@ theme_override_constants/separation = 6
 [node name="BuildHeading" type="Label" parent="UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "出征构筑（原型）"
+text = "出征构筑（旧测试模式：样例模块，不影响当前构筑）"
 
 [node name="BuildOptions" type="VBoxContainer" parent="UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2
@@ -408,4 +420,14 @@ text = "确认出征（进入战斗）"
 
 [node name="ShopPanel" parent="." instance=ExtResource("4_shop")]
 
+[node name="CraftPanel" parent="." instance=ExtResource("7_craft")]
+
 [node name="InventoryPanel" parent="." instance=ExtResource("3_inventory")]
+
+[node name="EquipmentPanel" parent="." instance=ExtResource("5_equipment")]
+
+[node name="BuildPanel" parent="." instance=ExtResource("6_build")]
+
+[node name="GrowthPanel" parent="." instance=ExtResource("8_growth")]
+
+[node name="CodexPanel" parent="." instance=ExtResource("9_codex")]

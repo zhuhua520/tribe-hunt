@@ -1,9 +1,7 @@
 extends Node2D
-## 玩家手动动作。D1：鼠标指向瞄准，左键攻击，空格闪避。
-## S5a 剑：点按为三段连击，按住后松开为蓄力斩。每一段是独立攻击实例。
-## 生效阶段用关键帧圆和相邻采样扫掠；同一实例对同一目标只结算一次。
-## 前摇与生效不可取消；后摇后段和蓄力可被闪避取消。闪避不消耗耐力。
-## 时长和范围都是测试值。调试圈就是本帧实际查询的采样，等 A2 动作图集。
+## 正式战斗只自动攻击。左键连击、蓄力和攻击减速留在手动夹具里，不从正式玩家进入。
+## 夹具由回归打开：点按三段，按住后松开为蓄力斩。闪避不消耗耐力。
+## 时长和范围都是测试值。调试圈就是夹具里本帧实际查询的采样。
 
 signal attack_started(direction: Vector2)
 signal attack_hit(target: Node)
@@ -31,8 +29,10 @@ var attack_count: int = 0
 var dodge_count: int = 0
 ## 测试用：非空时代替鼠标位置作为瞄准点（世界坐标）。
 var test_aim_point: Variant = null
-## 当前手持物品。攻击方式从物品表连到特效表，默认试验短剑。
+## 当前手持物品。攻击方式从物品表连到特效表，默认试验短剑。只在手动夹具里结算。
 var weapon_item_id: StringName = &"sword_training"
+## 正式玩家为 false。回归打开后，左键剑才生效，过渡武器改回旧的 auto_attack 开关。
+static var manual_attack_fixture: bool = false
 
 var _combo: Array[MeleeAttackDefinition] = []
 var _charged: MeleeAttackDefinition
@@ -66,6 +66,8 @@ func _ready() -> void:
 	_charged = SwordData.charged_attack()
 	_weapon = SwordData.weapon()
 	_arc.visible = false
+	if not ProgressState.equipment_changed.is_connected(_refresh_auto_label):
+		ProgressState.equipment_changed.connect(_refresh_auto_label)
 	_refresh_auto_label()
 	_update_visuals()
 
@@ -80,16 +82,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event.is_action_pressed("auto_attack_toggle"):
 		get_viewport().set_input_as_handled()
-		SettingsStore.set_auto_attack(not SettingsStore.is_auto_attack_enabled())
-		_refresh_auto_label()
 	elif event.is_action_pressed("attack"):
 		get_viewport().set_input_as_handled()
+		if not manual_attack_fixture:
+			return
 		_attack_held = true
 		_hold_time = 0.0
 		if state != State.IDLE:
 			request(&"attack")
 	elif event.is_action_released("attack"):
 		get_viewport().set_input_as_handled()
+		if not manual_attack_fixture:
+			_attack_held = false
+			return
 		_attack_held = false
 		if state == State.CHARGE:
 			_start_attack_instance(_charged, true)
@@ -108,7 +113,7 @@ func _physics_process(delta: float) -> void:
 		_buffer_left -= delta
 		if _buffer_left <= 0.0:
 			_clear_buffer()
-	if _attack_held and state == State.IDLE and _player_alive():
+	if manual_attack_fixture and _attack_held and state == State.IDLE and _player_alive():
 		_hold_time += delta
 		if _hold_time >= SwordData.CHARGE_THRESHOLD_SECONDS:
 			_begin_charge()
@@ -137,6 +142,8 @@ func _physics_process(delta: float) -> void:
 func request(action: StringName) -> void:
 	if state == State.DEAD or not _player_alive():
 		return
+	if action == &"attack" and not manual_attack_fixture:
+		return
 	_buffered_action = action
 	_buffer_left = buffer_seconds
 	_try_consume_buffer()
@@ -158,6 +165,18 @@ func movement_velocity(input_vector: Vector2, move_speed: float) -> Vector2:
 
 func is_invulnerable() -> bool:
 	return _invulnerable_left > 0.0
+
+
+## 闪避、受击和死亡期间不开始新的自动攻击。已经飞出的弹体不在这里回收。
+func blocks_new_auto_attack() -> bool:
+	return state == State.DODGE or state == State.HURT or state == State.DEAD or not _player_alive()
+
+
+## 正式战斗始终允许过渡武器。手动夹具里才读取旧的 auto_attack 开关。
+func allows_transitional_auto() -> bool:
+	if manual_attack_fixture:
+		return SettingsStore.is_auto_attack_enabled()
+	return true
 
 
 func is_attacking() -> bool:
@@ -231,7 +250,7 @@ func state_label() -> String:
 
 ## 开发者菜单用。直接打出连击中的一段，不经过点按缓冲。
 func debug_start_combo_step(index: int) -> bool:
-	if _combo.is_empty() or index < 0 or index >= _combo.size() or not _player_alive():
+	if not manual_attack_fixture or _combo.is_empty() or index < 0 or index >= _combo.size() or not _player_alive():
 		return false
 	_attack_held = false
 	_hold_time = 0.0
@@ -243,7 +262,7 @@ func debug_start_combo_step(index: int) -> bool:
 
 ## 开发者菜单用。只进入蓄力，不造成伤害。
 func debug_begin_charge() -> bool:
-	if not _player_alive():
+	if not manual_attack_fixture or not _player_alive():
 		return false
 	_attack_held = false
 	_hold_time = 0.0
@@ -254,7 +273,7 @@ func debug_begin_charge() -> bool:
 
 ## 开发者菜单用。直接打出蓄力斩。
 func debug_start_charged_slash() -> bool:
-	if _charged == null or not _player_alive():
+	if not manual_attack_fixture or _charged == null or not _player_alive():
 		return false
 	_attack_held = false
 	_hold_time = 0.0
@@ -430,7 +449,7 @@ func _arc_color() -> Color:
 
 func _update_visuals() -> void:
 	_aim_line.points = PackedVector2Array([aim_direction * 18.0, aim_direction * 40.0])
-	_aim_line.visible = state != State.DEAD
+	_aim_line.visible = manual_attack_fixture and state != State.DEAD
 	if state == State.ACTIVE:
 		_visual_circles = _hit_samples.duplicate(true)
 	elif state == State.CHARGE and _charged != null:
@@ -445,4 +464,9 @@ func _update_visuals() -> void:
 
 
 func _refresh_auto_label() -> void:
-	_auto_label.visible = SettingsStore.is_auto_attack_enabled()
+	_auto_label.visible = true
+	if _player != null and bool(_player.get("use_historical_auto_weapons")):
+		_auto_label.text = "对照：木棍+弹弓"
+		return
+	var profile: Dictionary = WeaponEffectLink.combat_profile(ProgressState.equipped_weapon_id())
+	_auto_label.text = "装备：" + String(profile.display_name)

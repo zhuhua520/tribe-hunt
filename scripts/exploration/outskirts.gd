@@ -7,6 +7,7 @@ extends Node2D
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
 const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
+const SessionGains := preload("res://scripts/ui/session_gains.gd")
 
 const DEFAULT_ENTRY := &"from_village"
 const MESSAGE_SECONDS := 2.5
@@ -20,9 +21,11 @@ const MESSAGE_SECONDS := 2.5
 @onready var _message_label: Label = $UI/MessageLabel
 @onready var _defeat_panel: Control = $UI/DefeatPanel
 @onready var _return_button: Button = $UI/DefeatPanel/VBox/ReturnButton
+@onready var _stats_label: Label = $UI/DefeatPanel/VBox/StatsLabel
 
 var entry_id: StringName = &""
 var _message_left: float = 0.0
+var _gains = SessionGains.new()
 
 
 func _ready() -> void:
@@ -67,10 +70,12 @@ func _on_item_received(item_id: StringName, amount: int) -> void:
 	var item_name := definition.display_name if definition != null else String(item_id)
 	_message_label.text = "获得 %s ×%d" % [item_name, amount]
 	_message_left = MESSAGE_SECONDS
+	_gains.add(item_id, amount)
 
 
 func _on_player_defeated() -> void:
 	_defeat_panel.visible = true
+	_stats_label.text = _gains.summary_text()
 	_return_button.grab_focus()
 
 

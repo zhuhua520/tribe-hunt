@@ -1,11 +1,15 @@
 extends Node
 ## 本次单人运行的观察统计。只活在当前竞技场，不写入存档。
 
+const Targeting := preload("res://scripts/combat/combat_targeting.gd")
+const SessionGains := preload("res://scripts/ui/session_gains.gd")
+
 enum Outcome { ONGOING, VICTORY, DEFEAT, EXTRACTED }
 
 var elapsed_seconds: float = 0.0
 var kill_count: int = 0
 var damage_taken: int = 0
+var damage_dealt: int = 0
 var outcome: Outcome = Outcome.ONGOING
 var boar_active: bool = false
 var boar_defeated: bool = false
@@ -31,6 +35,9 @@ func _ready() -> void:
 		if wave_manager.has_signal("run_returned_to_village"):
 			wave_manager.run_returned_to_village.connect(_on_run_extracted)
 	print("Run stats begin elapsed=0 kills=0 damage_taken=0")
+	var bus := Targeting.event_bus()
+	if not bus.damage_resolved.is_connected(_on_damage_resolved):
+		bus.damage_resolved.connect(_on_damage_resolved)
 
 
 func _process(delta: float) -> void:
@@ -68,6 +75,9 @@ func summary_text() -> String:
 	if boar_active:
 		var boar_label := "已击败" if boar_defeated else "未击败"
 		text += "\n野猪王：%s（遭遇 %.1f 秒）" % [boar_label, boar_encounter_seconds]
+	text += "\n造成伤害 %d" % damage_dealt
+	text += "\n%s" % SessionGains.mechanics_line()
+	text += "\n本次收益：竞技场不发放"
 	return text
 
 
@@ -81,6 +91,14 @@ func outcome_label() -> String:
 			return "撤离"
 		_:
 			return "进行中"
+
+
+func _on_damage_resolved(result, context) -> void:
+	if not _running or result.rejected_invulnerable or result.damage_applied <= 0:
+		return
+	var source: Node = context.source
+	if source != null and is_instance_valid(source) and source.is_in_group("player"):
+		damage_dealt += result.damage_applied
 
 
 func _on_damage_taken(amount: int) -> void:

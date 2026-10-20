@@ -46,7 +46,10 @@ const ROAD_OUTER_LENGTH := 180.0
 @onready var _dest_placeholder_btn: Button = $UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestList/DestPlaceholderButton
 @onready var _dest_desc_label: Label = $UI/ExpeditionOverlay/Center/Panel/Margin/MainVBox/Columns/RightDestBox/DestDescLabel
 @onready var _return_menu_btn: Button = $UI/TopBar/ReturnMenuButton
+@onready var _starter_button: Button = $UI/StarterButton
 @onready var _shop = $ShopPanel
+@onready var _craft = $CraftPanel
+@onready var _growth = $GrowthPanel
 
 var _module_checkboxes: Dictionary = {}
 var _selected_dest_valid: bool = true
@@ -76,6 +79,10 @@ func _ready() -> void:
 	_confirm_button.pressed.connect(_on_confirm_expedition_pressed)
 	_back_button.pressed.connect(_on_close_expedition_overlay)
 	_return_menu_btn.pressed.connect(_on_return_menu_pressed)
+	_starter_button.pressed.connect(_on_starter_pressed)
+	if ProgressState.is_claimed(ProgressState.STARTER_CLAIM):
+		_starter_button.text = "已领取"
+		_starter_button.disabled = true
 	_category_forest_btn.pressed.connect(_on_category_selected.bind("forest"))
 	_category_swamp_btn.pressed.connect(_on_category_selected.bind("swamp"))
 	_category_ruins_btn.pressed.connect(_on_category_selected.bind("ruins"))
@@ -87,7 +94,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _expedition_overlay.visible or _leaving or _shop.is_open():
+	if _expedition_overlay.visible or _leaving or _shop.is_open() or _craft.is_open() or _growth.is_open():
 		_player.velocity = Vector2.ZERO
 		return
 	var input_vector := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -109,14 +116,17 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_echo():
 		return
-	if event.is_action_pressed("interact") and not _expedition_overlay.visible and not _shop.is_open():
+	if event.is_action_pressed("interact") and not _expedition_overlay.visible and not _shop.is_open() and not _craft.is_open() and not _growth.is_open():
 		var door = _door_player_is_in()
 		if door != null:
 			get_viewport().set_input_as_handled()
 			_player.velocity = Vector2.ZERO
-			_shop.open_shop(door.shop_title, door.category_id)
+			if door.opens_craft:
+				_craft.open_recipes()
+			else:
+				_shop.open_shop(door.shop_title, door.category_id)
 		return
-	if not event.is_action_pressed("ui_cancel") or _shop.is_open():
+	if not event.is_action_pressed("ui_cancel") or _shop.is_open() or _craft.is_open() or _growth.is_open():
 		return
 	var viewport := get_viewport()
 	if viewport != null:
@@ -203,8 +213,8 @@ func _spawn_village_decor() -> void:
 	_add_house(Vector2(420, -240), &"SynthesisHouse")
 	_add_house(Vector2(-360, 280), &"HomeWest")
 	_add_house(Vector2(380, 300), &"HomeEast")
-	_add_shop_door(Vector2(-420, -200), "WeaponDoor", "武器铺", "weapon")
-	_add_shop_door(Vector2(420, -200), "SynthesisDoor", "合成铺", "material")
+	_add_shop_door(Vector2(-420, -200), "WeaponDoor", "武器铺", "weapon", false)
+	_add_shop_door(Vector2(420, -200), "SynthesisDoor", "合成铺", "material", true)
 	$WeaponShopBorder.position = Vector2(-420, -470)
 	$SynthesisShopPlaceholder.position = Vector2(420, -470)
 	var trees: Array[Vector2] = [
@@ -223,12 +233,13 @@ func _spawn_village_decor() -> void:
 		_add_tree(pos)
 
 
-func _add_shop_door(pos: Vector2, door_name: String, title: String, category_id: String) -> void:
+func _add_shop_door(pos: Vector2, door_name: String, title: String, category_id: String, opens_craft: bool = false) -> void:
 	var door := SHOP_DOOR_SCENE.instantiate()
 	door.name = door_name
 	door.position = pos
 	door.shop_title = title
 	door.category_id = category_id
+	door.opens_craft = opens_craft
 	add_child(door)
 
 
@@ -300,6 +311,16 @@ func _on_confirm_expedition_pressed() -> void:
 	BuildRunService.set_prepared_module_ids(_selected_module_ids())
 	BuildRunService.set_extraction_wave_interval(_rhythm_option.get_selected_id())
 	SceneFlow.go_to(SceneFlow.ARENA)
+
+
+func _on_starter_pressed() -> void:
+	var reason := ProgressState.claim_starter_kit()
+	if reason == "":
+		_starter_button.text = "已领取"
+		_starter_button.disabled = true
+		$UI/InventoryLabel.text = "领取了试验短剑和回响核心。回村时写入存档。 · %s" % ProgressState.summary_text()
+	else:
+		$UI/InventoryLabel.text = reason
 
 
 func _on_return_menu_pressed() -> void:

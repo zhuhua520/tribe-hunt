@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/armored_wolf.gd" id="1_wolf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(26, 26)
+
+[node name="ArmoredWolf" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 16
+motion_mode = 1
+script = ExtResource("1_wolf")
+max_hp = 8
+loot_table_id = "loot_armored_wolf"
+activity_radius = 180.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="Polygon2D" parent="Visual"]
+color = Color(0.42, 0.46, 0.52, 1)
+polygon = PackedVector2Array(-12, -10, 10, -8, 16, 0, 10, 8, -12, 10)
+
+[node name="Ear" type="Polygon2D" parent="Visual"]
+color = Color(0.25, 0.28, 0.32, 1)
+polygon = PackedVector2Array(-4, -10, 0, -18, 4, -10)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -36.0
+offset_top = -40.0
+offset_right = 36.0
+offset_bottom = -18.0
+theme_override_font_sizes/font_size = 14
+text = "装甲狼"
+horizontal_alignment = 1

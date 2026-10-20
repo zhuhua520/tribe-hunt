@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "note": "测试配置，不是最终数值。本阶段不定长期等级上限，只使用有限测试区间。",
+  "base_max_hp": 8,
+  "test_level_range": 3,
+  "xp_per_kill": 1,
+  "xp_per_level": 2,
+  "hp_per_level": 1,
+  "flat_damage_per_level": 1,
+  "techs": [
+    {
+      "id": "tech_bow_training",
+      "name": "弓术试制",
+      "description": "解锁试验弓的制作。测试消耗，不是最终数量。",
+      "required_level": 2,
+      "cost_item_id": "material_fiber",
+      "cost_count": 2,
+      "unlocks_recipe_id": "recipe_bow_training"
+    }
+  ]
+}

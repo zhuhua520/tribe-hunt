@@ -5,6 +5,8 @@ extends CharacterBody2D
 
 signal defeated
 
+const LootTable := preload("res://scripts/loot/loot_table.gd")
+
 const Volume := preload("res://scripts/combat/melee_attack_volume.gd")
 const Targeting := preload("res://scripts/combat/combat_targeting.gd")
 
@@ -24,6 +26,8 @@ enum State { PATROL, ALERT, CHASE, WINDUP, ACTIVE, RECOVERY, RETURN, HURT, DEAD 
 @export var alert_seconds: float = 0.22
 @export var bite_offset: float = 30.0
 @export var bite_radius: float = 18.0
+@export var loot_table_id: String = ""
+@export var loot_seed: int = 0
 
 var hp: int
 var state: int = State.PATROL
@@ -132,6 +136,8 @@ func _die() -> void:
 		_defeat_sent = true
 		print("Wolf defeated")
 		defeated.emit()
+	if loot_table_id != "":
+		LootTable.release_once(self, loot_table_id, loot_seed, false)
 	queue_free()
 
 

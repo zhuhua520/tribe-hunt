@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "components": [
+    {
+      "id": "core_test_damage",
+      "name": "试验核心",
+      "role": "core",
+      "tags": ["weapon"],
+      "flat_damage": 1
+    },
+    {
+      "id": "support_haste",
+      "name": "急促",
+      "role": "support",
+      "tags": ["weapon"],
+      "star": 1,
+      "interval_percent": -20,
+      "affix_pool": ["affix_edge", "affix_span", "affix_tempo"]
+    },
+    {
+      "id": "support_reach",
+      "name": "延伸",
+      "role": "support",
+      "tags": ["weapon"],
+      "range_flat": 24
+    },
+    {
+      "id": "support_projectile",
+      "name": "疾矢",
+      "role": "support",
+      "tags": ["projectile"],
+      "projectile_speed_percent": 20
+    },
+    {
+      "id": "core_echo",
+      "name": "回响",
+      "role": "core",
+      "tags": ["weapon"],
+      "mechanic": "echo",
+      "echo_every": 3,
+      "echo_damage": 1,
+      "echo_range": 40,
+      "echo_delay": 0.2
+    },
+    {
+      "id": "core_break",
+      "name": "破阵",
+      "role": "core",
+      "tags": ["weapon"],
+      "mechanic": "armor_break",
+      "armor_break": 1,
+      "shock_damage": 2,
+      "shock_range": 48
+    },
+    {
+      "id": "support_echo_range",
+      "name": "回响扩圈",
+      "role": "support",
+      "tags": ["weapon"],
+      "requires_mechanic": "echo",
+      "echo_range_flat": 20
+    },
+    {
+      "id": "support_break_power",
+      "name": "破击",
+      "role": "support",
+      "tags": ["weapon"],
+      "requires_mechanic": "armor_break",
+      "armor_break_flat": 1
+    },
+    {
+      "id": "core_hunt",
+      "name": "猎获",
+      "role": "core",
+      "tags": ["weapon"],
+      "mechanic": "hunt",
+      "shield_amount": 2,
+      "shield_duration": 4.0,
+      "shield_cooldown": 6.0,
+      "shield_cap": 2
+    },
+    {
+      "id": "support_shield_time",
+      "name": "护持",
+      "role": "support",
+      "tags": ["weapon"],
+      "requires_mechanic": "hunt",
+      "shield_duration_flat": 2.0
+    }
+  ]
+}

@@ -2,6 +2,8 @@ extends CanvasLayer
 ## 城镇店铺页面。控件在场景里，这里只按物品表填列表。不买卖，不写存档。
 
 const Catalog := preload("res://scripts/items/item_catalog.gd")
+const ModalStack := preload("res://scripts/ui/modal_stack.gd")
+const THEME := preload("res://data/ui/ui_theme.tres")
 
 @onready var _root: Control = $Root
 @onready var _title: Label = $Root/Center/Panel/Margin/VBox/TitleLabel
@@ -11,6 +13,7 @@ const Catalog := preload("res://scripts/items/item_catalog.gd")
 
 func _ready() -> void:
 	_root.visible = false
+	_root.theme = THEME
 	_close.pressed.connect(close)
 
 
@@ -44,9 +47,12 @@ func open_shop(title: String, category_id: String) -> void:
 		if not effect.is_empty():
 			line += "　" + String(effect.get("name", ""))
 		_list.add_item(line)
+	ModalStack.close_all_except(self)
 	_root.visible = true
+	ModalStack.push(self)
 	_close.grab_focus()
 
 
 func close() -> void:
 	_root.visible = false
+	ModalStack.pop(self)

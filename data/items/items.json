@@ -26,6 +26,56 @@
               "effect_id": "effect_sword_heavy"
             }
           ]
+        },
+        {
+          "id": "hammer",
+          "name": "锤",
+          "items": [
+            {
+              "id": "hammer_training",
+              "name": "试验重锤",
+              "description": "逻辑验证用。慢速圆形冲击，自带破甲。不需要蓄力。",
+              "attack": 2,
+              "abilities": ["slam"],
+              "effect_id": "effect_hammer_slam"
+            }
+          ]
+        },
+        {
+          "id": "bow",
+          "name": "弓",
+          "items": [
+            {
+              "id": "bow_training",
+              "name": "试验弓",
+              "description": "逻辑验证用。直线射箭，不追踪，也不加重力。",
+              "attack": 1,
+              "abilities": ["shot"],
+              "effect_id": "effect_bow_shot"
+            },
+            {
+              "id": "bow_pierce",
+              "name": "穿杨弓",
+              "description": "逻辑验证用。一支箭最多再打中后面一个目标，伤害会降低。",
+              "attack": 2,
+              "abilities": ["pierce"],
+              "effect_id": "effect_bow_pierce"
+            }
+          ]
+        },
+        {
+          "id": "gun",
+          "name": "火铳",
+          "items": [
+            {
+              "id": "gun_training",
+              "name": "试验火铳",
+              "description": "逻辑验证用。打出一发高速弹后必须装填，没有弹药库存。",
+              "attack": 3,
+              "abilities": ["reload_shot"],
+              "effect_id": "effect_gun_shot"
+            }
+          ]
         }
       ]
     },
@@ -40,7 +90,24 @@
             {
               "id": "material_fiber",
               "name": "测试纤维",
-              "description": "素材大类的测试条目。没有攻击力，也不关联武器特效。"
+              "description": "用途：制作试验火铳；强化组件每级消耗 1 份，测试上限 3 级；研究弓术试制消耗 2 份。测试消耗，不是最终数量。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blueprint",
+      "name": "图纸",
+      "groups": [
+        {
+          "id": "weapon_schematic",
+          "name": "武器图纸",
+          "items": [
+            {
+              "id": "blueprint_gun",
+              "name": "火铳图纸",
+              "description": "用途：解锁制作。解锁内容：试验火铳。合成铺在持有这张图纸后，可以消耗测试纤维做出试验火铳。"
             }
           ]
         }

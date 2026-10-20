@@ -17,6 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+
+
+
 SessionService="*res://scripts/networking/session_service.gd"
 BuildRunService="*res://scripts/build/build_run_service.gd"
 ProgressState="*res://scripts/progression/progress_state.gd"

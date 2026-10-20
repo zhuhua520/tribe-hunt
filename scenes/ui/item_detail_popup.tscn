@@ -41,6 +41,13 @@ theme_override_font_sizes/font_size = 14
 text = "说明"
 autowrap_mode = 3
 
+[node name="SourceLabel" type="Label" parent="Panel/VBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "来源"
+autowrap_mode = 3
+
 [node name="HintLabel" type="Label" parent="Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.85, 0.5, 1)

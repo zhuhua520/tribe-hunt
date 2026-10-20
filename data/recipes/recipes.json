@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "recipes": [
+    {
+      "id": "recipe_gun_training",
+      "name": "试验火铳",
+      "output_item_id": "gun_training",
+      "output_count": 1,
+      "blueprint_item_id": "blueprint_gun",
+      "ingredients": [
+        {
+          "item_id": "material_fiber",
+          "count": 3
+        }
+      ],
+      "note": "测试消耗，不是最终数量。无货币，不是买卖。"
+    },
+    {
+      "id": "recipe_bow_training",
+      "name": "试验弓",
+      "output_item_id": "bow_training",
+      "output_count": 1,
+      "tech_id": "tech_bow_training",
+      "ingredients": [
+        {
+          "item_id": "material_fiber",
+          "count": 2
+        }
+      ],
+      "note": "需要先研究弓术试制。测试消耗，不是最终数量。"
+    }
+  ]
+}

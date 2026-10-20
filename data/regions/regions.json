@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "regions": [
+    {
+      "id": "outskirts",
+      "name": "林地外围",
+      "scene_path": "res://scenes/exploration/outskirts.tscn",
+      "threat": "野兽、野狼、装甲狼、哨械与狼王。威胁固定，不随玩家等级变化。",
+      "encounters": ["beast", "wolf", "armored_wolf", "sentry", "wolf_king"],
+      "loot_tables": ["loot_beast", "loot_wolf", "loot_armored_wolf", "loot_sentry", "loot_wolf_king", "loot_branch_beast", "loot_outskirts_chest"],
+      "unique_ids": ["outskirts.branch_test_material_01", "outskirts.chest_shield", "outskirts.branch_hunt"],
+      "exits": [
+        {"to": "village", "entry": "from_outskirts"},
+        {"to": "forest_depths", "entry": "from_outskirts"},
+        {"to": "facility", "entry": "from_outskirts"}
+      ]
+    },
+    {
+      "id": "forest_depths",
+      "name": "森林深处",
+      "scene_path": "res://scenes/exploration/forest_depths.tscn",
+      "threat": "北侧野狼、西侧哨械。威胁固定，不随玩家等级变化。",
+      "encounters": ["wolf", "sentry"],
+      "loot_tables": ["loot_beast", "loot_sentry", "loot_depths_cache"],
+      "unique_ids": ["forest_depths.cache_reach"],
+      "exits": [
+        {"to": "outskirts", "entry": "from_depths"},
+        {"to": "boar_lair", "entry": "from_depths"}
+      ]
+    },
+    {
+      "id": "boar_lair",
+      "name": "野猪王巢穴",
+      "scene_path": "res://scenes/exploration/boar_lair.tscn",
+      "threat": "锁向冲撞与圆形震地。威胁固定，不随玩家等级变化。",
+      "encounters": ["boar_king"],
+      "loot_tables": [],
+      "unique_ids": ["boar_lair.first_core"],
+      "exits": [
+        {"to": "forest_depths", "entry": "from_lair"}
+      ]
+    },
+    {
+      "id": "facility",
+      "name": "废弃设施",
+      "scene_path": "res://scenes/exploration/facility.tscn",
+      "threat": "门后驻守哨械。威胁固定，不随玩家等级变化。",
+      "encounters": ["sentry"],
+      "loot_tables": ["loot_sentry"],
+      "unique_ids": ["facility.switch", "facility.schematic"],
+      "exits": [
+        {"to": "outskirts", "entry": "from_facility"}
+      ]
+    }
+  ]
+}

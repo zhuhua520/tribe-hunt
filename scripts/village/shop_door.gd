@@ -3,6 +3,7 @@ extends Area2D
 
 @export var shop_title: String = ""
 @export var category_id: String = ""
+@export var opens_craft: bool = false
 
 var _occupied: bool = false
 

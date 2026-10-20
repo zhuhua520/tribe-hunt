@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/build_combat_readout.gd" id="1_readout"]
+
+[node name="BuildCombatReadout" type="CanvasLayer"]
+layer = 12
+script = ExtResource("1_readout")
+
+[node name="Panel" type="VBoxContainer" parent="."]
+offset_left = 860.0
+offset_top = 16.0
+offset_right = 1240.0
+offset_bottom = 280.0
+theme_override_constants/separation = 4
+
+[node name="VitalLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "生命 —"
+
+[node name="WeaponLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "无武器"
+autowrap_mode = 3
+
+[node name="RegionLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "区域：—"
+autowrap_mode = 3
+
+[node name="CoreLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "无核心"
+
+[node name="ProgressLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "—"
+
+[node name="DetailLabel" type="Label" parent="Panel"]
+custom_minimum_size = Vector2(360, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "未成型"
+autowrap_mode = 3
+
+[node name="StatsLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "触发 0 · 来源伤害 0 · 机制伤害 0"
+autowrap_mode = 3
+
+[node name="ReloadLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="ReloadBar" type="ProgressBar" parent="Panel"]
+custom_minimum_size = Vector2(220, 14)
+layout_mode = 2
+max_value = 1.0
+value = 0.0
+show_percentage = false

@@ -155,3 +155,8 @@ autowrap_mode = 3
 layout_mode = 2
 alignment = 0
 text = "领取测试金钱"
+
+[node name="GrantBuild" type="Button" parent="Panel/Scroll/Box"]
+layout_mode = 2
+alignment = 0
+text = "发放构筑测试包"

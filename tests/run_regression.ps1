@@ -7,7 +7,7 @@ New-Item -ItemType Directory -Path $testData -Force | Out-Null
 $previousAppData = $env:APPDATA
 try {
     $env:APPDATA = $testData
-    & $GodotPath --headless --path $projectRoot --log-file $logPath res://tests/regression.tscn --quit-after 6000
+    & $GodotPath --headless --path $projectRoot --log-file $logPath res://tests/regression.tscn --quit-after 30000
     $runExitCode = $LASTEXITCODE
     $log = Get-Content -LiteralPath $logPath -Raw
     if ($runExitCode -ne 0 -or $log -match 'SCRIPT ERROR|ERROR:' -or $log -notmatch 'REGRESSION: \d+ checks, 0 failures') {

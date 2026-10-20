@@ -2,6 +2,8 @@ extends CanvasLayer
 ## 单人战斗暂停。可以继续、打开设置或结束冒险并返回部落村落。
 
 const SceneFlow = preload("res://scripts/ui/scene_flow.gd")
+const ModalStack := preload("res://scripts/ui/modal_stack.gd")
+const THEME := preload("res://data/ui/ui_theme.tres")
 
 @onready var _pause_root: Control = $PauseRoot
 @onready var _settings_root: Control = $SettingsRoot
@@ -18,6 +20,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_pause_root.visible = false
 	_settings_root.visible = false
+	_pause_root.theme = THEME
+	_settings_root.theme = THEME
 	_resume_button.pressed.connect(_resume)
 	_settings_button.pressed.connect(_open_settings)
 	_menu_button.pressed.connect(_on_menu_pressed)
@@ -49,6 +53,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		_show_pause_choices()
 	elif _pause_root.visible:
 		_resume()
+	elif ModalStack.close_top():
+		return
 	else:
 		_open_pause()
 

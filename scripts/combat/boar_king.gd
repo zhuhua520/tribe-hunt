@@ -1,6 +1,8 @@
 extends CharacterBody2D
 const PreviewArt := preload("res://scripts/systems/borrowed_preview_art.gd")
+const Targeting := preload("res://scripts/combat/combat_targeting.gd")
 ## 野猪王最小遭遇。追近、锁向冲撞和圆形震地都是临时原型值。
+## 冲刺沿锁定方向平移，撞到实心地形就停，不穿墙。
 
 signal defeated
 
@@ -158,18 +160,24 @@ func _tick_charge_lock() -> void:
 
 
 func _tick_charge_dash(delta: float) -> void:
-	# 冲刺只用锁定方向平移，不读取玩家位置，也不沿碰撞滑开。
-	global_position += dash_direction * CHARGE_DASH_SPEED * delta
+	# 冲刺只用锁定方向平移，不读取玩家位置。遇到实心地形就停，不穿墙。
+	var desired := global_position + dash_direction * CHARGE_DASH_SPEED * delta
+	var blocked := _terrain_stop(global_position, desired)
+	if blocked != Vector2.INF:
+		global_position = blocked
+		velocity = Vector2.ZERO
+		_show_charge(dash_direction, true)
+		_try_charge_hit()
+		_end_charge_dash("Boar charge blocked")
+		return
+	global_position = desired
 	velocity = Vector2.ZERO
 	_show_charge(dash_direction, true)
 	_try_charge_hit()
 	if _action_time >= CHARGE_DASH_SECONDS:
 		if not _charge_connected:
 			print("Boar charge missed")
-		collision_mask = 1
-		action_name = "charge_recover"
-		_action_time = 0.0
-		print("Boar charge recover")
+		_end_charge_dash("")
 
 
 func _tick_charge_recover() -> void:
@@ -209,6 +217,30 @@ func _tick_slam_recover() -> void:
 	if _action_time >= SLAM_RECOVER_SECONDS:
 		_next_attack = "charge"
 		_begin_chase()
+
+
+func _end_charge_dash(reason: String) -> void:
+	if reason != "":
+		print(reason)
+	collision_mask = 1
+	action_name = "charge_recover"
+	_action_time = 0.0
+	print("Boar charge recover")
+
+
+func _terrain_stop(from: Vector2, to: Vector2) -> Vector2:
+	var world := get_world_2d()
+	if world == null:
+		return Vector2.INF
+	var query := PhysicsRayQueryParameters2D.create(from, to, Targeting.TERRAIN_LAYER)
+	query.exclude = [get_rid()]
+	var result := world.direct_space_state.intersect_ray(query)
+	if result.is_empty():
+		return Vector2.INF
+	var hit: Vector2 = result.position
+	if dash_direction.length_squared() > 0.0001:
+		hit -= dash_direction.normalized() * 8.0
+	return hit
 
 
 func _begin_chase() -> void:

@@ -26,6 +26,7 @@ var _note := ""
 @onready var _place_dummy: Button = $Panel/Scroll/Box/PlaceDummy
 @onready var _clear_dummies: Button = $Panel/Scroll/Box/ClearDummies
 @onready var _grant_money: Button = $Panel/Scroll/Box/GrantMoney
+@onready var _grant_build: Button = $Panel/Scroll/Box/GrantBuild
 
 
 func _ready() -> void:
@@ -43,6 +44,7 @@ func _ready() -> void:
 	_place_dummy.pressed.connect(place_dummy)
 	_clear_dummies.pressed.connect(clear_dummies)
 	_grant_money.pressed.connect(grant_money_note)
+	_grant_build.pressed.connect(grant_build_test_pack)
 	set_open(false)
 
 
@@ -81,6 +83,12 @@ func grant_money_note() -> String:
 	_note = MONEY_NOTE
 	_refresh_status()
 	return MONEY_NOTE
+
+
+func grant_build_test_pack() -> String:
+	_note = ProgressState.build_loadout.grant_test_pack()
+	_refresh_status()
+	return _note
 
 
 func place_dummy() -> bool:

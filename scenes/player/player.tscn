@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqplayer000001"]
+[gd_scene load_steps=8 format=3 uid="uid://bqplayer000001"]
 
 [ext_resource type="Script" path="res://scripts/appearance/hunter_sprite.gd" id="99_hunter"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/hunter_sheet.png" id="97_hunter"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/weapons/melee_weapon.tscn" id="3_melee"]
 [ext_resource type="PackedScene" path="res://scenes/weapons/ranged_weapon.tscn" id="4_ranged"]
 [ext_resource type="Script" path="res://scripts/combat/player_action_controller.gd" id="5_actions"]
+[ext_resource type="Script" path="res://scripts/weapons/equipped_auto_weapon.gd" id="6_equipped"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 28)
@@ -55,11 +56,14 @@ width = 2.0
 default_color = Color(1, 0.95, 0.75, 0.7)
 
 [node name="AutoLabel" type="Label" parent="ActionController"]
-visible = false
-offset_left = -40.0
+offset_left = -88.0
 offset_top = -78.0
-offset_right = 40.0
+offset_right = 88.0
 offset_bottom = -58.0
 theme_override_font_sizes/font_size = 12
-text = "自动攻击"
+text = "装备：试验短剑"
 horizontal_alignment = 1
+
+[node name="EquippedAutoWeapon" type="Node2D" parent="."]
+z_index = 2
+script = ExtResource("6_equipped")

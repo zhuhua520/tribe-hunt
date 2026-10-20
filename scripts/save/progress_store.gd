@@ -5,7 +5,9 @@ extends RefCounted
 
 enum LoadStatus { OK, MISSING, RESTORED_FROM_BACKUP, CORRUPT, NEWER_VERSION }
 
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 4
+const GrowthCatalog := preload("res://scripts/progression/growth_catalog.gd")
+const DEFAULT_WEAPON_ID := "sword_training"
 const MAX_ITEM_COUNT := 999999
 const MAX_ID_LENGTH := 128
 const DEFAULT_SCENE_ID := "village"
@@ -14,6 +16,7 @@ const DEFAULT_ENTRY_ID := "default"
 const SAFE_SCENES := {
 	"village": "res://scenes/village/village.tscn",
 }
+const BuildLoadout := preload("res://scripts/build/build_loadout.gd")
 
 var main_path: String
 var temp_path: String
@@ -103,7 +106,16 @@ static func parse_text(text: String, known_item_ids: Array, warnings: PackedStri
 		"location": _read_location(raw.get("location"), warnings),
 		"items": {},
 		"claimed_objects": [],
+		"equipped_weapon_id": DEFAULT_WEAPON_ID,
+		"build": BuildLoadout.saved_build(raw.get("build") if raw.has("build") else null, warnings),
+		"growth": saved_growth(raw.get("growth") if raw.has("growth") else null, warnings),
 	}
+	if raw.has("equipped_weapon_id"):
+		var equipped: Variant = raw["equipped_weapon_id"]
+		if typeof(equipped) == TYPE_STRING and StringName(equipped) in known_item_ids:
+			data.equipped_weapon_id = String(equipped)
+		else:
+			warnings.append("忽略无效装备 ID：%s" % str(equipped))
 	var items: Dictionary = raw["items"]
 	for key in items:
 		var count: Variant = items[key]
@@ -120,6 +132,50 @@ static func parse_text(text: String, known_item_ids: Array, warnings: PackedStri
 		else:
 			warnings.append("忽略无效对象 ID：%s" % str(object_id))
 	return {"status": LoadStatus.OK, "data": data}
+
+
+static func saved_growth(raw: Variant, warnings: PackedStringArray) -> Dictionary:
+	var growth := {
+		"xp": 0,
+		"level": 1,
+		"techs": [],
+	}
+	if raw == null:
+		return growth
+	if typeof(raw) != TYPE_DICTIONARY:
+		warnings.append("忽略无效成长")
+		return growth
+	if raw.has("xp"):
+		if _is_whole_number(raw.get("xp")) and int(raw.get("xp")) >= 0:
+			growth["xp"] = int(raw.get("xp"))
+		else:
+			warnings.append("忽略无效经验")
+	if raw.has("level"):
+		if _is_whole_number(raw.get("level")) and int(raw.get("level")) >= 1:
+			growth["level"] = int(raw.get("level"))
+		else:
+			warnings.append("忽略无效等级")
+	var techs: Array = []
+	var seen := {}
+	var raw_techs: Variant = raw.get("techs", [])
+	if raw.has("techs") and typeof(raw_techs) != TYPE_ARRAY:
+		warnings.append("忽略无效技术列表")
+		raw_techs = []
+	if typeof(raw_techs) == TYPE_ARRAY:
+		for tech_id in raw_techs:
+			if not _is_valid_id(tech_id):
+				warnings.append("忽略无效技术：%s" % str(tech_id))
+				continue
+			var id := String(tech_id)
+			if seen.has(id):
+				continue
+			seen[id] = true
+			if GrowthCatalog.tech(id).is_empty():
+				warnings.append("保留未知技术：%s" % id)
+			techs.append(id)
+	techs.sort()
+	growth["techs"] = techs
+	return growth
 
 
 static func _read_location(value: Variant, warnings: PackedStringArray) -> Dictionary:

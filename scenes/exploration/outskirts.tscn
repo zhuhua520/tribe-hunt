@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=30 format=3]
 
 [ext_resource type="Script" path="res://scripts/exploration/outskirts.gd" id="1_outskirts"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -7,10 +7,16 @@
 [ext_resource type="Resource" path="res://data/items/item_test_material.tres" id="5_item"]
 [ext_resource type="PackedScene" path="res://scenes/combat/enemy.tscn" id="6_enemy"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="7_pause"]
-[ext_resource type="Resource" path="res://data/items/item_test_hide.tres" id="8_hide"]
 [ext_resource type="PackedScene" path="res://scenes/ui/item_detail_popup.tscn" id="9_popup"]
 [ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="10_inventory"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/wolf.tscn" id="11_wolf"]
+[ext_resource type="PackedScene" path="res://scenes/ui/equipment_panel.tscn" id="12_equipment"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_panel.tscn" id="13_build"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_combat_readout.tscn" id="14_readout"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/armored_wolf.tscn" id="15_armored"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/sentry.tscn" id="16_sentry"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/wolf_king.tscn" id="17_king"]
+[ext_resource type="PackedScene" path="res://scenes/ui/codex_panel.tscn" id="18_codex"]
 
 [sub_resource type="RectangleShape2D" id="Rect_branch_south"]
 size = Vector2(540, 48)
@@ -38,6 +44,12 @@ size = Vector2(64, 256)
 
 [sub_resource type="RectangleShape2D" id="Rect_rock"]
 size = Vector2(160, 300)
+
+[sub_resource type="RectangleShape2D" id="Rect_deep_rock"]
+size = Vector2(64, 48)
+
+[sub_resource type="RectangleShape2D" id="Rect_sentry_cover"]
+size = Vector2(36, 96)
 
 [sub_resource type="CircleShape2D" id="Circle_trunk"]
 radius = 14.0
@@ -246,13 +258,105 @@ theme_override_font_sizes/font_size = 16
 text = "E 拾取"
 horizontal_alignment = 1
 
+[node name="SupportChest" type="Area2D" parent="."]
+position = Vector2(900, 80)
+script = ExtResource("4_pickup")
+object_id = &"outskirts.chest_shield"
+loot_table_id = "loot_outskirts_chest"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SupportChest"]
+shape = SubResource("Circle_pickup")
+
+[node name="Visual" type="Polygon2D" parent="SupportChest"]
+color = Color(0.45, 0.75, 0.95, 1)
+polygon = PackedVector2Array(-14, -10, 14, -10, 14, 12, -14, 12)
+
+[node name="NameLabel" type="Label" parent="SupportChest"]
+z_index = 5
+offset_left = -40.0
+offset_top = -42.0
+offset_right = 40.0
+offset_bottom = -18.0
+theme_override_font_sizes/font_size = 14
+text = "护持"
+horizontal_alignment = 1
+
+[node name="Prompt" type="Label" parent="SupportChest"]
+z_index = 5
+offset_left = -50.0
+offset_top = -64.0
+offset_right = 50.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 16
+text = "E 拾取"
+horizontal_alignment = 1
+
 [node name="BranchEnemy" parent="." instance=ExtResource("6_enemy")]
 position = Vector2(-560, -150)
 arena_half_size = Vector2(1200, 800)
-drop_item = ExtResource("8_hide")
+loot_table_id = "loot_branch_beast"
 
 [node name="Wolf" parent="." instance=ExtResource("11_wolf")]
 position = Vector2(-200, 400)
+
+[node name="DeepTrialLabel" type="Label" parent="."]
+offset_left = -1040.0
+offset_top = -640.0
+offset_right = -820.0
+offset_bottom = -610.0
+theme_override_font_sizes/font_size = 16
+text = "深处试炼"
+
+[node name="DeepRock" type="StaticBody2D" parent="Walls"]
+position = Vector2(-820, -520)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DeepRock"]
+shape = SubResource("Rect_deep_rock")
+
+[node name="Visual" type="Polygon2D" parent="Walls/DeepRock"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-40, -28, 40, -28, 40, 28, -40, 28)
+
+[node name="ArmoredWolf" parent="." instance=ExtResource("15_armored")]
+position = Vector2(-980, -560)
+
+[node name="SentryCover" type="StaticBody2D" parent="Walls"]
+position = Vector2(330, 640)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/SentryCover"]
+shape = SubResource("Rect_sentry_cover")
+
+[node name="Visual" type="Polygon2D" parent="Walls/SentryCover"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-18, -48, 18, -48, 18, 48, -18, 48)
+
+[node name="SentryPostLabel" type="Label" parent="."]
+offset_left = 160.0
+offset_top = 560.0
+offset_right = 300.0
+offset_bottom = 588.0
+theme_override_font_sizes/font_size = 16
+text = "南侧哨位"
+horizontal_alignment = 1
+
+[node name="Sentry" parent="." instance=ExtResource("16_sentry")]
+position = Vector2(240, 640)
+
+[node name="WolfKingLabel" type="Label" parent="."]
+offset_left = -40.0
+offset_top = 430.0
+offset_right = 120.0
+offset_bottom = 458.0
+theme_override_font_sizes/font_size = 16
+text = "狼王领地"
+horizontal_alignment = 1
+
+[node name="WolfKing" parent="." instance=ExtResource("17_king")]
+position = Vector2(40, 500)
 
 [node name="PlaceholderTree" type="Node2D" parent="."]
 position = Vector2(700, 250)
@@ -274,6 +378,50 @@ shape = SubResource("Circle_trunk")
 
 [node name="from_village" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1100, 0)
+
+[node name="from_depths" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(-700, -450)
+
+[node name="from_facility" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(800, -500)
+
+[node name="FacilityExit" type="Area2D" parent="."]
+position = Vector2(1000, -740)
+script = ExtResource("3_exit")
+target_scene = "res://scenes/exploration/facility.tscn"
+target_entry_id = &"from_outskirts"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FacilityExit"]
+shape = SubResource("Rect_exit")
+
+[node name="FacilityExitLabel" type="Label" parent="."]
+z_index = 5
+offset_left = 900.0
+offset_top = -800.0
+offset_right = 1100.0
+offset_bottom = -768.0
+theme_override_font_sizes/font_size = 16
+text = "↑ 废弃设施"
+horizontal_alignment = 1
+
+[node name="DepthsExit" type="Area2D" parent="."]
+position = Vector2(-1160, -420)
+script = ExtResource("3_exit")
+target_scene = "res://scenes/exploration/forest_depths.tscn"
+target_entry_id = &"from_outskirts"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthsExit"]
+shape = SubResource("Rect_exit")
+
+[node name="DepthsExitLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -1260.0
+offset_top = -480.0
+offset_right = -1060.0
+offset_bottom = -448.0
+theme_override_font_sizes/font_size = 16
+text = "← 森林深处"
+horizontal_alignment = 1
 
 [node name="VillageExit" type="Area2D" parent="."]
 position = Vector2(1380, 0)
@@ -317,7 +465,7 @@ offset_top = 16.0
 offset_right = 900.0
 offset_bottom = 48.0
 theme_override_font_sizes/font_size = 16
-text = "林地外围（灰盒）：WASD 移动，鼠标瞄准，点按左键连击，按住蓄力斩，空格闪避，T 自动攻击，E 拾取，I 背包，Escape 暂停；东侧通道回村。南侧淡圈是野狼活动范围，离开后它会返回。"
+text = "林地外围（灰盒）：WASD 移动，空格闪避，E 拾取，I 背包后可装备一把武器。攻击自动进行。Escape 暂停。东侧通道回村。南侧淡圈是野狼活动范围，离开后它会返回。"
 
 [node name="InventoryLabel" type="Label" parent="UI"]
 offset_left = 20.0
@@ -340,7 +488,7 @@ visible = false
 offset_left = 440.0
 offset_top = 260.0
 offset_right = 840.0
-offset_bottom = 420.0
+offset_bottom = 500.0
 
 [node name="VBox" type="VBoxContainer" parent="UI/DefeatPanel"]
 layout_mode = 2
@@ -353,6 +501,14 @@ text = "你倒下了。
 （临时处理：探索失败规则待定 D3）"
 horizontal_alignment = 1
 
+[node name="StatsLabel" type="Label" parent="UI/DefeatPanel/VBox"]
+custom_minimum_size = Vector2(360, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
 [node name="ReturnButton" type="Button" parent="UI/DefeatPanel/VBox"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -363,3 +519,11 @@ text = "返回村落"
 [node name="PauseMenu" parent="." instance=ExtResource("7_pause")]
 
 [node name="InventoryPanel" parent="." instance=ExtResource("10_inventory")]
+
+[node name="EquipmentPanel" parent="." instance=ExtResource("12_equipment")]
+
+[node name="BuildPanel" parent="." instance=ExtResource("13_build")]
+
+[node name="BuildCombatReadout" parent="." instance=ExtResource("14_readout")]
+
+[node name="CodexPanel" parent="." instance=ExtResource("18_codex")]

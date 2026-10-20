@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/wolf_king.gd" id="1_king"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(34, 28)
+
+[node name="WolfKing" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 16
+motion_mode = 1
+script = ExtResource("1_king")
+max_hp = 10
+loot_table_id = "loot_wolf_king"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Body" type="Polygon2D" parent="Visual"]
+color = Color(0.28, 0.16, 0.12, 1)
+polygon = PackedVector2Array(-18, -8, -4, -14, 12, -10, 22, 0, 12, 10, -16, 9)
+
+[node name="Shoulder" type="Polygon2D" parent="Visual"]
+color = Color(0.62, 0.28, 0.16, 1)
+polygon = PackedVector2Array(-6, -14, 6, -16, 8, -6, -8, -6)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -28.0
+offset_top = -46.0
+offset_right = 28.0
+offset_bottom = -24.0
+theme_override_font_sizes/font_size = 14
+text = "狼王"
+horizontal_alignment = 1

@@ -5,9 +5,10 @@ alwaysApply: true
 
 # 已验证的踩坑
 
-- 本机 Godot 可执行文件是 `D:\godot\Godot_v4.7.2-stable_win64.exe`。文档中的 console 路径不存在。PowerShell `&` 不会等待这个窗口版。无头回归用 `Start-Process -Wait`，`APPDATA` 指到 `tmp/test_userdata`，不要写真实 `user://` 进度。
+- Godot 路径会变化，不把历史路径写成永久事实。2026-10-20 方案检查时 `D:\Godot_v4.7.2-stable_win64_console.exe` 存在，旧 `D:\godot\Godot_v4.7.2-stable_win64.exe` 不存在；仍须运行版本命令核实。窗口版需确认 PowerShell 是否等待，必要时 `Start-Process -Wait` 取得退出码。`APPDATA` 指到 `tmp/test_userdata`，不要写真实 `user://` 进度。
 - 不要用 PowerShell `Get-Content` / `WriteAllText` 改 UTF-8 源文件。回归命令不要加 `2>&1`。
 - `:=` 的右侧没有明确类型时会解析失败。新 `class_name` 在类缓存刷新前，调用方用 `preload`，不要直接写类名。
+- `const` 不能赋 `PackedStringArray([...])`，那不是常量表达式。
 - UI 只存在自己的场景里，脚本不 `new()` 整页控件。信号名不要和变量同名。
 - `reload()` 前把 `source_code` 设为磁盘内容。MCP 表达式不能写 `var`，也不要一次改多个节点。截图只写 `user://`。
 - 新物品只写 `data/items/items.json`，特效只写 `data/effects/effects.json`。

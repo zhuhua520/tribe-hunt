@@ -1,0 +1,224 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration/boar_lair.gd" id="1_lair"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/exploration/scene_exit.gd" id="3_exit"]
+[ext_resource type="PackedScene" path="res://scenes/combat/boar_king.tscn" id="4_boar"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="5_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/item_detail_popup.tscn" id="6_popup"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="7_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/ui/equipment_panel.tscn" id="8_equipment"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_panel.tscn" id="9_build"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_combat_readout.tscn" id="10_readout"]
+[ext_resource type="PackedScene" path="res://scenes/ui/codex_panel.tscn" id="11_codex"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ns"]
+size = Vector2(1024, 64)
+
+[sub_resource type="RectangleShape2D" id="Rect_we"]
+size = Vector2(64, 640)
+
+[sub_resource type="RectangleShape2D" id="Rect_pillar"]
+size = Vector2(48, 120)
+
+[sub_resource type="RectangleShape2D" id="Rect_exit"]
+size = Vector2(96, 96)
+
+[node name="BoarLair" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_lair")
+
+[node name="Ground" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0.16, 0.12, 0.1, 1)
+polygon = PackedVector2Array(-512, -320, 512, -320, 512, 320, -512, 320)
+
+[node name="Floor" type="Polygon2D" parent="."]
+z_index = -9
+color = Color(0.32, 0.24, 0.16, 1)
+polygon = PackedVector2Array(-448, -256, 448, -256, 448, 256, -448, 256)
+
+[node name="Walls" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="North" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -288)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/North"]
+shape = SubResource("Rect_ns")
+
+[node name="Visual" type="Polygon2D" parent="Walls/North"]
+color = Color(0.28, 0.22, 0.18, 1)
+polygon = PackedVector2Array(-512, -32, 512, -32, 512, 32, -512, 32)
+
+[node name="South" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 288)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/South"]
+shape = SubResource("Rect_ns")
+
+[node name="Visual" type="Polygon2D" parent="Walls/South"]
+color = Color(0.28, 0.22, 0.18, 1)
+polygon = PackedVector2Array(-512, -32, 512, -32, 512, 32, -512, 32)
+
+[node name="West" type="StaticBody2D" parent="Walls"]
+position = Vector2(-480, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/West"]
+shape = SubResource("Rect_we")
+
+[node name="Visual" type="Polygon2D" parent="Walls/West"]
+color = Color(0.28, 0.22, 0.18, 1)
+polygon = PackedVector2Array(-32, -320, 32, -320, 32, 320, -32, 320)
+
+[node name="East" type="StaticBody2D" parent="Walls"]
+position = Vector2(480, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/East"]
+shape = SubResource("Rect_we")
+
+[node name="Visual" type="Polygon2D" parent="Walls/East"]
+color = Color(0.28, 0.22, 0.18, 1)
+polygon = PackedVector2Array(-32, -320, 32, -320, 32, 320, -32, 320)
+
+[node name="Pillar" type="StaticBody2D" parent="Walls"]
+position = Vector2(220, -60)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Pillar"]
+shape = SubResource("Rect_pillar")
+
+[node name="Visual" type="Polygon2D" parent="Walls/Pillar"]
+color = Color(0.36, 0.28, 0.22, 1)
+polygon = PackedVector2Array(-24, -60, 24, -60, 24, 60, -24, 60)
+
+[node name="AreaLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -120.0
+offset_top = -240.0
+offset_right = 120.0
+offset_bottom = -208.0
+theme_override_font_sizes/font_size = 18
+text = "野猪王巢穴"
+horizontal_alignment = 1
+
+[node name="BoarKing" parent="." instance=ExtResource("4_boar")]
+position = Vector2(0, -60)
+arena_half_size = Vector2(448, 256)
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="from_depths" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(0, 140)
+
+[node name="DepthsExit" type="Area2D" parent="."]
+position = Vector2(0, 240)
+script = ExtResource("3_exit")
+target_scene = "res://scenes/exploration/forest_depths.tscn"
+target_entry_id = &"from_lair"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DepthsExit"]
+shape = SubResource("Rect_exit")
+
+[node name="ExitLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -80.0
+offset_top = 196.0
+offset_right = 80.0
+offset_bottom = 224.0
+theme_override_font_sizes/font_size = 16
+text = "↓ 回深处"
+horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(0, 140)
+arena_half_size = Vector2(512, 320)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="HintLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 980.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 16
+text = "野猪王巢穴：锁向冲撞可走位躲开。倒下保留当前所得，回村才保存。南侧返回深处。"
+
+[node name="ThreatLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 44.0
+offset_right = 980.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 16
+text = "威胁"
+
+[node name="InventoryLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 72.0
+offset_right = 600.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 16
+text = "持有：无"
+
+[node name="MessageLabel" type="Label" parent="UI"]
+offset_left = 340.0
+offset_top = 560.0
+offset_right = 940.0
+offset_bottom = 592.0
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="DefeatPanel" type="PanelContainer" parent="UI"]
+visible = false
+offset_left = 440.0
+offset_top = 220.0
+offset_right = 840.0
+offset_bottom = 460.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/DefeatPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="DefeatLabel" type="Label" parent="UI/DefeatPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "你倒下了。当前所得还在，回村后才会写入存档。
+巢穴里的野猪王会重置，首次奖励不会重复。"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="UI/DefeatPanel/VBox"]
+custom_minimum_size = Vector2(360, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ReturnButton" type="Button" parent="UI/DefeatPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "返回村落"
+
+[node name="ItemDetailPopup" parent="UI" instance=ExtResource("6_popup")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("5_pause")]
+
+[node name="InventoryPanel" parent="." instance=ExtResource("7_inventory")]
+
+[node name="EquipmentPanel" parent="." instance=ExtResource("8_equipment")]
+
+[node name="BuildPanel" parent="." instance=ExtResource("9_build")]
+
+[node name="BuildCombatReadout" parent="." instance=ExtResource("10_readout")]
+
+[node name="CodexPanel" parent="." instance=ExtResource("11_codex")]

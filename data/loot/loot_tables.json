@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "tables": [
+    {
+      "id": "loot_beast",
+      "source_label": "林地野兽",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "item_id": "item_test_hide",
+          "min_count": 1,
+          "max_count": 1
+        }
+      ]
+    },
+    {
+      "id": "loot_branch_beast",
+      "source_label": "林地支路野兽",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "item_id": "item_test_hide",
+          "min_count": 1,
+          "max_count": 1
+        },
+        {
+          "kind": "guaranteed",
+          "component_definition_id": "core_hunt",
+          "claim_id": "outskirts.branch_hunt"
+        }
+      ]
+    },
+    {
+      "id": "loot_armored_wolf",
+      "source_label": "装甲狼",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "item_id": "material_fiber",
+          "min_count": 1,
+          "max_count": 1
+        }
+      ]
+    },
+    {
+      "id": "loot_wolf",
+      "source_label": "野狼",
+      "entries": [
+        {
+          "kind": "weighted_choice",
+          "rolls": 1,
+          "choices": [
+            {
+              "weight": 1,
+              "item_id": "item_test_hide",
+              "min_count": 1,
+              "max_count": 1
+            },
+            {
+              "weight": 1,
+              "empty": true
+            }
+          ]
+        },
+        {
+          "kind": "independent_chance",
+          "chance": 1.0,
+          "item_id": "sword_hunter",
+          "min_count": 1,
+          "max_count": 1
+        }
+      ]
+    },
+    {
+      "id": "loot_sentry",
+      "source_label": "哨械",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "item_id": "item_test_hide",
+          "min_count": 1,
+          "max_count": 1
+        }
+      ]
+    },
+    {
+      "id": "loot_wolf_king",
+      "source_label": "狼王",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "item_id": "material_fiber",
+          "min_count": 1,
+          "max_count": 1
+        }
+      ]
+    },
+    {
+      "id": "loot_depths_cache",
+      "source_label": "森林深处匣",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "component_definition_id": "support_reach",
+          "claim_id": "forest_depths.cache_reach"
+        }
+      ]
+    },
+    {
+      "id": "loot_outskirts_chest",
+      "source_label": "外围箱",
+      "entries": [
+        {
+          "kind": "guaranteed",
+          "component_definition_id": "support_shield_time",
+          "claim_id": "outskirts.chest_shield"
+        }
+      ]
+    }
+  ]
+}

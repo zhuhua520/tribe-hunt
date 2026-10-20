@@ -51,16 +51,31 @@ static func make_definition(item_id: StringName) -> ItemDefinition:
 	return definition
 
 
+## 测试用：改内存中的攻击力，下一次说明和结算都读这张表。不写回磁盘。
+static func debug_set_attack(item_id: StringName, attack: int) -> void:
+	ensure_loaded()
+	var key := String(item_id)
+	if not _items.has(key):
+		return
+	_items[key]["attack"] = attack
+	_definitions.erase(item_id)
+
+
 static func _description(data: Dictionary) -> String:
 	var text := String(data.get("description", ""))
 	if data.get("category_id", "") == "weapon":
-		text += "\n攻击力 %s" % str(data.get("attack", 0))
 		var effect: Dictionary = get_effect(String(data.get("effect_id", "")))
-		if not effect.is_empty():
-			text += "\n特效：%s" % String(effect.get("name", ""))
-		var abilities: Array = data.get("abilities", [])
-		if not abilities.is_empty():
-			text += "\n能力：%s" % ", ".join(abilities)
+		var speed_text := ""
+		if String(effect.get("behavior_id", "")) == "projectile":
+			speed_text = " · 弹速 %.0f" % float(effect.get("projectile_speed", 0.0))
+		text += "\n攻击力 %s · 间隔 %.2f秒 · 范围 %.0f · 破甲 %d · %s%s" % [
+			str(data.get("attack", 0)),
+			float(effect.get("interval", 0.0)),
+			float(effect.get("range", 0.0)),
+			maxi(0, int(effect.get("armor_break", 0))),
+			String(effect.get("name", "")),
+			speed_text,
+		]
 	return text
 
 

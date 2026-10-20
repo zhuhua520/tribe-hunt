@@ -58,10 +58,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -190.0
-offset_right = 220.0
-offset_bottom = 180.0
+offset_left = -240.0
+offset_top = -220.0
+offset_right = 240.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -81,6 +81,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = ""
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="RestartButton" type="Button" parent="Root/ResultPanel/VBox"]
 custom_minimum_size = Vector2(0, 40)

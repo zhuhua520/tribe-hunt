@@ -1,5 +1,5 @@
 extends RefCounted
-## 本地设置存档。只记录已经能生效的主音量、窗口模式和自动攻击辅助开关。
+## 本地设置存档。正式战斗不读取 auto_attack；该字段只留给手动夹具，读写时不改音量和窗口模式。
 
 const SCHEMA_VERSION := 1
 const SETTINGS_PATH := "user://settings.json"
@@ -12,7 +12,7 @@ const WINDOW_MODES: Array[String] = [WINDOW_WINDOWED, WINDOW_FULLSCREEN]
 
 const DEFAULT_MASTER_VOLUME := 1.0
 const DEFAULT_WINDOW_MODE := WINDOW_WINDOWED
-## D1：手动攻击为主，自动攻击是默认关闭的辅助模式。
+## 旧档里的辅助开关。正式战斗忽略它，避免 auto_attack=false 把攻击整个关掉。
 const DEFAULT_AUTO_ATTACK := false
 
 const _PARSE_OK := 0

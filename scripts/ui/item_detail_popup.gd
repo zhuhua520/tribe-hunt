@@ -2,6 +2,9 @@ extends Control
 ## 鼠标指向地上可拾取物（inspectable_items 组）时显示物品详情。
 ## 放进任意场景的 CanvasLayer 即可使用；不处理拾取，只读 ItemDefinition 与数量。
 
+const LootTable := preload("res://scripts/loot/loot_table.gd")
+const THEME := preload("res://data/ui/ui_theme.tres")
+
 const SCREEN_OFFSET := Vector2(20, 20)
 
 ## 测试可关闭鼠标跟随，改为手动调用 update_for_world_point。
@@ -11,6 +14,7 @@ const SCREEN_OFFSET := Vector2(20, 20)
 @onready var _name_label: Label = $Panel/VBox/NameLabel
 @onready var _amount_label: Label = $Panel/VBox/AmountLabel
 @onready var _description_label: Label = $Panel/VBox/DescriptionLabel
+@onready var _source_label: Label = $Panel/VBox/SourceLabel
 @onready var _hint_label: Label = $Panel/VBox/HintLabel
 
 var current_target: Node2D
@@ -19,6 +23,7 @@ var current_target: Node2D
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.visible = false
+	_panel.theme = THEME
 
 
 func _process(_delta: float) -> void:
@@ -37,6 +42,7 @@ func update_for_world_point(world_point: Vector2) -> void:
 	_name_label.text = target.item.display_name
 	_amount_label.text = "数量：%d" % target.amount
 	_description_label.text = target.item.description
+	_source_label.text = LootTable.sources_text_for_item(String(target.item.item_id))
 	_hint_label.text = "按 E 拾取" if target.is_player_in_range() else "靠近后按 E 拾取"
 	_panel.visible = true
 	_panel.reset_size()

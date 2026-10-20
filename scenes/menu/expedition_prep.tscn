@@ -125,7 +125,7 @@ theme_override_constants/separation = 6
 [node name="BuildHeading" type="Label" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "出征构筑（原型）"
+text = "出征构筑（旧测试模式：样例模块，不影响当前构筑）"
 
 [node name="BuildOptions" type="VBoxContainer" parent="Center/Panel/Margin/MainVBox/Columns/RightDestBox/PrepConfigBox"]
 layout_mode = 2

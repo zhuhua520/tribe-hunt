@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Root/Center"]
-custom_minimum_size = Vector2(560, 400)
+custom_minimum_size = Vector2(560, 460)
 layout_mode = 2
 
 [node name="Margin" type="MarginContainer" parent="Root/Center/Panel"]
@@ -53,6 +53,36 @@ theme_override_font_sizes/font_size = 24
 text = "背包"
 horizontal_alignment = 1
 
+[node name="FilterRow" type="HBoxContainer" parent="Root/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FilterOption" type="OptionButton" parent="Root/Center/Panel/Margin/VBox/FilterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "全部"
+popup/item_0/id = 0
+popup/item_1/text = "武器"
+popup/item_1/id = 1
+popup/item_2/text = "素材"
+popup/item_2/id = 2
+popup/item_3/text = "图纸"
+popup/item_3/id = 3
+
+[node name="SortOption" type="OptionButton" parent="Root/Center/Panel/Margin/VBox/FilterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "默认"
+popup/item_0/id = 0
+popup/item_1/text = "名称"
+popup/item_1/id = 1
+popup/item_2/text = "数量"
+popup/item_2/id = 2
+
 [node name="ItemList" type="ItemList" parent="Root/Center/Panel/Margin/VBox"]
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
@@ -69,8 +99,13 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.72, 0.62, 1)
 theme_override_font_sizes/font_size = 13
-text = "I 或 Escape 关闭 · 原型背包：只显示持有物，格数与容量未定"
+text = "I 或 Escape 关闭 · 可筛选分类。打开背包不暂停战斗"
 horizontal_alignment = 1
+
+[node name="EquipButton" type="Button" parent="Root/Center/Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+text = "装备"
 
 [node name="CloseButton" type="Button" parent="Root/Center/Panel/Margin/VBox"]
 custom_minimum_size = Vector2(0, 36)

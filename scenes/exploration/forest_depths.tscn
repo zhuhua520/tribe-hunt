@@ -1,0 +1,308 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/exploration/forest_depths.gd" id="1_depths"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/exploration/scene_exit.gd" id="3_exit"]
+[ext_resource type="Script" path="res://scripts/exploration/resource_pickup.gd" id="4_pickup"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/wolf.tscn" id="5_wolf"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/sentry.tscn" id="6_sentry"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="7_pause"]
+[ext_resource type="PackedScene" path="res://scenes/ui/item_detail_popup.tscn" id="8_popup"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_panel.tscn" id="9_inventory"]
+[ext_resource type="PackedScene" path="res://scenes/ui/equipment_panel.tscn" id="10_equipment"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_panel.tscn" id="11_build"]
+[ext_resource type="PackedScene" path="res://scenes/ui/build_combat_readout.tscn" id="12_readout"]
+[ext_resource type="PackedScene" path="res://scenes/ui/codex_panel.tscn" id="13_codex"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ns"]
+size = Vector2(1328, 64)
+
+[sub_resource type="RectangleShape2D" id="Rect_we"]
+size = Vector2(64, 848)
+
+[sub_resource type="RectangleShape2D" id="Rect_cover"]
+size = Vector2(36, 96)
+
+[sub_resource type="CircleShape2D" id="Circle_pickup"]
+radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="Rect_exit"]
+size = Vector2(96, 128)
+
+[node name="ForestDepths" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_depths")
+
+[node name="Ground" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0.12, 0.18, 0.12, 1)
+polygon = PackedVector2Array(-664, -424, 664, -424, 664, 424, -664, 424)
+
+[node name="Floor" type="Polygon2D" parent="."]
+z_index = -9
+color = Color(0.22, 0.32, 0.18, 1)
+polygon = PackedVector2Array(-600, -360, 600, -360, 600, 360, -600, 360)
+
+[node name="Walls" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="North" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -392)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/North"]
+shape = SubResource("Rect_ns")
+
+[node name="Visual" type="Polygon2D" parent="Walls/North"]
+color = Color(0.28, 0.26, 0.22, 1)
+polygon = PackedVector2Array(-664, -32, 664, -32, 664, 32, -664, 32)
+
+[node name="South" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 392)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/South"]
+shape = SubResource("Rect_ns")
+
+[node name="Visual" type="Polygon2D" parent="Walls/South"]
+color = Color(0.28, 0.26, 0.22, 1)
+polygon = PackedVector2Array(-664, -32, 664, -32, 664, 32, -664, 32)
+
+[node name="West" type="StaticBody2D" parent="Walls"]
+position = Vector2(-632, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/West"]
+shape = SubResource("Rect_we")
+
+[node name="Visual" type="Polygon2D" parent="Walls/West"]
+color = Color(0.28, 0.26, 0.22, 1)
+polygon = PackedVector2Array(-32, -424, 32, -424, 32, 424, -32, 424)
+
+[node name="East" type="StaticBody2D" parent="Walls"]
+position = Vector2(632, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/East"]
+shape = SubResource("Rect_we")
+
+[node name="Visual" type="Polygon2D" parent="Walls/East"]
+color = Color(0.28, 0.26, 0.22, 1)
+polygon = PackedVector2Array(-32, -424, 32, -424, 32, 424, -32, 424)
+
+[node name="SentryCover" type="StaticBody2D" parent="Walls"]
+position = Vector2(-280, 80)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/SentryCover"]
+shape = SubResource("Rect_cover")
+
+[node name="Visual" type="Polygon2D" parent="Walls/SentryCover"]
+color = Color(0.32, 0.3, 0.28, 1)
+polygon = PackedVector2Array(-18, -48, 18, -48, 18, 48, -18, 48)
+
+[node name="AreaLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -120.0
+offset_top = -340.0
+offset_right = 120.0
+offset_bottom = -308.0
+theme_override_font_sizes/font_size = 18
+text = "森林深处"
+horizontal_alignment = 1
+
+[node name="NorthPackLabel" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -300.0
+offset_right = 80.0
+offset_bottom = -272.0
+theme_override_font_sizes/font_size = 16
+text = "北侧狼群"
+horizontal_alignment = 1
+
+[node name="WestPostLabel" type="Label" parent="."]
+offset_left = -480.0
+offset_top = 20.0
+offset_right = -320.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 16
+text = "西侧哨位"
+horizontal_alignment = 1
+
+[node name="Wolf" parent="." instance=ExtResource("5_wolf")]
+position = Vector2(0, -220)
+activity_radius = 140.0
+loot_table_id = "loot_beast"
+
+[node name="Sentry" parent="." instance=ExtResource("6_sentry")]
+position = Vector2(-420, 80)
+activity_radius = 140.0
+notice_radius = 180.0
+
+[node name="ReachCache" type="Area2D" parent="."]
+position = Vector2(80, 160)
+script = ExtResource("4_pickup")
+object_id = &"forest_depths.cache_reach"
+loot_table_id = "loot_depths_cache"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReachCache"]
+shape = SubResource("Circle_pickup")
+
+[node name="Visual" type="Polygon2D" parent="ReachCache"]
+color = Color(0.55, 0.7, 0.4, 1)
+polygon = PackedVector2Array(-14, -10, 14, -10, 14, 12, -14, 12)
+
+[node name="NameLabel" type="Label" parent="ReachCache"]
+z_index = 5
+offset_left = -40.0
+offset_top = -42.0
+offset_right = 40.0
+offset_bottom = -18.0
+theme_override_font_sizes/font_size = 14
+text = "延伸"
+horizontal_alignment = 1
+
+[node name="Prompt" type="Label" parent="ReachCache"]
+z_index = 5
+offset_left = -50.0
+offset_top = -64.0
+offset_right = 50.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 16
+text = "E 拾取"
+horizontal_alignment = 1
+
+[node name="SpawnPoints" type="Node" parent="."]
+
+[node name="from_outskirts" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(360, 0)
+
+[node name="from_lair" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(200, 160)
+
+[node name="BoarLairExit" type="Area2D" parent="."]
+position = Vector2(0, 300)
+script = ExtResource("3_exit")
+target_scene = "res://scenes/exploration/boar_lair.tscn"
+target_entry_id = &"from_depths"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoarLairExit"]
+shape = SubResource("Rect_exit")
+
+[node name="LairExitLabel" type="Label" parent="."]
+z_index = 5
+offset_left = -80.0
+offset_top = 252.0
+offset_right = 80.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 16
+text = "↓ 野猪王巢穴"
+horizontal_alignment = 1
+
+[node name="OutskirtsExit" type="Area2D" parent="."]
+position = Vector2(560, 0)
+script = ExtResource("3_exit")
+target_scene = "res://scenes/exploration/outskirts.tscn"
+target_entry_id = &"from_depths"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OutskirtsExit"]
+shape = SubResource("Rect_exit")
+
+[node name="ExitLabel" type="Label" parent="."]
+z_index = 5
+offset_left = 500.0
+offset_top = -48.0
+offset_right = 640.0
+offset_bottom = -16.0
+theme_override_font_sizes/font_size = 18
+text = "回外围 →"
+horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(360, 0)
+arena_half_size = Vector2(664, 424)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="HintLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 980.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 16
+text = "森林深处：WASD 移动，空格闪避，E 拾取。东侧通道返回外围。威胁不随等级变化。"
+
+[node name="ThreatLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 44.0
+offset_right = 980.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 16
+text = "威胁"
+
+[node name="InventoryLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 72.0
+offset_right = 600.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 16
+text = "持有：无"
+
+[node name="MessageLabel" type="Label" parent="UI"]
+offset_left = 340.0
+offset_top = 600.0
+offset_right = 940.0
+offset_bottom = 632.0
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="DefeatPanel" type="PanelContainer" parent="UI"]
+visible = false
+offset_left = 440.0
+offset_top = 260.0
+offset_right = 840.0
+offset_bottom = 500.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/DefeatPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="DefeatLabel" type="Label" parent="UI/DefeatPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "你倒下了。
+（临时处理：探索失败规则待定 D3）"
+horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="UI/DefeatPanel/VBox"]
+custom_minimum_size = Vector2(360, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = ""
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ReturnButton" type="Button" parent="UI/DefeatPanel/VBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "返回村落"
+
+[node name="ItemDetailPopup" parent="UI" instance=ExtResource("8_popup")]
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_pause")]
+
+[node name="InventoryPanel" parent="." instance=ExtResource("9_inventory")]
+
+[node name="EquipmentPanel" parent="." instance=ExtResource("10_equipment")]
+
+[node name="BuildPanel" parent="." instance=ExtResource("11_build")]
+
+[node name="BuildCombatReadout" parent="." instance=ExtResource("12_readout")]
+
+[node name="CodexPanel" parent="." instance=ExtResource("13_codex")]
